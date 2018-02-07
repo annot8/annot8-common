@@ -1,5 +1,6 @@
 package io.annot8.common.factories;
 
+import io.annot8.common.stores.SaveFromBuilder;
 import io.annot8.core.data.Content;
 import io.annot8.core.data.Item;
 
@@ -15,10 +16,10 @@ public interface ContentBuilderFactory<D, C extends Content<D>> {
    *
    * @return non-null
    */
-  Content.Builder<C, D> create(Item item);
+  Content.Builder<C, D> create(Item item, SaveFromBuilder<C, C> saver);
 
   Class<D> getDataClass();
 
-  Class<Content<D>> getContentClass();
+  Class<C> getContentClass();
 
 }

@@ -1,7 +1,7 @@
 package io.annot8.common.factories;
 
+import io.annot8.common.stores.SaveFromBuilder;
 import io.annot8.core.annotations.Annotation;
-import io.annot8.core.data.Item;
 import io.annot8.core.stores.AnnotationStore;
 
 /**
@@ -10,7 +10,7 @@ import io.annot8.core.stores.AnnotationStore;
  * Typically used  in an AnnotationStore.getBuilder().
  **/
 @FunctionalInterface
-public interface AnnotationBuilderFactory {
+public interface AnnotationBuilderFactory<T> {
 
   /**
    * Create a new builder for the provided parameters.
@@ -19,5 +19,6 @@ public interface AnnotationBuilderFactory {
    *
    * @return non-null
    */
-  Annotation.Builder create(Item item, String content, AnnotationStore store);
+  Annotation.Builder create(String content, AnnotationStore store,
+      SaveFromBuilder<T, Annotation> saver);
 }
