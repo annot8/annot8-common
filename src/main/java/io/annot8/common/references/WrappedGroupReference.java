@@ -1,7 +1,7 @@
-package io.annot8.common.references.impl;
+package io.annot8.common.references;
 
-import io.annot8.common.references.GroupReference;
 import io.annot8.core.annotations.Group;
+import io.annot8.core.references.GroupReference;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -19,6 +19,11 @@ public class WrappedGroupReference implements GroupReference {
   }
 
   @Override
+  public String getGroupId() {
+    return group.getId();
+  }
+
+  @Override
   public Optional<Group> toGroup() {
     return Optional.ofNullable(group);
   }
@@ -26,15 +31,7 @@ public class WrappedGroupReference implements GroupReference {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    WrappedGroupReference that = (WrappedGroupReference) o;
-
-    return Objects.equals(group.getId(), that.group.getId());
+    return sameReference(o);
   }
 
   @Override

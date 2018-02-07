@@ -1,8 +1,8 @@
-package io.annot8.common.references.impl;
+package io.annot8.common.references;
 
-import io.annot8.common.references.GroupReference;
 import io.annot8.core.annotations.Group;
 import io.annot8.core.data.Item;
+import io.annot8.core.references.GroupReference;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,6 +23,11 @@ public class LookupGroupReference implements GroupReference {
   }
 
   @Override
+  public String getGroupId() {
+    return groupId;
+  }
+
+  @Override
   public Optional<Group> toGroup() {
     return item.getGroups()
         .getById(groupId);
@@ -30,14 +35,7 @@ public class LookupGroupReference implements GroupReference {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    LookupGroupReference that = (LookupGroupReference) o;
-    return Objects.equals(groupId, that.groupId);
+    return sameReference(o);
   }
 
   @Override

@@ -1,9 +1,9 @@
-package io.annot8.common.references.impl;
+package io.annot8.common.references;
 
-import io.annot8.common.references.AnnotationReference;
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.data.Content;
 import io.annot8.core.data.Item;
+import io.annot8.core.references.AnnotationReference;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,16 +32,18 @@ public class LookupAnnotationReference implements AnnotationReference {
   }
 
   @Override
+  public String getAnnotationId() {
+    return annotationId;
+  }
+
+  @Override
+  public String getContent() {
+    return contentName;
+  }
+
+  @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    LookupAnnotationReference that = (LookupAnnotationReference) o;
-    return Objects.equals(contentName, that.contentName) &&
-        Objects.equals(annotationId, that.annotationId);
+    return sameReference(o);
   }
 
   @Override

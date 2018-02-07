@@ -1,7 +1,7 @@
-package io.annot8.common.references.impl;
+package io.annot8.common.references;
 
-import io.annot8.common.references.AnnotationReference;
 import io.annot8.core.annotations.Annotation;
+import io.annot8.core.references.AnnotationReference;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,6 +20,16 @@ public class WrappedAnnotationReference implements AnnotationReference {
   }
 
   @Override
+  public String getContent() {
+    return annotation.getContentName();
+  }
+
+  @Override
+  public String getAnnotationId() {
+    return annotation.getId();
+  }
+
+  @Override
   public Optional<Annotation> toAnnotation() {
     return Optional.of(annotation);
   }
@@ -27,16 +37,7 @@ public class WrappedAnnotationReference implements AnnotationReference {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    WrappedAnnotationReference that = (WrappedAnnotationReference) o;
-
-    return Objects.equals(annotation.getContentName(), that.annotation.getContentName()) &&
-        Objects.equals(annotation.getId(), that.annotation.getId());
+    return sameReference(o);
   }
 
   @Override
