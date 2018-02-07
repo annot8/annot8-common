@@ -16,20 +16,19 @@ public class LookupAnnotationReference implements AnnotationReference {
   private final String annotationId;
 
   public LookupAnnotationReference(Item item, String contentName, String annotationId) {
+
+    assert item != null;
+    assert contentName != null;
+    assert annotationId != null;
+
     this.item = item;
     this.contentName = contentName;
     this.annotationId = annotationId;
   }
 
-  public LookupAnnotationReference(Item item, Annotation annotation) {
-    this(item, annotation.getContentName(), annotation.getId());
-  }
-
-  @Override
-  public Optional<Annotation> toAnnotation() {
-    return item.getContent(contentName)
-        .map(Content::getAnnotations)
-        .flatMap(store -> store.getById(annotationId));
+  public static LookupAnnotationReference to(Item item, Annotation annotation) {
+    assert annotation != null;
+    return new LookupAnnotationReference(item, annotation.getContentName(), annotation.getId());
   }
 
   @Override
@@ -49,4 +48,12 @@ public class LookupAnnotationReference implements AnnotationReference {
   public int hashCode() {
     return Objects.hash(contentName, annotationId);
   }
+
+  @Override
+  public Optional<Annotation> toAnnotation() {
+    return item.getContent(contentName)
+        .map(Content::getAnnotations)
+        .flatMap(store -> store.getById(annotationId));
+  }
+
 }

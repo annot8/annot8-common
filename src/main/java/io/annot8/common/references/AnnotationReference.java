@@ -1,7 +1,6 @@
 package io.annot8.common.references;
 
 import io.annot8.core.annotations.Annotation;
-import io.annot8.core.data.Item;
 import java.util.Optional;
 
 /**
