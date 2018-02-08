@@ -2,7 +2,6 @@ package io.annot8.common.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +18,7 @@ class StreamUtilsTest {
   }
 
   @Test
-  void testCastStreamToParentclass() {
+  void testCastStreamToParentClass() {
     Stream<A> cast = StreamUtils.cast(createMixedStream(), A.class);
     assertEquals(3, cast.count());
   }
@@ -52,11 +51,11 @@ class StreamUtilsTest {
 
 
   private Stream<A> createMixedStream() {
-    return Arrays.asList(
+    return Stream.of(
         new A(),
         new A(),
         new B()
-    ).stream();
+    );
   }
 
   private static class A {

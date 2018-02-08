@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ContentBuilderFactoryRegistry {
 
   /**
-   * Get the (best) content builder factory for the content class requested, if avialable.
+   * Get the (best) content builder factory for the content class requested, if available.
    */
   <D, C extends Content<D>> Optional<ContentBuilderFactory<D, C>> get(Class<C> contentClass);
 }

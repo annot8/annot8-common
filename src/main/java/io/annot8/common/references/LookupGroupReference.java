@@ -17,13 +17,20 @@ public class LookupGroupReference implements GroupReference {
 
   private final String groupId;
 
+  /**
+   * New reference either from another reference or manually created.
+   */
   public LookupGroupReference(Item item, String groupId) {
+    assert item != null;
+    assert groupId != null;
     this.item = item;
     this.groupId = groupId;
   }
 
+  /**
+   * Create a reference from a group instance.
+   */
   public static LookupGroupReference to(Item item, Group group) {
-    assert group != null;
     return new LookupGroupReference(item, group.getId());
   }
 

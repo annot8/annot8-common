@@ -10,10 +10,10 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ContentBoundsTest {
+class ContentBoundsTest {
 
   @Test
-  public void testContentBounds() {
+  void testContentBounds() {
     ContentBounds cb = ContentBounds.getInstance();
     Assertions.assertNotNull(cb);
     assertEquals(cb, ContentBounds.getInstance());

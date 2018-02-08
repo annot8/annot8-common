@@ -11,10 +11,10 @@ import io.annot8.core.data.Content;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
-public class SpanBoundsTest {
+class SpanBoundsTest {
 
   @Test
-  public void testSpanBounds() {
+  void testSpanBounds() {
     SpanBounds sb = new SpanBounds(3, 10);
 
     assertEquals(3, sb.getBegin());
@@ -25,17 +25,17 @@ public class SpanBoundsTest {
   }
 
   @Test
-  public void testNegativeBegin() {
+  void testNegativeBegin() {
     assertThrows(AssertionError.class, () -> new SpanBounds(-1, 10));
   }
 
   @Test
-  public void testEndLessThanBegin() {
+  void testEndLessThanBegin() {
     assertThrows(AssertionError.class, () -> new SpanBounds(10, 5));
   }
 
   @Test
-  public void testIsValidForString() {
+  void testIsValidForString() {
     Content<String> content = mock(Content.class);
     when(content.getData()).thenReturn("1234567890abcde");
 
@@ -45,7 +45,7 @@ public class SpanBoundsTest {
   }
 
   @Test
-  public void testGetDataForString() {
+  void testGetDataForString() {
     Content<String> content = mock(Content.class);
     when(content.getData()).thenReturn("1234567890abcde");
 

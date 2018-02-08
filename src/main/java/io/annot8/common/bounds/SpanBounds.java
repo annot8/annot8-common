@@ -37,6 +37,9 @@ public class SpanBounds implements Bounds {
     return end;
   }
 
+  /**
+   * Return the length of this span
+   */
   public int getLength() {
     return end - begin;
   }
@@ -64,16 +67,17 @@ public class SpanBounds implements Bounds {
 
   @Override
   public <D, C extends Content<D>, R> Optional<R> getData(C content, Class<R> requiredClass) {
-    // TODO: Techincallu could support many types here (array, stream or a list for example)
 
     D data = content.getData();
 
     if (requiredClass.equals(String.class) && data.getClass().equals(String.class)) {
-      // TODO: is it for us to deal with the begin < 0; begin > end; begin/end > document.length
+      // TODO: is it for us to deal with the begin/end > document.length
       // here? I'm not sure... seems like we might hide bugs.
-      // WE could have a boolean isValid(D data) function on bounds?
       String s = (String) data;
-      return Optional.of((R) s.substring(begin, end));
+
+      // This is checked R = String.class
+      @SuppressWarnings("unchecked") R r = (R) s.substring(begin, end);
+      return Optional.of(r);
     }
 
     return Optional.empty();

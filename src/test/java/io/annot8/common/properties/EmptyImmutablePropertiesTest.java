@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class EmptyImmutablePropertiesTest {
+class EmptyImmutablePropertiesTest {
 
   @Test
   void getAll() {
@@ -24,7 +24,7 @@ public class EmptyImmutablePropertiesTest {
   }
 
   @Test
-  public void testEmptyImmutableProperties() {
+  void testEmptyImmutableProperties() {
     EmptyImmutableProperties eip = EmptyImmutableProperties.getInstance();
     assertNotNull(eip);
     Assertions.assertEquals(eip, EmptyImmutableProperties.getInstance());

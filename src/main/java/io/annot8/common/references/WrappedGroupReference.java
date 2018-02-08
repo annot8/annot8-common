@@ -18,8 +18,12 @@ import java.util.Optional;
  */
 public class WrappedGroupReference implements GroupReference {
 
+
   private final Group group;
 
+  /**
+   * Create a reference holding this group
+   */
   public WrappedGroupReference(Group group) {
     this.group = group;
   }

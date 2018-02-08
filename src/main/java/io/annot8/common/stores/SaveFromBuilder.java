@@ -10,5 +10,10 @@ package io.annot8.common.stores;
 // TODO: Rename to something better (it is used in builders, but could just be Saver/SaveCallback)
 public interface SaveFromBuilder<T, R> {
 
+  /**
+   * Save the parameter.
+   *
+   * Should not return null (throw exception)
+   */
   R save(T item);
 }

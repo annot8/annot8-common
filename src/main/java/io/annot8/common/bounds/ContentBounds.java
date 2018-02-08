@@ -35,7 +35,8 @@ public final class ContentBounds implements Bounds {
     D data = content.getData();
 
     if (requiredClass.isAssignableFrom(data.getClass())) {
-      return Optional.of((R) data);
+      @SuppressWarnings("unchecked") R r = (R) data;
+      return Optional.of(r);
     } else {
       return Optional.empty();
     }

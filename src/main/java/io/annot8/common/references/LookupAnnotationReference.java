@@ -21,8 +21,10 @@ public class LookupAnnotationReference implements AnnotationReference {
 
   private final String annotationId;
 
+  /**
+   * New reference either from another reference or manually created.
+   */
   public LookupAnnotationReference(Item item, String contentName, String annotationId) {
-
     assert item != null;
     assert contentName != null;
     assert annotationId != null;

@@ -20,7 +20,7 @@ class TextTest {
   private Text text;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     // Mocking interface under test
     text = mock(Text.class);
     when(text.getText(any(Annotation.class))).thenCallRealMethod();
@@ -33,7 +33,7 @@ class TextTest {
   }
 
   @Test
-  public void testTextTextNonEmpty() {
+  void testTextTextNonEmpty() {
 
     when(bounds.getData(eq(text), eq(String.class))).thenReturn(Optional.of("covered"));
 
@@ -42,7 +42,7 @@ class TextTest {
   }
 
   @Test
-  public void testTextTextEmpty() {
+  void testTextTextEmpty() {
 
     when(bounds.getData(eq(text), eq(String.class))).thenReturn(Optional.empty());
 

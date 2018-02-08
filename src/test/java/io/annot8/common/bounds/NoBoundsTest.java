@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class NoBoundsTest {
+class NoBoundsTest {
 
   @Test
-  public void testNoBounds() {
+  void testNoBounds() {
     NoBounds nb = NoBounds.getInstance();
     Assertions.assertNotNull(nb);
     assertEquals(nb, NoBounds.getInstance());

@@ -20,23 +20,39 @@ public class SpansBounds implements Bounds {
 
   private final Collection<SpanBounds> spans;
 
+  /**
+   * New bounds from collections (no nulls allowed)
+   */
   public SpansBounds(Collection<SpanBounds> spans) {
     assert spans != null;
+    assert !spans.contains(null);
     this.spans = spans;
   }
 
+  /**
+   * New bounds from array (no nulls allowed)
+   */
   public SpansBounds(SpanBounds... spans) {
     this(Arrays.stream(spans));
   }
 
+  /**
+   * New bounds from stream (no nulls allowed)
+   */
   public SpansBounds(Stream<SpanBounds> spans) {
-    this(spans.filter(Objects::nonNull).collect(Collectors.toList()));
+    this(spans.collect(Collectors.toList()));
   }
 
+  /**
+   * Get all spans
+   */
   public Stream<SpanBounds> getSpans() {
     return spans.stream();
   }
 
+  /**
+   * Get the number of spans
+   */
   public int getSize() {
     return spans.size();
   }
@@ -64,8 +80,6 @@ public class SpansBounds implements Bounds {
 
   @Override
   public <D, C extends Content<D>, R> Optional<R> getData(C content, Class<R> requiredClass) {
-    D data = content.getData();
-
     if (requiredClass.equals(Spans.class)) {
 
       List<String> list = getSpans().map(sb -> sb.getData(content, String.class))
@@ -86,26 +100,34 @@ public class SpansBounds implements Bounds {
     D data = content.getData();
 
     if (data.getClass().equals(String.class)) {
-      String s = (String) data;
       return getSpans().anyMatch(sb -> sb.isValid(content));
     }
 
     return false;
   }
 
+  /**
+   * String spans returned from getData
+   */
   public static class Spans {
 
     private final List<String> list;
 
-    public Spans(List<String> spans) {
+    private Spans(List<String> spans) {
       assert spans != null;
       this.list = spans;
     }
 
+    /**
+     * Number of spans
+     */
     public int getSize() {
       return list.size();
     }
 
+    /**
+     * Get the stream of span strings
+     */
     public Stream<String> getSpans() {
       return list.stream();
     }

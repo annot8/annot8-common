@@ -11,11 +11,17 @@ public class PositionBounds implements Bounds {
 
   private final int position;
 
+  /**
+   * New position at offset >= 0
+   */
   public PositionBounds(int position) {
     assert position >= 0;
     this.position = position;
   }
 
+  /**
+   * Get the position offset
+   */
   public int getPosition() {
     return position;
   }
@@ -31,7 +37,8 @@ public class PositionBounds implements Bounds {
   public <D, C extends Content<D>> boolean isValid(C content) {
 
     // TODO: Probably makes sense for content in core to have a getDataClass on it
-    // then we dont' need to get the data (which could be expensive... could eb a HTTP call or somethign)
+    // then we don't need to get the data (which could be expensive... could eb a HTTP call
+    // or something)
 
     // TODO: files, array, etc all have offset.
     D data = content.getData();
