@@ -17,6 +17,8 @@ public class SpanBounds implements Bounds {
    * Create a new object with the specified begin and end values
    */
   public SpanBounds(final int begin, final int end) {
+    assert begin >= 0;
+    assert end >= begin;
     this.begin = begin;
     this.end = end;
   }
@@ -36,7 +38,7 @@ public class SpanBounds implements Bounds {
   }
 
   public int getLength() {
-    return Math.abs(end - begin);
+    return end - begin;
   }
 
   @Override
@@ -66,7 +68,7 @@ public class SpanBounds implements Bounds {
 
     D data = content.getData();
 
-    if (requiredClass == String.class && data.getClass() == String.class) {
+    if (requiredClass.equals(String.class) && data.getClass().equals(String.class)) {
       // TODO: is it for us to deal with the begin < 0; begin > end; begin/end > document.length
       // here? I'm not sure... seems like we might hide bugs.
       // WE could have a boolean isValid(D data) function on bounds?
@@ -82,17 +84,12 @@ public class SpanBounds implements Bounds {
 
     D data = content.getData();
 
-    if (data == String.class) {
+    if (data.getClass().equals(String.class)) {
       String s = (String) data;
-      return isValid() && end <= s.length();
+      return end <= s.length();
     }
 
     return false;
   }
 
-  public boolean isValid() {
-    // TODO: Does begin need to be > 0 (ie it does for text but for this class is that part of its contract)?
-    // if so should we assert that in the constructor?
-    return begin > 0 && begin <= end;
-  }
 }

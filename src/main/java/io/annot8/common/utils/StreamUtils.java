@@ -1,5 +1,6 @@
 package io.annot8.common.utils;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -17,5 +18,14 @@ public final class StreamUtils {
   public static <T, S extends T> Stream<S> cast(Stream<T> stream, Class<S> clazz) {
     return stream.filter(clazz::isInstance)
         .map(clazz::cast);
+  }
+
+  /**
+   * Extract optional which are present
+   */
+  public static <T> Stream<T> getIfPresent(Stream<Optional<T>> stream) {
+    return stream
+        .filter(Optional::isPresent)
+        .map(Optional::get);
   }
 }

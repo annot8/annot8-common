@@ -2,6 +2,7 @@ package io.annot8.common.bounds;
 
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -17,11 +18,19 @@ import java.util.stream.Stream;
  */
 public class SpansBounds implements Bounds {
 
-  private Collection<SpanBounds> spans;
-
+  private final Collection<SpanBounds> spans;
 
   public SpansBounds(Collection<SpanBounds> spans) {
+    assert spans != null;
     this.spans = spans;
+  }
+
+  public SpansBounds(SpanBounds... spans) {
+    this(Arrays.stream(spans));
+  }
+
+  public SpansBounds(Stream<SpanBounds> spans) {
+    this(spans.filter(Objects::nonNull).collect(Collectors.toList()));
   }
 
   public Stream<SpanBounds> getSpans() {
@@ -55,15 +64,14 @@ public class SpansBounds implements Bounds {
 
   @Override
   public <D, C extends Content<D>, R> Optional<R> getData(C content, Class<R> requiredClass) {
-    // TODO: Techincallu could support many types here (array, stream or a list for example)
-
     D data = content.getData();
 
-    if (requiredClass == Spans.class) {
+    if (requiredClass.equals(Spans.class)) {
 
       List<String> list = getSpans().map(sb -> sb.getData(content, String.class))
           .filter(Optional::isPresent)
           .map(Optional::get)
+          .filter(s -> !s.isEmpty())
           .collect(Collectors.toList());
 
       return Optional.of((R) new Spans(list));
@@ -77,24 +85,25 @@ public class SpansBounds implements Bounds {
 
     D data = content.getData();
 
-    if (data == String.class) {
+    if (data.getClass().equals(String.class)) {
       String s = (String) data;
-      return isValid() && getSpans().anyMatch(sb -> sb.isValid(content));
+      return getSpans().anyMatch(sb -> sb.isValid(content));
     }
 
     return false;
   }
 
-  public boolean isValid() {
-    return !getSpans().anyMatch(sb -> !sb.isValid());
-  }
-
   public static class Spans {
 
-    private List<String> list;
+    private final List<String> list;
 
     public Spans(List<String> spans) {
+      assert spans != null;
       this.list = spans;
+    }
+
+    public int getSize() {
+      return list.size();
     }
 
     public Stream<String> getSpans() {

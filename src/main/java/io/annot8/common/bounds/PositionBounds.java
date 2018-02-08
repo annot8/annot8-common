@@ -12,7 +12,12 @@ public class PositionBounds implements Bounds {
   private final int position;
 
   public PositionBounds(int position) {
+    assert position >= 0;
     this.position = position;
+  }
+
+  public int getPosition() {
+    return position;
   }
 
   @Override
@@ -30,15 +35,12 @@ public class PositionBounds implements Bounds {
 
     // TODO: files, array, etc all have offset.
     D data = content.getData();
-    if (data instanceof String) {
+    if (data.getClass().equals(String.class)) {
       String s = (String) content.getData();
-      return isValid() && position < s.length();
+      return position < s.length();
     }
 
     return false;
   }
 
-  public boolean isValid() {
-    return position >= 0;
-  }
 }
