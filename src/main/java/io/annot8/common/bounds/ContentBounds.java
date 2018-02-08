@@ -1,6 +1,8 @@
 package io.annot8.common.bounds;
 
 import io.annot8.core.bounds.Bounds;
+import io.annot8.core.data.Content;
+import java.util.Optional;
 
 /**
  * Implementation of Bounds indicating that an annotation does covers the entire content.
@@ -15,6 +17,7 @@ public final class ContentBounds implements Bounds {
     //Empty constructor
   }
 
+
   /**
    * Return the singleton instance of ContentBounds
    */
@@ -25,5 +28,21 @@ public final class ContentBounds implements Bounds {
   @Override
   public String toString() {
     return "ContentBounds";
+  }
+
+  @Override
+  public <D, C extends Content<D>, R> Optional<R> getData(C content, Class<R> requiredClass) {
+    D data = content.getData();
+
+    if (requiredClass.isAssignableFrom(data.getClass())) {
+      return Optional.of((R) data);
+    } else {
+      return Optional.empty();
+    }
+  }
+
+  @Override
+  public <D, C extends Content<D>> boolean isValid(C content) {
+    return true;
   }
 }

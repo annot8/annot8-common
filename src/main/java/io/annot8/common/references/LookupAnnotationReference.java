@@ -7,6 +7,12 @@ import io.annot8.core.references.AnnotationReference;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * A reference which will always retrieve the latest annotation from the appropriate annotation
+ * store.
+ *
+ * Does not hold a reference to the group.
+ */
 public class LookupAnnotationReference implements AnnotationReference {
 
   private final Item item;
@@ -26,6 +32,9 @@ public class LookupAnnotationReference implements AnnotationReference {
     this.annotationId = annotationId;
   }
 
+  /**
+   * Create an annotation reference for the annotation.
+   */
   public static LookupAnnotationReference to(Item item, Annotation annotation) {
     assert annotation != null;
     return new LookupAnnotationReference(item, annotation.getContentName(), annotation.getId());

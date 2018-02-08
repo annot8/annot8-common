@@ -18,8 +18,14 @@ public interface ContentBuilderFactory<D, C extends Content<D>> {
    */
   Content.Builder<C, D> create(Item item, SaveFromBuilder<C, C> saver);
 
+  /**
+   * Get the class of the data this content holds
+   */
   Class<D> getDataClass();
 
+  /**
+   * Get the content class created.
+   */
   Class<C> getContentClass();
 
 }

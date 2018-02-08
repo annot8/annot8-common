@@ -6,6 +6,11 @@ import io.annot8.core.references.GroupReference;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * A reference which will always retrieve the latest group from the appropriate group store.
+ *
+ * Does not hold a reference to the group.
+ */
 public class LookupGroupReference implements GroupReference {
 
   private final Item item;

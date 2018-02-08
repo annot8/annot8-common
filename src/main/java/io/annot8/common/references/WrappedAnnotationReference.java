@@ -6,9 +6,15 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * TODO: ...Before you use this you need to understand that annoations change, so this is not going
- * to provide you with the most upto date annoation. Nor will it work if your annotation is deleted
+ * Wrap an annotation into a annotation reference, holding it in memory.
+ *
+ * Before you use this you need to understand that annotations change, so this is not going
+ * to provide you with the most upto date annoation. Nor will it notice if your annotation is deleted
  * from the store.
+ *
+ * This should be used in only special cases - instead prefer {@link LookupAnnotationReference}.
+ * A special case might be a for loop where you know nothing will get deleted or changed, but then
+ * why not use the Annotation itself?
  */
 public class WrappedAnnotationReference implements AnnotationReference {
 
