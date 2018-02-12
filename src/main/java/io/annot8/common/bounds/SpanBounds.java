@@ -1,9 +1,9 @@
 package io.annot8.common.bounds;
 
-import io.annot8.core.bounds.Bounds;
-import io.annot8.core.data.Content;
 import java.util.Objects;
 import java.util.Optional;
+import io.annot8.core.bounds.Bounds;
+import io.annot8.core.data.Content;
 
 /**
  * Implementation of Bounds for a simple 2D span, such as an offset of text.
@@ -17,8 +17,6 @@ public class SpanBounds implements Bounds {
    * Create a new object with the specified begin and end values
    */
   public SpanBounds(final int begin, final int end) {
-    assert begin >= 0;
-    assert end >= begin;
     this.begin = begin;
     this.end = end;
   }

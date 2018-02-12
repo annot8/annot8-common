@@ -1,10 +1,10 @@
 package io.annot8.common.references;
 
+import java.util.Objects;
+import java.util.Optional;
 import io.annot8.core.annotations.Group;
 import io.annot8.core.data.Item;
 import io.annot8.core.references.GroupReference;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A reference which will always retrieve the latest group from the appropriate group store.
@@ -21,8 +21,6 @@ public class LookupGroupReference implements GroupReference {
    * New reference either from another reference or manually created.
    */
   public LookupGroupReference(Item item, String groupId) {
-    assert item != null;
-    assert groupId != null;
     this.item = item;
     this.groupId = groupId;
   }

@@ -1,9 +1,9 @@
 package io.annot8.common.references;
 
-import io.annot8.core.annotations.Annotation;
-import io.annot8.core.references.AnnotationReference;
 import java.util.Objects;
 import java.util.Optional;
+import io.annot8.core.annotations.Annotation;
+import io.annot8.core.references.AnnotationReference;
 
 /**
  * Wrap an annotation into a annotation reference, holding it in memory.
@@ -24,7 +24,6 @@ public class WrappedAnnotationReference implements AnnotationReference {
    * Create a reference holding this annotation
    */
   public WrappedAnnotationReference(Annotation annotation) {
-    assert annotation != null;
     this.annotation = annotation;
   }
 
