@@ -35,10 +35,6 @@ public class PositionBounds implements Bounds {
   @Override
   public <D, C extends Content<D>> boolean isValid(C content) {
 
-    // TODO: Probably makes sense for content in core to have a getDataClass on it
-    // then we don't need to get the data (which could be expensive... could eb a HTTP call
-    // or something)
-
     // TODO: files, array, etc all have offset.
     D data = content.getData();
     if (data.getClass().equals(String.class)) {

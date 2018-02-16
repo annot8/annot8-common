@@ -5,7 +5,7 @@ import io.annot8.core.data.Content;
 import java.util.Optional;
 
 /**
- * Implementation of Bounds indicating that an annotation does covers the entire content.
+ * Implementation of Bounds indicating that an annotation covers the entire content.
  *
  * This class is a singleton, and should be accessed via getInstance()
  */
@@ -16,7 +16,6 @@ public final class ContentBounds implements Bounds {
   private ContentBounds() {
     //Empty constructor
   }
-
 
   /**
    * Return the singleton instance of ContentBounds

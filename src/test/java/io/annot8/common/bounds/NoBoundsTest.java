@@ -19,5 +19,6 @@ class NoBoundsTest {
 
     assertTrue(nb.isValid(null));
     assertFalse(nb.getData(null, null).isPresent());
+    assertFalse(nb.getData(null).isPresent());
   }
 }
