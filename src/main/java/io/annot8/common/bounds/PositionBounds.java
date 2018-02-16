@@ -21,7 +21,7 @@ public class PositionBounds implements Bounds {
    */
   public PositionBounds(int position) {
     if(position < 0)
-      throw new Annot8RuntimeException("Position must be greater than 0");  //TODO: Is this the correct type of exception
+      throw new Annot8RuntimeException("Position must be greater than or equal to 0");  //TODO: Is this the correct type of exception
 
     this.position = position;
   }

@@ -1,5 +1,6 @@
 package io.annot8.common.bounds;
 
+import io.annot8.core.exceptions.Annot8RuntimeException;
 import java.util.Objects;
 import java.util.Optional;
 import io.annot8.core.bounds.Bounds;
@@ -17,6 +18,12 @@ public class SpanBounds implements Bounds {
    * Create a new object with the specified begin and end values
    */
   public SpanBounds(final int begin, final int end) {
+    if(begin < 0)
+      throw new Annot8RuntimeException("Begin must be greater than or equal to 0");
+
+    if(end < begin)
+      throw new Annot8RuntimeException("End must be greater than or equal to Begin");
+
     this.begin = begin;
     this.end = end;
   }

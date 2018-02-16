@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import io.annot8.core.data.Content;
+import io.annot8.core.exceptions.Annot8RuntimeException;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
@@ -26,12 +27,12 @@ class SpanBoundsTest {
 
   @Test
   void testNegativeBegin() {
-    assertThrows(AssertionError.class, () -> new SpanBounds(-1, 10));
+    assertThrows(Annot8RuntimeException.class, () -> new SpanBounds(-1, 10));
   }
 
   @Test
   void testEndLessThanBegin() {
-    assertThrows(AssertionError.class, () -> new SpanBounds(10, 5));
+    assertThrows(Annot8RuntimeException.class, () -> new SpanBounds(10, 5));
   }
 
   @Test
