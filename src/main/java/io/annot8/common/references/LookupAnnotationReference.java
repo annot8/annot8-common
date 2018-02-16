@@ -1,11 +1,11 @@
 package io.annot8.common.references;
 
+import java.util.Objects;
+import java.util.Optional;
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.data.Content;
 import io.annot8.core.data.Item;
 import io.annot8.core.references.AnnotationReference;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A reference which will always retrieve the latest annotation from the appropriate annotation
@@ -25,10 +25,6 @@ public class LookupAnnotationReference implements AnnotationReference {
    * New reference either from another reference or manually created.
    */
   public LookupAnnotationReference(Item item, String contentName, String annotationId) {
-    assert item != null;
-    assert contentName != null;
-    assert annotationId != null;
-
     this.item = item;
     this.contentName = contentName;
     this.annotationId = annotationId;
@@ -38,7 +34,6 @@ public class LookupAnnotationReference implements AnnotationReference {
    * Create an annotation reference for the annotation.
    */
   public static LookupAnnotationReference to(Item item, Annotation annotation) {
-    assert annotation != null;
     return new LookupAnnotationReference(item, annotation.getContentName(), annotation.getId());
   }
 

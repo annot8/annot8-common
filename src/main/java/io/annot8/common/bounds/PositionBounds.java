@@ -1,8 +1,8 @@
 package io.annot8.common.bounds;
 
+import java.util.Optional;
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
-import java.util.Optional;
 
 /**
  * A position marker within a content.
@@ -15,7 +15,6 @@ public class PositionBounds implements Bounds {
    * New position at offset >= 0
    */
   public PositionBounds(int position) {
-    assert position >= 0;
     this.position = position;
   }
 
