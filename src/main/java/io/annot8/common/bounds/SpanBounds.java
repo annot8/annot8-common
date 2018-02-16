@@ -69,12 +69,14 @@ public class SpanBounds implements Bounds {
     D data = content.getData();
 
     if (requiredClass.equals(String.class) && data.getClass().equals(String.class)) {
-      // TODO: is it for us to deal with the begin/end > document.length
-      // here? I'm not sure... seems like we might hide bugs.
       String s = (String) data;
 
-      // This is checked R = String.class
-      @SuppressWarnings("unchecked") R r = (R) s.substring(begin, end);
+      int normBegin = Math.max(0, begin);
+      int normEnd = Math.min(s.length(), end);
+
+      @SuppressWarnings("unchecked")          // This is checked R = String.class
+      R r = (R) s.substring(normBegin, normEnd);
+
       return Optional.of(r);
     }
 
