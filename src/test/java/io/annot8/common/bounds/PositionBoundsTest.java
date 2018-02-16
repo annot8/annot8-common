@@ -9,6 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import io.annot8.core.data.Content;
+import io.annot8.core.exceptions.Annot8RuntimeException;
 import org.junit.jupiter.api.Test;
 
 class PositionBoundsTest {
@@ -25,7 +26,7 @@ class PositionBoundsTest {
 
   @Test
   void negativeIsInvalid() {
-    assertThrows(AssertionError.class, () -> new PositionBounds(-1));
+    assertThrows(Annot8RuntimeException.class, () -> new PositionBounds(-1));
   }
 
   @Test
@@ -35,9 +36,12 @@ class PositionBoundsTest {
   }
 
   @Test
-  void testGetData() {
+  void testGetDataForString() {
+    Content<String> content = mock(Content.class);
+    when(content.getData()).thenReturn("test");
+
     PositionBounds bounds = new PositionBounds(0);
-    assertFalse(bounds.getData(null, null).isPresent());
+    assertTrue(bounds.getData(content, String.class).isPresent());
   }
 
   @Test
