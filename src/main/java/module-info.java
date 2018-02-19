@@ -1,6 +1,7 @@
 @SuppressWarnings("module")
     module io.annot8.common {
   requires io.annot8.core;
+  exports io.annot8.common.annotations;
   exports io.annot8.common.bounds;
   exports io.annot8.common.content;
   exports io.annot8.common.factories;
