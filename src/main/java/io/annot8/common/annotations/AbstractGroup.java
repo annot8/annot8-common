@@ -2,11 +2,9 @@ package io.annot8.common.annotations;
 
 import io.annot8.core.annotations.Group;
 import io.annot8.core.references.AnnotationReference;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Iterator;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class AbstractGroup implements Group{
 
@@ -26,16 +24,30 @@ public abstract class AbstractGroup implements Group{
 
     Group g = (Group) other;
 
-    // TODO: This is a lot of work... we can't compare the streams directly
-    Map<String, Set<AnnotationReference>> ourReferences = getReferences().entrySet().stream()
-        .collect(Collectors.toMap(Entry::getKey, e -> e.getValue().collect(Collectors.toSet())));
-    Map<String, Set<AnnotationReference>> otherReferences = getReferences().entrySet().stream()
-        .collect(Collectors.toMap(Entry::getKey, e -> e.getValue().collect(Collectors.toSet())));
-
-    return Objects.equals(getId(), g.getId())
+    //First check "easy properties" so we can fail fast
+    if(!(Objects.equals(getId(), g.getId())
         && Objects.equals(getType(), g.getType())
-        && Objects.equals(getProperties(), g.getProperties())
-        && Objects.equals(ourReferences, otherReferences);
+        && Objects.equals(getProperties(), g.getProperties())))
+      return false;
+
+    //Now check references, which is expensive
+    if(!getReferences().keySet().equals(g.getReferences().keySet()))
+      return false;
+
+    for(String key : getReferences().keySet()){
+      Iterator<AnnotationReference> ourIter = getReferences().getOrDefault(key, Stream.empty()).sorted().iterator();
+      Iterator<AnnotationReference> otherIter = g.getReferences().getOrDefault(key, Stream.empty()).sorted().iterator();
+
+      while(ourIter.hasNext()){
+        if(!otherIter.hasNext())
+          return false;
+
+        if(!ourIter.next().equals(otherIter.next()))
+          return false;
+      }
+    }
+
+    return true;
   }
 
   @Override
