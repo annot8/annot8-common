@@ -2,6 +2,7 @@ package io.annot8.common.bounds;
 
 import io.annot8.core.exceptions.Annot8RuntimeException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
@@ -86,4 +87,24 @@ public class PositionBounds implements Bounds {
     return false;
   }
 
+  @Override
+  public String toString() {
+    return this.getClass().getName() + " [position=" + position + "]";
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(position);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof PositionBounds)) {
+      return false;
+    }
+
+    PositionBounds pb = (PositionBounds) o;
+
+    return Objects.equals(position, pb.getPosition());
+  }
 }

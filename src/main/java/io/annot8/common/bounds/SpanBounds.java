@@ -50,27 +50,6 @@ public class SpanBounds implements Bounds {
   }
 
   @Override
-  public String toString() {
-    return this.getClass().getName() + " [begin=" + begin + ", end=" + end + "]";
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(begin, end);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (!(o instanceof SpanBounds)) {
-      return false;
-    }
-
-    SpanBounds sb = (SpanBounds) o;
-
-    return Objects.equals(begin, sb.getBegin()) && Objects.equals(end, sb.getEnd());
-  }
-
-  @Override
   public <D, C extends Content<D>, R> Optional<R> getData(C content, Class<R> requiredClass) {
 
     D data = content.getData();
@@ -103,4 +82,24 @@ public class SpanBounds implements Bounds {
     return false;
   }
 
+  @Override
+  public String toString() {
+    return this.getClass().getName() + " [begin=" + begin + ", end=" + end + "]";
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(begin, end);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof SpanBounds)) {
+      return false;
+    }
+
+    SpanBounds sb = (SpanBounds) o;
+
+    return Objects.equals(begin, sb.getBegin()) && Objects.equals(end, sb.getEnd());
+  }
 }
