@@ -1,11 +1,11 @@
 package io.annot8.common.bounds;
 
-import io.annot8.core.exceptions.Annot8RuntimeException;
+import io.annot8.core.bounds.Bounds;
+import io.annot8.core.data.Content;
+import io.annot8.core.exceptions.InvalidBoundsException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import io.annot8.core.bounds.Bounds;
-import io.annot8.core.data.Content;
 
 /**
  * A position marker within a content.
@@ -22,7 +22,7 @@ public class PositionBounds implements Bounds {
    */
   public PositionBounds(int position) {
     if(position < 0)
-      throw new Annot8RuntimeException("Position must be greater than or equal to 0");  //TODO: Is this the correct type of exception
+      throw new InvalidBoundsException("Position must be greater than or equal to 0");
 
     this.position = position;
   }

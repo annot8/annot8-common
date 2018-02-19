@@ -1,10 +1,10 @@
 package io.annot8.common.bounds;
 
-import io.annot8.core.exceptions.Annot8RuntimeException;
-import java.util.Objects;
-import java.util.Optional;
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
+import io.annot8.core.exceptions.InvalidBoundsException;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Implementation of Bounds for a simple 2D span, such as an offset of text.
@@ -19,10 +19,10 @@ public class SpanBounds implements Bounds {
    */
   public SpanBounds(final int begin, final int end) {
     if(begin < 0)
-      throw new Annot8RuntimeException("Begin must be greater than or equal to 0");
+      throw new InvalidBoundsException("Begin must be greater than or equal to 0");
 
     if(end < begin)
-      throw new Annot8RuntimeException("End must be greater than or equal to Begin");
+      throw new InvalidBoundsException("End must be greater than or equal to Begin");
 
     this.begin = begin;
     this.end = end;
