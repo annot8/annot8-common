@@ -1,6 +1,6 @@
 package io.annot8.common.factories;
 
-import io.annot8.common.stores.SaveFromBuilder;
+import io.annot8.common.stores.SaveCallback;
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.stores.AnnotationStore;
 
@@ -20,5 +20,5 @@ public interface AnnotationBuilderFactory<T> {
    * @return non-null
    */
   Annotation.Builder create(String content, AnnotationStore store,
-      SaveFromBuilder<T, Annotation> saver);
+      SaveCallback<T, Annotation> saver);
 }

@@ -1,6 +1,6 @@
 package io.annot8.common.factories;
 
-import io.annot8.common.stores.SaveFromBuilder;
+import io.annot8.common.stores.SaveCallback;
 import io.annot8.core.annotations.Group;
 import io.annot8.core.data.Item;
 import io.annot8.core.stores.GroupStore;
@@ -18,6 +18,6 @@ public interface GroupBuilderFactory<T> {
    *
    * @return non-null
    */
-  Group.Builder create(Item item, GroupStore groupStore, SaveFromBuilder<T, Group> saver);
+  Group.Builder create(Item item, GroupStore groupStore, SaveCallback<T, Group> saver);
 
 }

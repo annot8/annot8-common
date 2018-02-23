@@ -7,8 +7,7 @@ package io.annot8.common.stores;
  * @param <R> the item to save
  */
 @FunctionalInterface
-// TODO: Rename to something better (it is used in builders, but could just be Saver/SaveCallback)
-public interface SaveFromBuilder<T, R> {
+public interface SaveCallback<T, R> {
 
   /**
    * Save the parameter.
