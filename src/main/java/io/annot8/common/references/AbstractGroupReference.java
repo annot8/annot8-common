@@ -3,6 +3,17 @@ package io.annot8.common.references;
 import io.annot8.core.references.GroupReference;
 import java.util.Objects;
 
+/**
+ * Abstract implementation of GroupReference, providing correct implementations
+ * of equals, hashCode and toString.
+ *
+ * Two group references are taken to be equal if the following properties are
+ * all equal. The actual implementation of the group reference is seen to be
+ * irrelevant and not checked.
+ * <ul>
+ *   <li>groupId</li>
+ * </ul>
+ */
 public abstract class AbstractGroupReference implements GroupReference {
   @Override
   public boolean equals(Object other) {

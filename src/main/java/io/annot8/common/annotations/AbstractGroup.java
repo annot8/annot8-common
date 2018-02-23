@@ -6,6 +6,20 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+/**
+ * Abstract implementation of Group, providing correct implementations
+ * of equals, hashCode and toString.
+ *
+ * Two groups are taken to be equal if the following properties are
+ * all equal. The actual implementation of the group is seen to be
+ * irrelevant and not checked.
+ * <ul>
+ *   <li>id</li>
+ *   <li>type</li>
+ *   <li>properties</li>
+ *   <li>annotationReferences</li>
+ * </ul>
+ */
 public abstract class AbstractGroup implements Group{
 
   @Override
