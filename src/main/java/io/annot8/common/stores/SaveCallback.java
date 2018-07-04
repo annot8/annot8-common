@@ -15,4 +15,6 @@ public interface SaveCallback<T, R> {
    * Should not return null (throw exception)
    */
   R save(T item);
+
+
 }
