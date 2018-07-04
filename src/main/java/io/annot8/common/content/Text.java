@@ -1,9 +1,13 @@
 package io.annot8.common.content;
 
+import io.annot8.common.bounds.SpanBounds;
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Represents plain text content having data of type string.
@@ -23,4 +27,10 @@ public interface Text extends Content<String> {
     return bounds.getData(this, String.class);
   }
 
+  default Stream<Annotation> getBetween(int begin, int end) {
+    return getAnnotations()
+        .getByBounds(SpanBounds.class)
+        .filter(a -> a.getBounds(SpanBounds.class).get().isWithin(begin, end));
+
+  }
 }

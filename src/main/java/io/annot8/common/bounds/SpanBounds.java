@@ -102,4 +102,8 @@ public class SpanBounds implements Bounds {
 
     return Objects.equals(begin, sb.getBegin()) && Objects.equals(end, sb.getEnd());
   }
+
+  public boolean isWithin(int begin, int end) {
+    return this.begin <= begin && end <= this.end;
+  }
 }
