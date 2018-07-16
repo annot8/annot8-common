@@ -14,13 +14,19 @@
  */
 module io.annot8.common {
   requires io.annot8.core;
-  exports io.annot8.common.annotations;
-  exports io.annot8.common.bounds;
-  exports io.annot8.common.content;
-  exports io.annot8.common.factories;
-  exports io.annot8.common.properties;
-  exports io.annot8.common.references;
-  exports io.annot8.common.registries;
-  exports io.annot8.common.stores;
-  exports io.annot8.common.utils;
+  
+  
+  opens io.annot8.common.annotations;
+  
+  // TODO Was exports not opens? But caused issues in tests
+  // See https://issues.apache.org/jira/browse/MCOMPILER-341
+  // Should be fixed in maven-compiler-plugin 3.7.1 (currently 3.7.0)
+  opens io.annot8.common.bounds;
+  opens io.annot8.common.content;
+  opens io.annot8.common.factories;
+  opens io.annot8.common.properties;
+  opens io.annot8.common.references;
+  opens io.annot8.common.registries;
+  opens io.annot8.common.stores;
+  opens io.annot8.common.utils;
 }
