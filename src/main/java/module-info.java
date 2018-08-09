@@ -16,6 +16,7 @@ open module io.annot8.common {
   exports io.annot8.common.annotations;
   exports io.annot8.common.bounds;
   exports io.annot8.common.content;
+  exports io.annot8.common.capabilities;
   exports io.annot8.common.factories;
   exports io.annot8.common.properties;
   exports io.annot8.common.references;
