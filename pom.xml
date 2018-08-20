@@ -6,12 +6,13 @@
 
   <parent>
     <groupId>io.annot8</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>annot8-parent</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <relativePath>../parent</relativePath>
+    <relativePath>../annot8-parent</relativePath>
   </parent>
 
-  <artifactId>common</artifactId>
+  <artifactId>annot8-common</artifactId>
+  <packaging>pom</packaging>
 
   <name>Annot8 Common</name>
   <description>Common functionality used by Annot8 implementations</description>
@@ -27,35 +28,8 @@
     <developerConnection>scm:git:git@github.com/annot8/common.git</developerConnection>
   </scm>
 
-  <dependencies>
-    <dependency>
-      <groupId>io.annot8</groupId>
-      <artifactId>core</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-  <dependency>
-    <groupId>io.micrometer</groupId>
-    <artifactId>micrometer-core</artifactId>
-  </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <modules>
+    <module>annot8-common-implementations</module>
+    <module>annot8-common-components</module>
+  </modules>
 </project>

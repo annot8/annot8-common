@@ -10,7 +10,7 @@
  * such as equals, hashCode and toString. They do not provide any logic beyond this, and should
  * generally be used by any implementations of the interfaces they are abstracting.
  */
-open module io.annot8.common {
+open module io.annot8.common.components {
   requires transitive io.annot8.core;
 
   exports io.annot8.common.annotations;
