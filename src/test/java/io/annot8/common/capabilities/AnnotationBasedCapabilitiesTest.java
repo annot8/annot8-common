@@ -3,12 +3,18 @@ package io.annot8.common.capabilities;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.annot8.core.bounds.Bounds;
+import io.annot8.core.capabilities.AnnotationCapability;
+import io.annot8.core.capabilities.ContentCapability;
 import io.annot8.core.capabilities.CreatesAnnotation;
 import io.annot8.core.capabilities.CreatesContent;
 import io.annot8.core.capabilities.CreatesGroup;
+import io.annot8.core.capabilities.GroupCapability;
+import io.annot8.core.capabilities.ProcessesAnnotation;
 import io.annot8.core.capabilities.ProcessesAnnotations;
 import io.annot8.core.capabilities.ProcessesContent;
+import io.annot8.core.capabilities.ProcessesGroup;
 import io.annot8.core.capabilities.ProcessesGroups;
+import io.annot8.core.capabilities.ResourceCapability;
 import io.annot8.core.capabilities.UsesResource;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Resource;
@@ -31,76 +37,88 @@ public class AnnotationBasedCapabilitiesTest {
 
   @Test
   void getRequiredInputAnnotations() {
-   assertThat(capabilities.getRequiredAnnotations()).containsExactlyInAnyOrder("ar1", "ar2");
+   assertThat(capabilities.getProcessedAnnotations()
+       .filter(c -> c.isOptional() == false)
+       .map(AnnotationCapability::getType))
+       .containsExactlyInAnyOrder("ar1", "ar2");
   }
 
   @Test
   void getOptionalInputAnnotations() {
-    assertThat(capabilities.getOptionalAnnotations()).containsExactlyInAnyOrder("ao1");
+    assertThat(capabilities.getProcessedAnnotations()
+        .filter(c -> c.isOptional() == true).map(AnnotationCapability::getType)).containsExactlyInAnyOrder("ao1");
 
   }
 
   @Test
   void getOutputAnnotations() {
-    assertThat(capabilities.getCreatedAnnotations()).containsExactlyInAnyOrder("a1", "a2");
+    assertThat(capabilities.getCreatedAnnotations().map(AnnotationCapability::getType)).containsExactlyInAnyOrder("a1", "a2");
 
   }
 
   @Test
   void getRequiredInputGroups() {
-    assertThat(capabilities.getRequiredGroups()).containsExactlyInAnyOrder("gr1", "gr2");
+    assertThat(capabilities.getProcessedGroups()
+        .filter(c -> c.isOptional() == false).map(GroupCapability::getType)).containsExactlyInAnyOrder("gr1", "gr2");
 
   }
 
   @Test
   void getOptionalInputGroups() {
-    assertThat(capabilities.getOptionalGroups()).containsExactlyInAnyOrder("go1");
+    assertThat(capabilities.getProcessedGroups()
+        .filter(c -> c.isOptional() == true).map(GroupCapability::getType)).containsExactlyInAnyOrder("go1");
 
   }
 
   @Test
   void getOutputGroups() {
-    assertThat(capabilities.getCreatedGroups()).containsExactlyInAnyOrder("g");
+    assertThat(capabilities.getCreatedGroups().map(GroupCapability::getType)).containsExactlyInAnyOrder("g");
 
   }
 
   @Test
   void getCreatedContent() {
-    assertThat(capabilities.getCreatedContent()).containsExactlyInAnyOrder(FakeContent.class);
+    assertThat(capabilities.getCreatedContent().map(ContentCapability::getType)).containsExactlyInAnyOrder(FakeContent.class);
 
   }
 
   @Test
   void getRequiredContent() {
-    assertThat(capabilities.getRequiredContent()).containsExactlyInAnyOrder(FakeContent.class);
+    assertThat(capabilities.getProcessedContent()
+        .filter(c -> c.isOptional() == false).map(ContentCapability::getType)).containsExactlyInAnyOrder(FakeContent.class);
 
   }
 
   @Test
   void getRequiredResources() {
-    assertThat(capabilities.getUsedResources()).containsExactlyInAnyOrder(Resource.class);
+    assertThat(capabilities.getUsedResources().map(ResourceCapability::getType)).containsExactlyInAnyOrder(Resource.class);
   }
 
   @Test
   void getOutputBounds() {
-    assertThat(capabilities.getCreatedBounds()).containsExactlyInAnyOrder(FakeBounds.class);
+    assertThat(capabilities.getCreatedAnnotations().map(AnnotationCapability::getBounds)).contains(FakeBounds.class);
 
   }
 
   @Test
   void getOutputGroupsForChildComponent() {
     AnnotationBasedCapabilities child = new AnnotationBasedCapabilities(ChildAnnotatedComponent.class);
-    assertThat(child.getCreatedGroups()).containsExactlyInAnyOrder("sg");
+    assertThat(child.getCreatedGroups().map(GroupCapability::getType))
+        .containsExactlyInAnyOrder("sg");
   }
 
 
-  @CreatesAnnotation(type="a1", bounds=FakeBounds.class)
-  @CreatesAnnotation(type="a2", bounds=FakeBounds.class)
+  @CreatesAnnotation(value="a1", bounds=FakeBounds.class)
+  @CreatesAnnotation(value="a2", bounds=FakeBounds.class)
   @CreatesContent(FakeContent.class)
   @CreatesGroup("g")
-  @ProcessesAnnotations(value = "ar1", required = "ar2", optional = "ao1")
+  @ProcessesAnnotation(value = "ar1")
+  @ProcessesAnnotation(value = "ar2")
+  @ProcessesAnnotation(value = "ao1", optional = true)
   @ProcessesContent(FakeContent.class)
-  @ProcessesGroups(value = "gr1", required = "gr2", optional = "go1")
+  @ProcessesGroup(value = "gr1")
+  @ProcessesGroup(value = "gr2")
+  @ProcessesGroup(value = "go1", optional = true)
   @UsesResource(Resource.class)
   public static class AnnotatedComponent implements Annot8Component {
 

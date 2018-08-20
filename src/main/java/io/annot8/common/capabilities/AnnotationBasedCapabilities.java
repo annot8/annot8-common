@@ -1,12 +1,21 @@
 package io.annot8.common.capabilities;
 
+import io.annot8.core.capabilities.AnnotationCapability;
 import io.annot8.core.capabilities.Capabilities;
+import io.annot8.core.capabilities.ContentCapability;
 import io.annot8.core.capabilities.CreatesAnnotation;
 import io.annot8.core.capabilities.CreatesContent;
 import io.annot8.core.capabilities.CreatesGroup;
+import io.annot8.core.capabilities.DeletesAnnotation;
+import io.annot8.core.capabilities.DeletesContent;
+import io.annot8.core.capabilities.DeletesGroup;
+import io.annot8.core.capabilities.GroupCapability;
+import io.annot8.core.capabilities.ProcessesAnnotation;
 import io.annot8.core.capabilities.ProcessesAnnotations;
 import io.annot8.core.capabilities.ProcessesContent;
+import io.annot8.core.capabilities.ProcessesGroup;
 import io.annot8.core.capabilities.ProcessesGroups;
+import io.annot8.core.capabilities.ResourceCapability;
 import io.annot8.core.capabilities.UsesResource;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -41,70 +50,55 @@ public class AnnotationBasedCapabilities implements Capabilities {
 		this.clazz = clazz;
 	}
 
+  @Override
+  public Stream<AnnotationCapability> getCreatedAnnotations() {
+    return extractFromAnnotations(CreatesAnnotation.class, AnnotationCapability::new);
+  }
+
 	@Override
-	public Stream<String> getRequiredAnnotations() {
-		return extractFromAnnotations(ProcessesAnnotations.class, a -> {
-			
-			Stream<String> value = extractArrayAsStream(a.value());
-			Stream<String> required = extractArrayAsStream(a.required());
-			
-			return Stream.concat(required, value);
-		});
-				
+	public Stream<AnnotationCapability> getProcessedAnnotations() {
+    return extractFromAnnotations(ProcessesAnnotation.class, AnnotationCapability::new);
+	}
+
+  @Override
+  public Stream<AnnotationCapability> getDeletedAnnotations() {
+    return extractFromAnnotations(DeletesAnnotation.class, AnnotationCapability::new);
+  }
+
+  @Override
+  public Stream<GroupCapability> getProcessedGroups() {
+    return extractFromAnnotations(ProcessesGroup.class, GroupCapability::new);
+	}
+
+
+	@Override
+	public Stream<GroupCapability> getCreatedGroups() {
+    return extractFromAnnotations(CreatesGroup.class, GroupCapability::new);
+	}
+
+  @Override
+  public Stream<GroupCapability> getDeletedGroups() {
+    return extractFromAnnotations(DeletesGroup.class, GroupCapability::new);
+  }
+
+  @Override
+	public Stream<ContentCapability> getCreatedContent() {
+		return extractFromAnnotations(CreatesContent.class, ContentCapability::new);
+	}
+
+  @Override
+  public Stream<ContentCapability> getDeletedContent() {
+    return extractFromAnnotations(DeletesContent.class, ContentCapability::new);
+  }
+
+  @Override
+  public Stream<ContentCapability> getProcessedContent() {
+		return extractFromAnnotations(ProcessesContent.class, ContentCapability::new);
 	}
 
 	@Override
-	public Stream<String> getOptionalAnnotations() {
-		return extractFromAnnotations(ProcessesAnnotations.class, a -> extractArrayAsStream(a.optional()));
-	}
-
-	@Override
-	public Stream<String> getCreatedAnnotations() {
-		return extractFromAnnotations(CreatesAnnotation.class, a -> extractItemAsStream(a.type()));
-	}
-	
-	@Override
-	public Stream<String> getRequiredGroups() {
-		return extractFromAnnotations(ProcessesGroups.class, a -> {
-			
-			Stream<String> value = extractArrayAsStream(a.value());
-			Stream<String> required = extractArrayAsStream(a.required());
-			
-			return Stream.concat(required, value);
-		});
-				
-	}
-
-	@Override
-	public Stream<String> getOptionalGroups() {
-		return extractFromAnnotations(ProcessesGroups.class, a -> extractArrayAsStream(a.optional()));
-	}
-
-	@Override
-	public Stream<String> getCreatedGroups() {
-		return extractFromAnnotations(CreatesGroup.class, a -> extractItemAsStream(a.value()));
-	}
-
-	@Override
-	public Stream<Class<? extends Content<?>>> getCreatedContent() {
-		return extractFromAnnotations(CreatesContent.class, a -> extractItemAsStream(a.value()));
-
-	}
-
-	@Override
-	public Stream<Class<? extends Content<?>>> getRequiredContent() {
-		return extractFromAnnotations(ProcessesContent.class, a -> extractArrayAsStream(a.value()));
-	}
-
-	@Override
-	public Stream<Class<? extends Resource>> getUsedResources() {
-		return extractFromAnnotations(UsesResource.class, a -> extractItemAsStream(a.value()));
-
-	}
-
-	@Override
-	public Stream<Class<? extends Bounds>> getCreatedBounds() {
-		return extractFromAnnotations(CreatesAnnotation.class, a -> extractItemAsStream(a.bounds()));
+	public Stream<ResourceCapability> getUsedResources() {
+		return extractFromAnnotations(UsesResource.class, ResourceCapability::new);
 	}
 	
 	protected <T>  Stream<T> extractArrayAsStream(T[] value) {
@@ -124,10 +118,10 @@ public class AnnotationBasedCapabilities implements Capabilities {
 		}
 	}
 
-	protected <A extends Annotation,T> Stream<T> extractFromAnnotations(Class<A> annotationClass, Function<A,Stream<T>> extractor) {
+	protected <A extends Annotation,T> Stream<T> extractFromAnnotations(Class<A> annotationClass, Function<A,T> extractor) {
 		A[] annotations = clazz.getAnnotationsByType(annotationClass);
 		return Arrays.stream(annotations)
-				.flatMap(extractor)
+				.map(extractor)
 				.distinct();
 	}
 
