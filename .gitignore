@@ -8,3 +8,6 @@
 *.iml
 .sts4-cache
 annot8-common-components/target
+annot8-common-data/target
+annot8-common-implementations/target
+annot8-common-utils/target
