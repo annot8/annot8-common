@@ -10,7 +10,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>annot8-common-utils</artifactId>
-
+  <name>Annot8 Common Utils</name>
+  <description>Common utility functions</description>
+  
   <dependencies>
     <dependency>
       <groupId>io.annot8</groupId>

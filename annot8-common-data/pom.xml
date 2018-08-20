@@ -10,6 +10,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>annot8-common-data</artifactId>
+  <name>Annot8 Common Data</name>
+  <description>Common data (bounds and content) definitions</description>
 
   <dependencies>
     <dependency>
