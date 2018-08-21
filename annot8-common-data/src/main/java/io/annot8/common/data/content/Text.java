@@ -1,11 +1,11 @@
 package io.annot8.common.data.content;
 
 import io.annot8.common.data.bounds.SpanBounds;
-import java.util.Optional;
-import java.util.stream.Stream;
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Represents plain text content having data of type string.

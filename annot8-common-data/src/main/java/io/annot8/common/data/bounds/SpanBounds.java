@@ -18,11 +18,13 @@ public class SpanBounds implements Bounds {
    * Create a new object with the specified begin and end values
    */
   public SpanBounds(final int begin, final int end) {
-    if(begin < 0)
+    if (begin < 0) {
       throw new InvalidBoundsException("Begin must be greater than or equal to 0");
+    }
 
-    if(end < begin)
+    if (end < begin) {
       throw new InvalidBoundsException("End must be greater than or equal to Begin");
+    }
 
     this.begin = begin;
     this.end = end;
@@ -61,7 +63,7 @@ public class SpanBounds implements Bounds {
       int normEnd = Math.min(s.length(), end);
 
       @SuppressWarnings("unchecked")          // This is checked R = String.class
-      R r = (R) s.substring(normBegin, normEnd);
+          R r = (R) s.substring(normBegin, normEnd);
 
       return Optional.of(r);
     }

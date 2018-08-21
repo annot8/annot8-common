@@ -4,18 +4,18 @@ import io.annot8.core.references.AnnotationReference;
 import java.util.Objects;
 
 /**
- * Abstract implementation of AnnotationReference, providing correct implementations
- * of equals, hashCode and toString.
+ * Abstract implementation of AnnotationReference, providing correct implementations of equals,
+ * hashCode and toString.
  *
- * Two annotation references are taken to be equal if the following properties are
- * all equal. The actual implementation of the annotation reference is seen to be
- * irrelevant and not checked.
+ * Two annotation references are taken to be equal if the following properties are all equal. The
+ * actual implementation of the annotation reference is seen to be irrelevant and not checked.
  * <ul>
- *   <li>annotationId</li>
- *   <li>contentName</li>
+ * <li>annotationId</li>
+ * <li>contentName</li>
  * </ul>
  */
-public abstract class AbstractAnnotationReference implements AnnotationReference{
+public abstract class AbstractAnnotationReference implements AnnotationReference {
+
   @Override
   public boolean equals(Object other) {
     if (this == other) {
@@ -42,6 +42,7 @@ public abstract class AbstractAnnotationReference implements AnnotationReference
 
   @Override
   public String toString() {
-    return this.getClass().getName() + " [annotationId=" + getAnnotationId() + ", contentName=" + getContentName() + "]";
+    return this.getClass().getName() + " [annotationId=" + getAnnotationId() + ", contentName="
+        + getContentName() + "]";
   }
 }

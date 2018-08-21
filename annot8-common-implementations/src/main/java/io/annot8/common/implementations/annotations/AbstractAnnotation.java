@@ -4,18 +4,17 @@ import io.annot8.core.annotations.Annotation;
 import java.util.Objects;
 
 /**
- * Abstract implementation of Annotation, providing correct implementations
- * of equals, hashCode and toString.
+ * Abstract implementation of Annotation, providing correct implementations of equals, hashCode and
+ * toString.
  *
- * Two annotations are taken to be equal if the following properties are
- * all equal. The actual implementation of the annotation is seen to be
- * irrelevant and not checked.
+ * Two annotations are taken to be equal if the following properties are all equal. The actual
+ * implementation of the annotation is seen to be irrelevant and not checked.
  * <ul>
- *   <li>id</li>
- *   <li>type</li>
- *   <li>properties</li>
- *   <li>bounds</li>
- *   <li>contentName</li>
+ * <li>id</li>
+ * <li>type</li>
+ * <li>properties</li>
+ * <li>bounds</li>
+ * <li>contentName</li>
  * </ul>
  */
 public abstract class AbstractAnnotation implements Annotation {
@@ -50,7 +49,8 @@ public abstract class AbstractAnnotation implements Annotation {
 
   @Override
   public String toString() {
-    return this.getClass().getName() + " [id=" + getId() + ", type=" + getType() + ", contentName=" + getContentName()
+    return this.getClass().getName() + " [id=" + getId() + ", type=" + getType() + ", contentName="
+        + getContentName()
         + ", bounds=" + getBounds() + ", properties=" + getProperties() + "]";
   }
 }

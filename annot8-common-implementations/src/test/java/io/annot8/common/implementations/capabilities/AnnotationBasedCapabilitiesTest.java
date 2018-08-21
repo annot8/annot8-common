@@ -35,79 +35,89 @@ public class AnnotationBasedCapabilitiesTest {
 
   @Test
   void getRequiredInputAnnotations() {
-   assertThat(capabilities.getProcessedAnnotations()
-       .filter(c -> c.isOptional() == false)
-       .map(AnnotationCapability::getType))
-       .containsExactlyInAnyOrder("ar1", "ar2");
+    assertThat(capabilities.getProcessedAnnotations()
+        .filter(c -> !c.isOptional())
+        .map(AnnotationCapability::getType))
+        .containsExactlyInAnyOrder("ar1", "ar2");
   }
 
   @Test
   void getOptionalInputAnnotations() {
     assertThat(capabilities.getProcessedAnnotations()
-        .filter(c -> c.isOptional() == true).map(AnnotationCapability::getType)).containsExactlyInAnyOrder("ao1");
+        .filter(AnnotationCapability::isOptional).map(AnnotationCapability::getType))
+        .containsExactlyInAnyOrder("ao1");
 
   }
 
   @Test
   void getOutputAnnotations() {
-    assertThat(capabilities.getCreatedAnnotations().map(AnnotationCapability::getType)).containsExactlyInAnyOrder("a1", "a2");
+    assertThat(capabilities.getCreatedAnnotations().map(AnnotationCapability::getType))
+        .containsExactlyInAnyOrder("a1", "a2");
 
   }
 
   @Test
   void getRequiredInputGroups() {
     assertThat(capabilities.getProcessedGroups()
-        .filter(c -> c.isOptional() == false).map(GroupCapability::getType)).containsExactlyInAnyOrder("gr1", "gr2");
+        .filter(c -> !c.isOptional()).map(GroupCapability::getType))
+        .containsExactlyInAnyOrder("gr1", "gr2");
 
   }
 
   @Test
   void getOptionalInputGroups() {
     assertThat(capabilities.getProcessedGroups()
-        .filter(c -> c.isOptional() == true).map(GroupCapability::getType)).containsExactlyInAnyOrder("go1");
+        .filter(c -> c.isOptional()).map(GroupCapability::getType))
+        .containsExactlyInAnyOrder("go1");
 
   }
 
   @Test
   void getOutputGroups() {
-    assertThat(capabilities.getCreatedGroups().map(GroupCapability::getType)).containsExactlyInAnyOrder("g");
+    assertThat(capabilities.getCreatedGroups().map(GroupCapability::getType))
+        .containsExactlyInAnyOrder("g");
 
   }
 
   @Test
   void getCreatedContent() {
-    assertThat(capabilities.getCreatedContent().map(ContentCapability::getType)).containsExactlyInAnyOrder(FakeContent.class);
+    assertThat(capabilities.getCreatedContent().map(ContentCapability::getType))
+        .containsExactlyInAnyOrder(FakeContent.class);
 
   }
 
   @Test
   void getRequiredContent() {
     assertThat(capabilities.getProcessedContent()
-        .filter(c -> c.isOptional() == false).map(ContentCapability::getType)).containsExactlyInAnyOrder(FakeContent.class);
+        .filter(c -> !c.isOptional()).map(ContentCapability::getType))
+        .containsExactlyInAnyOrder(FakeContent.class);
 
   }
 
   @Test
   void getRequiredResources() {
-    assertThat(capabilities.getUsedResources().map(ResourceCapability::getType)).containsExactlyInAnyOrder(Resource.class);
+    assertThat(capabilities.getUsedResources().map(ResourceCapability::getType))
+        .containsExactlyInAnyOrder(Resource.class);
   }
 
   @Test
   void getOutputBounds() {
-    assertThat(capabilities.getCreatedAnnotations().map(AnnotationCapability::getBounds)).contains(FakeBounds.class);
+    assertThat(capabilities.getCreatedAnnotations().map(AnnotationCapability::getBounds))
+        .contains(FakeBounds.class);
 
   }
 
   @Test
   void getOutputGroupsForChildComponent() {
-    AnnotationBasedCapabilities child = new AnnotationBasedCapabilities(ChildAnnotatedComponent.class);
+    AnnotationBasedCapabilities child = new AnnotationBasedCapabilities(
+        ChildAnnotatedComponent.class);
     assertThat(child.getCreatedGroups().map(GroupCapability::getType))
         .containsExactlyInAnyOrder("sg");
   }
 
 
-  @CreatesAnnotation(value="a1", bounds=FakeBounds.class)
-  @CreatesAnnotation(value="a2", bounds=FakeBounds.class)
+  @CreatesAnnotation(value = "a1", bounds = FakeBounds.class)
+  @CreatesAnnotation(value = "a2", bounds = FakeBounds.class)
   @CreatesContent(FakeContent.class)
   @CreatesGroup("g")
   @ProcessesAnnotation(value = "ar1")
@@ -165,7 +175,7 @@ public class AnnotationBasedCapabilitiesTest {
     }
   }
 
-    public static class FakeBounds implements Bounds {
+  public static class FakeBounds implements Bounds {
 
     @Override
     public <D, C extends Content<D>, R> Optional<R> getData(C content, Class<R> requiredClass) {

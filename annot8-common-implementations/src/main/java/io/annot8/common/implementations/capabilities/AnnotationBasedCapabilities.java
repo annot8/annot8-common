@@ -11,54 +11,46 @@ import io.annot8.core.capabilities.DeletesContent;
 import io.annot8.core.capabilities.DeletesGroup;
 import io.annot8.core.capabilities.GroupCapability;
 import io.annot8.core.capabilities.ProcessesAnnotation;
-import io.annot8.core.capabilities.ProcessesAnnotations;
 import io.annot8.core.capabilities.ProcessesContent;
 import io.annot8.core.capabilities.ProcessesGroup;
-import io.annot8.core.capabilities.ProcessesGroups;
 import io.annot8.core.capabilities.ResourceCapability;
 import io.annot8.core.capabilities.UsesResource;
+import io.annot8.core.components.Annot8Component;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import io.annot8.core.bounds.Bounds;
-import io.annot8.core.components.Annot8Component;
-import io.annot8.core.components.Resource;
-import io.annot8.core.data.Content;
-
 /**
- * Implementation of Capabilities which uses annotations on the component class to determine its' capabilities.
- * 
- * Annotations are defined in the same package.
- * 
- * Ideally this implementation would not be part of core, but it acts as the default implementation and as such needs to be
- * importable by {@link Annot8Component}.
+ * Implementation of Capabilities which uses annotations on the component class to determine its'
+ * capabilities.
  *
+ * Annotations are defined in the same package.
+ *
+ * Ideally this implementation would not be part of core, but it acts as the default implementation
+ * and as such needs to be importable by {@link Annot8Component}.
  */
 public class AnnotationBasedCapabilities implements Capabilities {
-	
-	private final Class<?> clazz;
 
-	/**
-	 * Constructor which will review the annotations on the provided class to implement interface. 
-	 * 
-	 * @param clazz
-	 */
-	public AnnotationBasedCapabilities(Class<?> clazz) {
-		this.clazz = clazz;
-	}
+  private final Class<?> clazz;
+
+  /**
+   * Constructor which will review the annotations on the provided class to implement interface.
+   */
+  public AnnotationBasedCapabilities(Class<?> clazz) {
+    this.clazz = clazz;
+  }
 
   @Override
   public Stream<AnnotationCapability> getCreatedAnnotations() {
     return extractFromAnnotations(CreatesAnnotation.class, AnnotationCapability::new);
   }
 
-	@Override
-	public Stream<AnnotationCapability> getProcessedAnnotations() {
+  @Override
+  public Stream<AnnotationCapability> getProcessedAnnotations() {
     return extractFromAnnotations(ProcessesAnnotation.class, AnnotationCapability::new);
-	}
+  }
 
   @Override
   public Stream<AnnotationCapability> getDeletedAnnotations() {
@@ -68,13 +60,13 @@ public class AnnotationBasedCapabilities implements Capabilities {
   @Override
   public Stream<GroupCapability> getProcessedGroups() {
     return extractFromAnnotations(ProcessesGroup.class, GroupCapability::new);
-	}
+  }
 
 
-	@Override
-	public Stream<GroupCapability> getCreatedGroups() {
+  @Override
+  public Stream<GroupCapability> getCreatedGroups() {
     return extractFromAnnotations(CreatesGroup.class, GroupCapability::new);
-	}
+  }
 
   @Override
   public Stream<GroupCapability> getDeletedGroups() {
@@ -82,9 +74,9 @@ public class AnnotationBasedCapabilities implements Capabilities {
   }
 
   @Override
-	public Stream<ContentCapability> getCreatedContent() {
-		return extractFromAnnotations(CreatesContent.class, ContentCapability::new);
-	}
+  public Stream<ContentCapability> getCreatedContent() {
+    return extractFromAnnotations(CreatesContent.class, ContentCapability::new);
+  }
 
   @Override
   public Stream<ContentCapability> getDeletedContent() {
@@ -93,36 +85,33 @@ public class AnnotationBasedCapabilities implements Capabilities {
 
   @Override
   public Stream<ContentCapability> getProcessedContent() {
-		return extractFromAnnotations(ProcessesContent.class, ContentCapability::new);
-	}
+    return extractFromAnnotations(ProcessesContent.class, ContentCapability::new);
+  }
 
-	@Override
-	public Stream<ResourceCapability> getUsedResources() {
-		return extractFromAnnotations(UsesResource.class, ResourceCapability::new);
-	}
-	
-	protected <T>  Stream<T> extractArrayAsStream(T[] value) {
-		if(value == null || value.length == 0) {
-			return Stream.empty();
-		} else {
-			return Arrays.stream(value).filter(Objects::nonNull);
-		}
-	}
+  @Override
+  public Stream<ResourceCapability> getUsedResources() {
+    return extractFromAnnotations(UsesResource.class, ResourceCapability::new);
+  }
+
+  protected <T> Stream<T> extractArrayAsStream(T[] value) {
+    if (value == null || value.length == 0) {
+      return Stream.empty();
+    } else {
+      return Arrays.stream(value).filter(Objects::nonNull);
+    }
+  }
 
 
-	protected <T>  Stream<T> extractItemAsStream(T value) {
-		if(value == null) {
-			return Stream.empty();
-		} else {
-			return Stream.of(value);
-		}
-	}
+  protected <T> Stream<T> extractItemAsStream(T value) {
+    return Stream.ofNullable(value);
+  }
 
-	protected <A extends Annotation,T> Stream<T> extractFromAnnotations(Class<A> annotationClass, Function<A,T> extractor) {
-		A[] annotations = clazz.getAnnotationsByType(annotationClass);
-		return Arrays.stream(annotations)
-				.map(extractor)
-				.distinct();
-	}
+  protected <A extends Annotation, T> Stream<T> extractFromAnnotations(Class<A> annotationClass,
+      Function<A, T> extractor) {
+    A[] annotations = clazz.getAnnotationsByType(annotationClass);
+    return Arrays.stream(annotations)
+        .map(extractor)
+        .distinct();
+  }
 
 }

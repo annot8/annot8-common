@@ -3,7 +3,6 @@ package io.annot8.common.implementations.capabilities;
 import io.annot8.core.capabilities.Capabilities;
 import io.annot8.core.capabilities.Capabilities.Builder;
 import io.annot8.core.components.Annot8Component;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class CapabilitiesCompiler {
@@ -32,7 +31,7 @@ public class CapabilitiesCompiler {
 
     // Recurse through parents
     Class<?> superclass = clazz.getSuperclass();
-    addAnnotatedCapabilities(builder, clazz);
+    addAnnotatedCapabilities(builder, superclass);
 
     AnnotationBasedCapabilities capabilities = new AnnotationBasedCapabilities(clazz);
     builder.merge(capabilities);

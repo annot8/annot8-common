@@ -7,20 +7,19 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
- * Abstract implementation of Group, providing correct implementations
- * of equals, hashCode and toString.
+ * Abstract implementation of Group, providing correct implementations of equals, hashCode and
+ * toString.
  *
- * Two groups are taken to be equal if the following properties are
- * all equal. The actual implementation of the group is seen to be
- * irrelevant and not checked.
+ * Two groups are taken to be equal if the following properties are all equal. The actual
+ * implementation of the group is seen to be irrelevant and not checked.
  * <ul>
- *   <li>id</li>
- *   <li>type</li>
- *   <li>properties</li>
- *   <li>annotationReferences</li>
+ * <li>id</li>
+ * <li>type</li>
+ * <li>properties</li>
+ * <li>annotationReferences</li>
  * </ul>
  */
-public abstract class AbstractGroup implements Group{
+public abstract class AbstractGroup implements Group {
 
   @Override
   public boolean equals(Object other) {
@@ -39,25 +38,31 @@ public abstract class AbstractGroup implements Group{
     Group g = (Group) other;
 
     //First check "easy properties" so we can fail fast
-    if(!(Objects.equals(getId(), g.getId())
+    if (!(Objects.equals(getId(), g.getId())
         && Objects.equals(getType(), g.getType())
-        && Objects.equals(getProperties(), g.getProperties())))
+        && Objects.equals(getProperties(), g.getProperties()))) {
       return false;
+    }
 
     //Now check references, which is expensive
-    if(!getReferences().keySet().equals(g.getReferences().keySet()))
+    if (!getReferences().keySet().equals(g.getReferences().keySet())) {
       return false;
+    }
 
-    for(String key : getReferences().keySet()){
-      Iterator<AnnotationReference> ourIter = getReferences().getOrDefault(key, Stream.empty()).sorted().iterator();
-      Iterator<AnnotationReference> otherIter = g.getReferences().getOrDefault(key, Stream.empty()).sorted().iterator();
+    for (String key : getReferences().keySet()) {
+      Iterator<AnnotationReference> ourIter = getReferences().getOrDefault(key, Stream.empty())
+          .sorted().iterator();
+      Iterator<AnnotationReference> otherIter = g.getReferences().getOrDefault(key, Stream.empty())
+          .sorted().iterator();
 
-      while(ourIter.hasNext()){
-        if(!otherIter.hasNext())
+      while (ourIter.hasNext()) {
+        if (!otherIter.hasNext()) {
           return false;
+        }
 
-        if(!ourIter.next().equals(otherIter.next()))
+        if (!ourIter.next().equals(otherIter.next())) {
           return false;
+        }
       }
     }
 

@@ -5,5 +5,4 @@ module io.annot8.common.utils {
   exports io.annot8.common.utils.capabilities;
   exports io.annot8.common.utils.properties;
 
-
 }
