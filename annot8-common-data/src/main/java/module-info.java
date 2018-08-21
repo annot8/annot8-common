@@ -1,4 +1,4 @@
-module io.annot8.common.data {
+open module io.annot8.common.data {
   requires transitive io.annot8.core;
 
   exports io.annot8.common.data.bounds;
