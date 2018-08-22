@@ -31,21 +31,27 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   * Return the begin position of this object
+   * The begin position of this object
+   *
+   * @return the offset
    */
   public int getBegin() {
     return begin;
   }
 
   /**
-   * Return the end position of this object
+   * The end position of this object
+   *
+   * @return the offset
    */
   public int getEnd() {
     return end;
   }
 
   /**
-   * Return the length of this span
+   * The length of this span
+   *
+   * @return length (end-begin)
    */
   public int getLength() {
     return end - begin;
@@ -106,9 +112,83 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   * Return if the provided begin and end is within this object's bounds
+   * If the provided begin and end is within this object's bounds
+   *
+   * @param begin the begin offset
+   * @param end the end offset
+   * @return true if completely within
    */
   public boolean isWithin(int begin, int end) {
     return this.begin <= begin && end <= this.end;
+  }
+
+  /**
+   * If the provided other bounds is within this object's bounds
+   *
+   * @param other the bounds to test against
+   * @return true if completely within
+   */
+  public boolean isWithin(SpanBounds other) {
+    return this.isWithin(other.getBegin(), other.getEnd());
+  }
+
+  /**
+   * Check if this is before (lower position than) the offset
+   *
+   * @param offset the offset to test against
+   * @return true is this is before
+   */
+  public boolean isBefore(int offset) {
+    return getEnd() < offset;
+  }
+
+  /**
+   * Check if this is before (lower position than) the other
+   *
+   * @param other the bounds to test against
+   * @return true is this is before
+   */
+  public boolean isBefore(SpanBounds other) {
+    return isBefore(other.getBegin());
+  }
+
+  /**
+   *  Check if this is after (higher position than) the other
+   *
+   * @param other the bounds to test against
+   * @return true is this is after
+   */
+  public boolean isAfter(SpanBounds other) {
+    return isAfter(other.getEnd());
+  }
+
+  /**
+   *  Check if this is after (higher position than) the offset
+   *
+   * @param offset the bounds to test against
+   * @return true is this is after
+   */
+  public boolean isAfter(int offset) {
+    return getBegin() > offset;
+  }
+
+  /**
+   *  Check if this is same bounds as the other
+   *
+   * @param other the bounds to test against
+   * @return true if the same
+   */
+  public boolean isSame(SpanBounds other) {
+    return getBegin() == other.getBegin() && getEnd() == other.getEnd();
+  }
+
+  /**
+   *  Check if the bounds overlaps one another
+   *
+   * @param other the bounds to test against
+   * @return true if the same
+   */
+  public boolean isOverlaps(SpanBounds other) {
+    return !isAfter(other) && !isBefore(other);
   }
 }

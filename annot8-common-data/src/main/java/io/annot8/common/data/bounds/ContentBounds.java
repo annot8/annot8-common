@@ -18,7 +18,9 @@ public final class ContentBounds implements Bounds {
   }
 
   /**
-   * Return the singleton instance of ContentBounds
+   * Get instance
+   *
+   * @return the singleton instance of ContentBounds
    */
   public static ContentBounds getInstance() {
     return INSTANCE;

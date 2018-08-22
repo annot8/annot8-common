@@ -29,6 +29,8 @@ public class PositionBounds implements Bounds {
 
   /**
    * Get the position offset
+   *
+   * @return the offset
    */
   public int getPosition() {
     return position;
@@ -108,5 +110,35 @@ public class PositionBounds implements Bounds {
     PositionBounds pb = (PositionBounds) o;
 
     return Objects.equals(position, pb.getPosition());
+  }
+
+  /**
+   * Check is the this is before (lower position than) the other
+   *
+   * @param other the bounds to test against
+   * @return true is this is before
+   */
+  public boolean isBefore(PositionBounds other) {
+    return getPosition() < other.getPosition();
+  }
+
+  /**
+   * Check is the this is before (lower position than) the other
+   *
+   * @param other the bounds to test against
+   * @return true is this is after
+   */
+  public boolean isAfter(PositionBounds other) {
+    return getPosition() > other.getPosition();
+  }
+
+  /**
+   * Check is the this is same position as the other
+   *
+   * @param other the bounds to test against
+   * @return true if the same
+   */
+  public boolean isSame(PositionBounds other) {
+    return getPosition() == other.getPosition();
   }
 }

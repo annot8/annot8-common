@@ -19,7 +19,9 @@ public final class NoBounds implements Bounds {
   }
 
   /**
-   * Return the singleton instance of NoBounds
+   * Get instance
+   *
+   * @return the singleton instance of NoBounds
    */
   public static NoBounds getInstance() {
     return INSTANCE;
