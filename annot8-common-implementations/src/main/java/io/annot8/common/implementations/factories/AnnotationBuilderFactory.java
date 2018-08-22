@@ -17,7 +17,10 @@ public interface AnnotationBuilderFactory<T> {
    *
    * Most implementation will simply need the store parameter to allow save on save.
    *
-   * @return non-null
+   * @param content the content name
+   * @param store the annotation store to use
+   * @param saver save callback (used by the builder)
+   * @return non-null builder
    */
   Annotation.Builder create(String content, AnnotationStore store,
       SaveCallback<T, Annotation> saver);

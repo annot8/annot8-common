@@ -14,6 +14,10 @@ public final class StreamUtils {
 
   /**
    * Filter out items in the stream that aren't a subclass of clazz
+   *
+   * @param stream the stream
+   * @param clazz the class to filter and cast on on
+   * @return stream of just clazz implementations
    */
   public static <T, S extends T> Stream<S> cast(Stream<T> stream, Class<S> clazz) {
     return stream.filter(clazz::isInstance)
@@ -22,6 +26,9 @@ public final class StreamUtils {
 
   /**
    * Extract optional which are present
+   *
+   * @param stream the stream
+   * @return stream of non-null (present optionals)
    */
   public static <T> Stream<T> getIfPresent(Stream<Optional<T>> stream) {
     return stream

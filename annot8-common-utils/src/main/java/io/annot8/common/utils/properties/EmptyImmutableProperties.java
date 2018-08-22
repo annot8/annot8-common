@@ -17,6 +17,8 @@ public final class EmptyImmutableProperties implements ImmutableProperties {
 
   /**
    * Get the singleton instance of  EmptyImmutableProperties
+   *
+   * @return instance
    */
   public static EmptyImmutableProperties getInstance() {
     return INSTANCE;

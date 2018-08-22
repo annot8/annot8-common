@@ -15,7 +15,10 @@ public interface GroupBuilderFactory<T> {
 
   /**
    * Create a new builder for the provided item.
-   *
+
+   * @param item the item owning this content
+   * @param groupStore the group store
+   * @param saver the save callback used by builder
    * @return non-null
    */
   Group.Builder create(Item item, GroupStore groupStore, SaveCallback<T, Group> saver);

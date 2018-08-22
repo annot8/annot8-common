@@ -14,17 +14,23 @@ public interface ContentBuilderFactory<D, C extends Content<D>> {
   /**
    * Create a new builder for the provided item.
    *
-   * @return non-null
+   * @param item the item owning this content
+   * @param saver the save callback used by builder
+   * @return non-null builder
    */
   Content.Builder<C, D> create(Item item, SaveCallback<C, C> saver);
 
   /**
    * Get the class of the data this content holds
+   *
+   * @return the data class
    */
   Class<D> getDataClass();
 
   /**
    * Get the content class created.
+   *
+   * @return content class (being implemented)
    */
   Class<C> getContentClass();
 

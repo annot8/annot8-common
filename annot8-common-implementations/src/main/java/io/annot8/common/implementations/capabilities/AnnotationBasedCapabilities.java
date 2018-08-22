@@ -62,7 +62,6 @@ public class AnnotationBasedCapabilities implements Capabilities {
     return extractFromAnnotations(ProcessesGroup.class, GroupCapability::new);
   }
 
-
   @Override
   public Stream<GroupCapability> getCreatedGroups() {
     return extractFromAnnotations(CreatesGroup.class, GroupCapability::new);
@@ -100,7 +99,6 @@ public class AnnotationBasedCapabilities implements Capabilities {
       return Arrays.stream(value).filter(Objects::nonNull);
     }
   }
-
 
   protected <T> Stream<T> extractItemAsStream(T value) {
     return Stream.ofNullable(value);

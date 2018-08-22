@@ -9,6 +9,7 @@ import java.util.Objects;
  *
  * Two annotations are taken to be equal if the following properties are all equal. The actual
  * implementation of the annotation is seen to be irrelevant and not checked.
+ *
  * <ul>
  * <li>id</li>
  * <li>type</li>

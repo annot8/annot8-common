@@ -10,10 +10,19 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+/**
+ * Combines multiple capabilities into a single Capabilities object.
+ *
+ */
 public class MergedCapabilities implements Capabilities {
 
   private final Capabilities[] capabilities;
 
+  /**
+   * New instance
+   *
+   * @param capabilities the capabiltiies to combine (may be zero or more)
+   */
   public MergedCapabilities(Capabilities... capabilities) {
     this.capabilities = capabilities;
   }
