@@ -1,5 +1,9 @@
 package io.annot8.common.implementations.capabilities;
 
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.function.Function;
+import java.util.stream.Stream;
 import io.annot8.core.capabilities.AnnotationCapability;
 import io.annot8.core.capabilities.Capabilities;
 import io.annot8.core.capabilities.ContentCapability;
@@ -16,11 +20,6 @@ import io.annot8.core.capabilities.ProcessesGroup;
 import io.annot8.core.capabilities.ResourceCapability;
 import io.annot8.core.capabilities.UsesResource;
 import io.annot8.core.components.Annot8Component;
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * Implementation of Capabilities which uses annotations on the component class to determine its'
@@ -92,24 +91,10 @@ public class AnnotationBasedCapabilities implements Capabilities {
     return extractFromAnnotations(UsesResource.class, ResourceCapability::new);
   }
 
-  protected <T> Stream<T> extractArrayAsStream(T[] value) {
-    if (value == null || value.length == 0) {
-      return Stream.empty();
-    } else {
-      return Arrays.stream(value).filter(Objects::nonNull);
-    }
-  }
-
-  protected <T> Stream<T> extractItemAsStream(T value) {
-    return Stream.ofNullable(value);
-  }
-
   protected <A extends Annotation, T> Stream<T> extractFromAnnotations(Class<A> annotationClass,
       Function<A, T> extractor) {
     A[] annotations = clazz.getAnnotationsByType(annotationClass);
-    return Arrays.stream(annotations)
-        .map(extractor)
-        .distinct();
+    return Arrays.stream(annotations).map(extractor).distinct();
   }
 
 }

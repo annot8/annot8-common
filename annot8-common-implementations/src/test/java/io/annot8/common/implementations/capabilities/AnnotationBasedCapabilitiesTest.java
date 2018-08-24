@@ -1,13 +1,19 @@
 package io.annot8.common.implementations.capabilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+import java.util.Optional;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.capabilities.AnnotationCapability;
 import io.annot8.core.capabilities.ContentCapability;
 import io.annot8.core.capabilities.CreatesAnnotation;
 import io.annot8.core.capabilities.CreatesContent;
 import io.annot8.core.capabilities.CreatesGroup;
+import io.annot8.core.capabilities.DeletesAnnotation;
+import io.annot8.core.capabilities.DeletesContent;
+import io.annot8.core.capabilities.DeletesGroup;
 import io.annot8.core.capabilities.GroupCapability;
 import io.annot8.core.capabilities.ProcessesAnnotation;
 import io.annot8.core.capabilities.ProcessesContent;
@@ -19,10 +25,6 @@ import io.annot8.core.components.Resource;
 import io.annot8.core.data.Content;
 import io.annot8.core.properties.ImmutableProperties;
 import io.annot8.core.stores.AnnotationStore;
-import java.util.Optional;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class AnnotationBasedCapabilitiesTest {
 
@@ -36,17 +38,14 @@ public class AnnotationBasedCapabilitiesTest {
 
   @Test
   void getRequiredInputAnnotations() {
-    assertThat(capabilities.getProcessedAnnotations()
-        .filter(c -> !c.isOptional())
-        .map(AnnotationCapability::getType))
-        .containsExactlyInAnyOrder("ar1", "ar2");
+    assertThat(capabilities.getProcessedAnnotations().filter(c -> !c.isOptional())
+        .map(AnnotationCapability::getType)).containsExactlyInAnyOrder("ar1", "ar2");
   }
 
   @Test
   void getOptionalInputAnnotations() {
-    assertThat(capabilities.getProcessedAnnotations()
-        .filter(AnnotationCapability::isOptional).map(AnnotationCapability::getType))
-        .containsExactlyInAnyOrder("ao1");
+    assertThat(capabilities.getProcessedAnnotations().filter(AnnotationCapability::isOptional)
+        .map(AnnotationCapability::getType)).containsExactlyInAnyOrder("ao1");
 
   }
 
@@ -54,22 +53,28 @@ public class AnnotationBasedCapabilitiesTest {
   void getOutputAnnotations() {
     assertThat(capabilities.getCreatedAnnotations().map(AnnotationCapability::getType))
         .containsExactlyInAnyOrder("a1", "a2");
+  }
 
+  @Test
+  public void testGetDeletesAnnotations() {
+    assertThat(capabilities.getDeletedAnnotations().map(AnnotationCapability::getType))
+        .containsExactly("a3");
+    Stream<Class<? extends Bounds>> bounds =
+        capabilities.getDeletedAnnotations().map(AnnotationCapability::getBounds);
+    assertThat(bounds).containsExactly(FakeBounds.class);
   }
 
   @Test
   void getRequiredInputGroups() {
-    assertThat(capabilities.getProcessedGroups()
-        .filter(c -> !c.isOptional()).map(GroupCapability::getType))
-        .containsExactlyInAnyOrder("gr1", "gr2");
-
+    assertThat(capabilities.getProcessedGroups().filter(c -> !c.isOptional())
+        .map(GroupCapability::getType)).containsExactlyInAnyOrder("gr1", "gr2");
   }
 
   @Test
   void getOptionalInputGroups() {
-    assertThat(capabilities.getProcessedGroups()
-        .filter(c -> c.isOptional()).map(GroupCapability::getType))
-        .containsExactlyInAnyOrder("go1");
+    assertThat(
+        capabilities.getProcessedGroups().filter(c -> c.isOptional()).map(GroupCapability::getType))
+            .containsExactlyInAnyOrder("go1");
 
   }
 
@@ -77,46 +82,54 @@ public class AnnotationBasedCapabilitiesTest {
   void getOutputGroups() {
     assertThat(capabilities.getCreatedGroups().map(GroupCapability::getType))
         .containsExactlyInAnyOrder("g");
+  }
 
+  @Test
+  public void testGetDeletedGroups() {
+    assertThat(capabilities.getDeletedGroups().map(GroupCapability::getType))
+        .containsExactly("go2");
   }
 
   @Test
   void getCreatedContent() {
-    Stream<Class<? extends Content<?>>> classes = capabilities.getCreatedContent()
-        .map(ContentCapability::getType);
-    assertThat(classes)
-        .containsExactlyInAnyOrder(FakeContent.class);
+    Stream<Class<? extends Content<?>>> classes =
+        capabilities.getCreatedContent().map(ContentCapability::getType);
+    assertThat(classes).containsExactlyInAnyOrder(FakeContent.class);
   }
 
   @Test
   void getRequiredContent() {
     Stream<Class<? extends Content<?>>> classes = capabilities.getProcessedContent()
-        .filter(c -> !c.isOptional())
-        .map(ContentCapability::getType);
-    assertThat(classes)
-        .containsExactlyInAnyOrder(FakeContent.class);
+        .filter(c -> !c.isOptional()).map(ContentCapability::getType);
+    assertThat(classes).containsExactlyInAnyOrder(FakeContent.class);
+  }
 
+  @Test
+  public void testGetDeletedContent() {
+    Stream<Class<? extends Content<?>>> classes =
+        capabilities.getDeletedContent().map(ContentCapability::getType);
+    assertThat(classes).containsExactly(FakeContent.class);
   }
 
   @Test
   void getRequiredResources() {
-    Stream<Class<? extends Resource>> classes = capabilities.getUsedResources().map(ResourceCapability::getType);
-    assertThat(classes)
-        .containsExactlyInAnyOrder(Resource.class);
+    Stream<Class<? extends Resource>> classes =
+        capabilities.getUsedResources().map(ResourceCapability::getType);
+    assertThat(classes).containsExactlyInAnyOrder(Resource.class);
   }
 
   @Test
   void getOutputBounds() {
-    Stream<Class<? extends Bounds>> classes = capabilities.getCreatedAnnotations().map(AnnotationCapability::getBounds);
-    assertThat(classes.distinct())
-        .containsExactlyInAnyOrder(FakeBounds.class);
+    Stream<Class<? extends Bounds>> classes =
+        capabilities.getCreatedAnnotations().map(AnnotationCapability::getBounds);
+    assertThat(classes.distinct()).containsExactlyInAnyOrder(FakeBounds.class);
 
   }
 
   @Test
   void getOutputGroupsForChildComponent() {
-    AnnotationBasedCapabilities child = new AnnotationBasedCapabilities(
-        ChildAnnotatedComponent.class);
+    AnnotationBasedCapabilities child =
+        new AnnotationBasedCapabilities(ChildAnnotatedComponent.class);
     assertThat(child.getCreatedGroups().map(GroupCapability::getType))
         .containsExactlyInAnyOrder("sg");
   }
@@ -134,6 +147,9 @@ public class AnnotationBasedCapabilitiesTest {
   @ProcessesGroup(value = "gr2")
   @ProcessesGroup(value = "go1", optional = true)
   @UsesResource(Resource.class)
+  @DeletesAnnotation(value = "a3", bounds = FakeBounds.class)
+  @DeletesGroup(value = "go2")
+  @DeletesContent(FakeContent.class)
   public static class AnnotatedComponent implements Annot8Component {
 
   }
