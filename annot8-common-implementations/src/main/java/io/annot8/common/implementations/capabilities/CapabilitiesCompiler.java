@@ -30,7 +30,7 @@ public class CapabilitiesCompiler {
   }
 
   /**
-   * Merge the capabilitites for a component into a single {@link Capabilities} object
+   * Merge the capabilities for a component into a single {@link Capabilities} object
    *
    * @param component the component to consider
    * @return the capabilities
