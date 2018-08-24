@@ -20,6 +20,7 @@ import io.annot8.core.data.Content;
 import io.annot8.core.properties.ImmutableProperties;
 import io.annot8.core.stores.AnnotationStore;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -81,29 +82,34 @@ public class AnnotationBasedCapabilitiesTest {
 
   @Test
   void getCreatedContent() {
-    assertThat(capabilities.getCreatedContent().map(ContentCapability::getType))
+    Stream<Class<? extends Content<?>>> classes = capabilities.getCreatedContent()
+        .map(ContentCapability::getType);
+    assertThat(classes)
         .containsExactlyInAnyOrder(FakeContent.class);
-
   }
 
   @Test
   void getRequiredContent() {
-    assertThat(capabilities.getProcessedContent()
-        .filter(c -> !c.isOptional()).map(ContentCapability::getType))
+    Stream<Class<? extends Content<?>>> classes = capabilities.getProcessedContent()
+        .filter(c -> !c.isOptional())
+        .map(ContentCapability::getType);
+    assertThat(classes)
         .containsExactlyInAnyOrder(FakeContent.class);
 
   }
 
   @Test
   void getRequiredResources() {
-    assertThat(capabilities.getUsedResources().map(ResourceCapability::getType))
+    Stream<Class<? extends Resource>> classes = capabilities.getUsedResources().map(ResourceCapability::getType);
+    assertThat(classes)
         .containsExactlyInAnyOrder(Resource.class);
   }
 
   @Test
   void getOutputBounds() {
-    assertThat(capabilities.getCreatedAnnotations().map(AnnotationCapability::getBounds))
-        .contains(FakeBounds.class);
+    Stream<Class<? extends Bounds>> classes = capabilities.getCreatedAnnotations().map(AnnotationCapability::getBounds);
+    assertThat(classes.distinct())
+        .containsExactlyInAnyOrder(FakeBounds.class);
 
   }
 
