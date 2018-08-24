@@ -1,7 +1,8 @@
 package io.annot8.common.implementations.annotations;
 
-import io.annot8.core.annotations.Annotation;
 import java.util.Objects;
+import io.annot8.core.annotations.Annotation;
+import io.annot8.core.properties.Properties;
 
 /**
  * Abstract implementation of Annotation, providing correct implementations of equals, hashCode and
@@ -36,22 +37,21 @@ public abstract class AbstractAnnotation implements Annotation {
 
     Annotation a = (Annotation) other;
 
-    return Objects.equals(getId(), a.getId())
-        && Objects.equals(getType(), a.getType())
-        && Objects.equals(getProperties(), a.getProperties())
+    return Objects.equals(getId(), a.getId()) && Objects.equals(getType(), a.getType())
+        && Properties.equals(getProperties(), a.getProperties())
         && Objects.equals(getBounds(), a.getBounds())
         && Objects.equals(getContentName(), a.getContentName());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getType(), getProperties(), getBounds(), getContentName());
+    return Objects.hash(getId(), getType(), Properties.hashCode(getProperties()), getBounds(),
+        getContentName());
   }
 
   @Override
   public String toString() {
     return this.getClass().getName() + " [id=" + getId() + ", type=" + getType() + ", contentName="
-        + getContentName()
-        + ", bounds=" + getBounds() + ", properties=" + getProperties() + "]";
+        + getContentName() + ", bounds=" + getBounds() + ", properties=" + getProperties() + "]";
   }
 }
