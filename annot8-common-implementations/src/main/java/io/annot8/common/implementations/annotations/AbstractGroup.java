@@ -1,10 +1,11 @@
 package io.annot8.common.implementations.annotations;
 
-import io.annot8.core.annotations.Group;
-import io.annot8.core.references.AnnotationReference;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
+import io.annot8.core.annotations.Group;
+import io.annot8.core.properties.Properties;
+import io.annot8.core.references.AnnotationReference;
 
 /**
  * Abstract implementation of Group, providing correct implementations of equals, hashCode and
@@ -38,23 +39,22 @@ public abstract class AbstractGroup implements Group {
 
     Group g = (Group) other;
 
-    //First check "easy properties" so we can fail fast
-    if (!(Objects.equals(getId(), g.getId())
-        && Objects.equals(getType(), g.getType())
-        && Objects.equals(getProperties(), g.getProperties()))) {
+    // First check "easy properties" so we can fail fast
+    if (!(Objects.equals(getId(), g.getId()) && Objects.equals(getType(), g.getType())
+        && Properties.equals(this.getProperties(), g.getProperties()))) {
       return false;
     }
 
-    //Now check references, which is expensive
+    // Now check references, which is expensive
     if (!getReferences().keySet().equals(g.getReferences().keySet())) {
       return false;
     }
 
     for (String key : getReferences().keySet()) {
-      Iterator<AnnotationReference> ourIter = getReferences().getOrDefault(key, Stream.empty())
-          .sorted().iterator();
-      Iterator<AnnotationReference> otherIter = g.getReferences().getOrDefault(key, Stream.empty())
-          .sorted().iterator();
+      Iterator<AnnotationReference> ourIter =
+          getReferences().getOrDefault(key, Stream.empty()).sorted().iterator();
+      Iterator<AnnotationReference> otherIter =
+          g.getReferences().getOrDefault(key, Stream.empty()).sorted().iterator();
 
       while (ourIter.hasNext()) {
         if (!otherIter.hasNext()) {
@@ -72,7 +72,7 @@ public abstract class AbstractGroup implements Group {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getType(), getProperties(), getReferences());
+    return Objects.hash(getId(), getType(), Properties.hashCode(getProperties()), getReferences());
   }
 
   @Override
