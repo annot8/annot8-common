@@ -1,8 +1,7 @@
 package io.annot8.common.data.content;
 
-import io.annot8.core.data.Content;
-import java.io.File;
 import java.io.InputStream;
+import io.annot8.core.data.Content;
 
 
 /**
