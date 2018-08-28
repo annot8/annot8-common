@@ -1,5 +1,8 @@
 package io.annot8.common.implementations.capabilities;
 
+import com.google.common.collect.ImmutableSetMultimap;
+import com.google.common.collect.ImmutableSetMultimap.Builder;
+import com.google.common.collect.SetMultimap;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.settings.EmptySettings;
 import io.annot8.core.settings.Settings;
@@ -7,10 +10,10 @@ import io.annot8.core.settings.SettingsClass;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Collates all settings class for components based on the SettingsClass annotation.
@@ -21,38 +24,45 @@ public class SettingsCompiler {
    * Collate settings for a component into a single map
    *
    * @param component the component to consider
-   * @return the map of parent class to the settings it declares
+   * @return the (immutable) map of parent class to the settings it declares
    */
-  public Map<Class<?>, Class<? extends Settings>> compile(Annot8Component component) {
-    Map<Class<?>, Class<? extends Settings>> classes = new HashMap<>();
+  public Map<Class<?>, Collection<Class<? extends Settings>>> compile(Class<?> component) {
 
-    addAnnotatedSettings(classes, component.getClass());
+    Builder<Class<?>, Class<? extends Settings>> builder = ImmutableSetMultimap.builder();
 
-    return Collections.unmodifiableMap(classes);
+    addAnnotatedSettings(builder, component);
+
+    return builder.build().asMap();
   }
 
   /**
    * Collate seetings for a component (and its parent classes) into a set
    *
    * @param component the component to consider
-   * @return the set settings declared
+   * @return the (immutable) set settings declared
    */
-  public Set<Class<? extends Settings>> compileAsSet(Annot8Component component) {
+  public Set<Class<? extends Settings>> compileAsSet(Class<?> component) {
 
-    Collection<Class<? extends Settings>> values = compile(component).values();
+    Collection<Collection<Class<? extends Settings>>> values = compile(component).values();
 
     if (values.isEmpty()) {
       return Collections.emptySet();
-    } else {
-      return Collections.unmodifiableSet(new HashSet<>(values));
     }
+
+    return values
+        .stream()
+        .flatMap(s -> s.stream())
+        .collect(Collectors.toSet());
+
   }
 
-  protected void addAnnotatedSettings(Map<Class<?>, Class<? extends Settings>> classes,
+  protected void addAnnotatedSettings(Builder<Class<?>, Class<? extends Settings>> classes,
       Class<?> clazz) {
     // Recurse through parents
     Class<?> superclass = clazz.getSuperclass();
-    addAnnotatedSettings(classes, superclass);
+    if(superclass != null) {
+      addAnnotatedSettings(classes, superclass);
+    }
 
     SettingsClass[] annotations = clazz.getAnnotationsByType(SettingsClass.class);
 
