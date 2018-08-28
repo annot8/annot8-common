@@ -21,4 +21,5 @@ open module io.annot8.common.implementations {
   exports io.annot8.common.implementations.references;
   exports io.annot8.common.implementations.registries;
   exports io.annot8.common.implementations.stores;
+  exports io.annot8.common.implementations.properties;
 }
