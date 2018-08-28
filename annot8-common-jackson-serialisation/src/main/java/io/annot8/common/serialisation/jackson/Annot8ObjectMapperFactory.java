@@ -87,11 +87,15 @@ public class Annot8ObjectMapperFactory {
     }
   }
 
-  public ObjectMapper configure(ObjectMapper mapper) {
+  public com.fasterxml.jackson.databind.Module getModule() {
     SimpleModule module = new SimpleModule();
     serializers.forEach(s -> module.addSerializer(s.getSerializableClass(), s));
     deserializers.forEach(d -> module.addDeserializer(d.getDeserializableClass(), d));
-    mapper.registerModule(module);
+    return module;
+  }
+
+  public ObjectMapper configure(ObjectMapper mapper) {
+    mapper.registerModule(getModule());
     return mapper;
   }
 
