@@ -46,7 +46,7 @@ public class MapImmutableProperties implements ImmutableProperties {
   }
 
   /**
-   * Builder class for InMemoryImmutableProperties
+   * AbstractContentBuilder class for InMemoryImmutableProperties
    */
   public static class Builder implements ImmutableProperties.Builder {
 

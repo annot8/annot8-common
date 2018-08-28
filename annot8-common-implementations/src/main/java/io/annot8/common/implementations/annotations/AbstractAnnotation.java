@@ -40,18 +40,18 @@ public abstract class AbstractAnnotation implements Annotation {
     return Objects.equals(getId(), a.getId()) && Objects.equals(getType(), a.getType())
         && Properties.equals(getProperties(), a.getProperties())
         && Objects.equals(getBounds(), a.getBounds())
-        && Objects.equals(getContentName(), a.getContentName());
+        && Objects.equals(getContentId(), a.getContentId());
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(getId(), getType(), Properties.hashCode(getProperties()), getBounds(),
-        getContentName());
+        getContentId());
   }
 
   @Override
   public String toString() {
     return this.getClass().getName() + " [id=" + getId() + ", type=" + getType() + ", contentName="
-        + getContentName() + ", bounds=" + getBounds() + ", properties=" + getProperties() + "]";
+        + getContentId() + ", bounds=" + getBounds() + ", properties=" + getProperties() + "]";
   }
 }

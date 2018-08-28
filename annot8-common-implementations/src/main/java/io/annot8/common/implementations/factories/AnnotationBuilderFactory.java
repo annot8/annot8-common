@@ -17,7 +17,7 @@ public interface AnnotationBuilderFactory<T> {
    *
    * Most implementation will simply need the store parameter to allow save on save.
    *
-   * @param content the content name
+   * @param content the content id
    * @param store the annotation store to use
    * @param saver save callback (used by the builder)
    * @return non-null builder

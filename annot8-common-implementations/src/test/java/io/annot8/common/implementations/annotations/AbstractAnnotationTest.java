@@ -56,14 +56,14 @@ public class AbstractAnnotationTest {
     private String id;
     private String type;
     private Map<String, Object> properties;
-    private String contentName;
+    private String contentId;
     private Bounds bounds;
 
-    public TestAnnotation(String id, String type, String contentName,
+    public TestAnnotation(String id, String type, String contentId,
         Map<String, Object> properties, Bounds bounds) {
       this.id = id;
       this.type = type;
-      this.contentName = contentName;
+      this.contentId = contentId;
       this.properties = properties;
       this.bounds = bounds;
     }
@@ -74,8 +74,8 @@ public class AbstractAnnotationTest {
     }
 
     @Override
-    public String getContentName() {
-      return contentName;
+    public String getContentId() {
+      return contentId;
     }
 
     @Override

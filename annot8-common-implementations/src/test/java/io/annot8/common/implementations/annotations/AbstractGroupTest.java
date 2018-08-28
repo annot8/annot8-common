@@ -58,9 +58,9 @@ public class AbstractGroupTest {
     String groupId = "groupId";
     String groupType = "groupType";
     String annotationId = "annoId";
-    String contentName = "contentName";
+    String contentId = "contentId";
     String role = "role";
-    AnnotationReference reference = getAnnotationReference(annotationId, contentName);
+    AnnotationReference reference = getAnnotationReference(annotationId, contentId);
 
     Group group = new TestGroup(groupId, groupType,
         Collections.singletonMap(role, Collections.singletonList(reference)),
@@ -71,7 +71,7 @@ public class AbstractGroupTest {
 
     assertTrue(group.equals(other));
 
-    AnnotationReference diffReference = getAnnotationReference("diffId", "diffName");
+    AnnotationReference diffReference = getAnnotationReference("diffId", "diffContentId");
 
     Group differentReference = new TestGroup(groupId, groupType,
         Collections.singletonMap(role, Collections.singletonList(diffReference)),
@@ -86,7 +86,7 @@ public class AbstractGroupTest {
     assertFalse(group.equals(differentRole));
   }
 
-  private AnnotationReference getAnnotationReference(String annotationId, String contentName) {
+  private AnnotationReference getAnnotationReference(String annotationId, String contentId) {
     return new AnnotationReference() {
 
       @Override
@@ -95,8 +95,8 @@ public class AbstractGroupTest {
       }
 
       @Override
-      public String getContentName() {
-        return contentName;
+      public String getContentId() {
+        return contentId;
       }
 
       @Override

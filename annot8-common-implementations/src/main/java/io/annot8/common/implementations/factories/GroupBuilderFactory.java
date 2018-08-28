@@ -22,5 +22,4 @@ public interface GroupBuilderFactory<T> {
    * @return non-null
    */
   Group.Builder create(Item item, GroupStore groupStore, SaveCallback<T, Group> saver);
-
 }

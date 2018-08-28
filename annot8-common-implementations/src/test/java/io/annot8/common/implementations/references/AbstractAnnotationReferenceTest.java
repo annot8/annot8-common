@@ -27,17 +27,17 @@ public class AbstractAnnotationReferenceTest {
 
   private class TestAnnotationReference extends AbstractAnnotationReference {
 
-    private String contentName;
+    private String contentId;
     private String annotationId;
 
-    public TestAnnotationReference(String contentName, String annotationId) {
-      this.contentName = contentName;
+    public TestAnnotationReference(String contentId, String annotationId) {
+      this.contentId = contentId;
       this.annotationId = annotationId;
     }
 
     @Override
-    public String getContentName() {
-      return contentName;
+    public String getContentId() {
+      return contentId;
     }
 
     @Override

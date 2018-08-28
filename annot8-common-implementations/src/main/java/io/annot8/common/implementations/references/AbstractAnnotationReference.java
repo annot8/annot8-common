@@ -32,17 +32,17 @@ public abstract class AbstractAnnotationReference implements AnnotationReference
 
     AnnotationReference that = (AnnotationReference) other;
     return Objects.equals(getAnnotationId(), that.getAnnotationId()) && Objects
-        .equals(getContentName(), that.getContentName());
+        .equals(getContentId(), that.getContentId());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getAnnotationId(), getContentName());
+    return Objects.hash(getAnnotationId(), getContentId());
   }
 
   @Override
   public String toString() {
-    return this.getClass().getName() + " [annotationId=" + getAnnotationId() + ", contentName="
-        + getContentName() + "]";
+    return this.getClass().getName() + " [annotationId=" + getAnnotationId() + ", contentId="
+        + getContentId() + "]";
   }
 }
