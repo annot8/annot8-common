@@ -1,8 +1,8 @@
 package io.annot8.common.implementations.annotations;
 
-import java.util.Objects;
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.properties.Properties;
+import java.util.Objects;
 
 /**
  * Abstract implementation of Annotation, providing correct implementations of equals, hashCode and

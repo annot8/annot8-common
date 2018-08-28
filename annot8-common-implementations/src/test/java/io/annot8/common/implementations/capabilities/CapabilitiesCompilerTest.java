@@ -1,10 +1,7 @@
 package io.annot8.common.implementations.capabilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.Test;
+
 import io.annot8.common.implementations.capabilities.AnnotationBasedCapabilitiesTest.FakeBounds;
 import io.annot8.common.implementations.capabilities.AnnotationBasedCapabilitiesTest.FakeContent;
 import io.annot8.core.capabilities.AnnotationCapability;
@@ -26,6 +23,10 @@ import io.annot8.core.capabilities.UsesResource;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Resource;
 import io.annot8.core.data.Content;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 
 public class CapabilitiesCompilerTest {
 

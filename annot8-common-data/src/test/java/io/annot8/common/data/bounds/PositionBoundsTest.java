@@ -7,12 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import io.annot8.core.data.Content;
+import io.annot8.core.exceptions.Annot8RuntimeException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
-import io.annot8.core.data.Content;
-import io.annot8.core.exceptions.Annot8RuntimeException;
 
 class PositionBoundsTest {
 

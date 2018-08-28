@@ -1,9 +1,5 @@
 package io.annot8.common.implementations.capabilities;
 
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.function.Function;
-import java.util.stream.Stream;
 import io.annot8.core.capabilities.AnnotationCapability;
 import io.annot8.core.capabilities.Capabilities;
 import io.annot8.core.capabilities.ContentCapability;
@@ -20,6 +16,10 @@ import io.annot8.core.capabilities.ProcessesGroup;
 import io.annot8.core.capabilities.ResourceCapability;
 import io.annot8.core.capabilities.UsesResource;
 import io.annot8.core.components.Annot8Component;
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * Implementation of Capabilities which uses annotations on the component class to determine its'

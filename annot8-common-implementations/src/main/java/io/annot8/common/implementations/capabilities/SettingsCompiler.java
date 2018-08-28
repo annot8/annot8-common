@@ -2,15 +2,12 @@ package io.annot8.common.implementations.capabilities;
 
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.ImmutableSetMultimap.Builder;
-import com.google.common.collect.SetMultimap;
-import io.annot8.core.components.Annot8Component;
 import io.annot8.core.settings.EmptySettings;
 import io.annot8.core.settings.Settings;
 import io.annot8.core.settings.SettingsClass;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;

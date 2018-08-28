@@ -2,16 +2,12 @@ package io.annot8.common.implementations.capabilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.google.common.collect.SetMultimap;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.settings.Settings;
 import io.annot8.core.settings.SettingsClass;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-import org.assertj.core.api.Assertions;
-import org.assertj.core.data.MapEntry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

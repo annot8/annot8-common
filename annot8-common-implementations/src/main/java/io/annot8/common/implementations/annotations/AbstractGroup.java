@@ -1,11 +1,11 @@
 package io.annot8.common.implementations.annotations;
 
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.stream.Stream;
 import io.annot8.core.annotations.Group;
 import io.annot8.core.properties.Properties;
 import io.annot8.core.references.AnnotationReference;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * Abstract implementation of Group, providing correct implementations of equals, hashCode and

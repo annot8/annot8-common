@@ -3,11 +3,12 @@ package io.annot8.common.implementations.annotations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import io.annot8.core.bounds.Bounds;
+import io.annot8.core.properties.ImmutableProperties;
 import java.util.Collections;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import io.annot8.core.bounds.Bounds;
-import io.annot8.core.properties.ImmutableProperties;
 
 public class AbstractAnnotationTest {
 

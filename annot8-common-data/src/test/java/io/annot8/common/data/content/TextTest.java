@@ -8,6 +8,11 @@ import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import io.annot8.common.data.bounds.SpanBounds;
+import io.annot8.core.annotations.Annotation;
+import io.annot8.core.bounds.Bounds;
+import io.annot8.core.stores.AnnotationStore;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,10 +22,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import io.annot8.common.data.bounds.SpanBounds;
-import io.annot8.core.annotations.Annotation;
-import io.annot8.core.bounds.Bounds;
-import io.annot8.core.stores.AnnotationStore;
 
 class TextTest {
 

@@ -2,11 +2,7 @@ package io.annot8.common.utils.capabilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.capabilities.AnnotationCapability;
 import io.annot8.core.capabilities.Capabilities;
@@ -15,6 +11,11 @@ import io.annot8.core.capabilities.GroupCapability;
 import io.annot8.core.capabilities.ResourceCapability;
 import io.annot8.core.components.Resource;
 import io.annot8.core.data.Content;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 public class MergedCapabilitiesTest {
 

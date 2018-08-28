@@ -1,9 +1,9 @@
 package io.annot8.common.implementations.capabilities;
 
-import java.util.function.Supplier;
 import io.annot8.core.capabilities.Capabilities;
 import io.annot8.core.capabilities.Capabilities.Builder;
 import io.annot8.core.components.Annot8Component;
+import java.util.function.Supplier;
 
 /**
  * Merges capabilities for components from their annotations and buildCapabilities.
