@@ -10,6 +10,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>annot8-common-jackson-serialisation</artifactId>
+  <name>Annot8 Common Jackson based serialisation</name>
+  <description>Serialisation of bounds and other annot8 classes using Jackson</description>
+
   <dependencies>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

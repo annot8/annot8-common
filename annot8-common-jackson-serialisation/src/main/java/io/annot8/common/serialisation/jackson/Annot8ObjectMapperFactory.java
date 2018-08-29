@@ -39,6 +39,7 @@ public class Annot8ObjectMapperFactory {
 
     ScanResult scan = new ClassGraph()
         .enableClassInfo()
+        .enableMethodInfo()
         .scan();
 
     scan.getSubclasses(AbstractAnnot8Deserializer.class.getName())
@@ -46,9 +47,9 @@ public class Annot8ObjectMapperFactory {
         .forEach(ci -> registerDeserialiser((Class<AbstractAnnot8Deserializer<?>>) ci.loadClass()));
 
 
-    scan.getSubclasses(AbstractAnnot8Deserializer.class.getName())
+    scan.getSubclasses(AbstractAnnot8Serializer.class.getName())
         .filter(this::hasPublicNoArgumentsConstructor)
-        .forEach(ci -> registerSerialiser((Class<AbstractAnnot8Deserializer<?>>) ci.loadClass()));
+        .forEach(ci -> registerSerialiser((Class<AbstractAnnot8Serializer<?>>) ci.loadClass()));
 
   }
 
@@ -58,7 +59,7 @@ public class Annot8ObjectMapperFactory {
     (mi -> mi.isPublic() && mi.getParameterInfo().length == 0);
   }
 
-  protected void registerSerialiser(Class<AbstractAnnot8Deserializer<?>> clazz) {
+  protected void registerSerialiser(Class<AbstractAnnot8Serializer<?>> clazz) {
     try {
       register(clazz.getConstructor().newInstance());
     } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
