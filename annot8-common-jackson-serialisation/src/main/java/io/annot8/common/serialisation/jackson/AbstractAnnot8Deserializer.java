@@ -12,7 +12,7 @@ public abstract class AbstractAnnot8Deserializer<D> extends StdDeserializer<D> {
   }
 
   /**
-   * Return the class this deserialzer handles
+   * Return the class this deserializer handles
    */
   public Class<D> getDeserializableClass() {
     return clazz;
