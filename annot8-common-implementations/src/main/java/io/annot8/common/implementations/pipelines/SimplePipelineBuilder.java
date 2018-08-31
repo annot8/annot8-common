@@ -14,8 +14,8 @@ import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -63,19 +63,21 @@ public class SimplePipelineBuilder implements PipelineBuilder {
     return this;
   }
 
-  public PipelineBuilder addResource(final String id, final Resource resource, final Settings... configuration) {
-    resourcesToConfiguration.put(resource, Arrays.asList(configuration));
+  public PipelineBuilder addResource(final String id, final Resource resource, final Collection<Settings> configuration) {
+    resourcesToConfiguration.put(resource, nonNullCollection(configuration));
     resourcesToId.put(resource, id);
     return this;
   }
 
-  public PipelineBuilder addDataSource(final Source source, final Settings... configuration) {
-    sourcesToConfiguration.put(source, Arrays.asList(configuration));
+  public PipelineBuilder addDataSource(final Source source, final Collection<Settings> configuration) {
+    sourcesToConfiguration.put(source, nonNullCollection(configuration));
     return this;
   }
 
-  public PipelineBuilder addProcessor(final Processor processor, final Settings... configuration) {
-    processorToConfiguration.put(processor, Arrays.asList(configuration));
+
+
+  public PipelineBuilder addProcessor(final Processor processor, final Collection<Settings> configuration) {
+    processorToConfiguration.put(processor, nonNullCollection(configuration));
     return this;
   }
 
@@ -165,5 +167,9 @@ public class SimplePipelineBuilder implements PipelineBuilder {
     public void registerWith(ContentBuilderFactoryRegistry contentBuilderFactoryRegistry) {
       contentBuilderFactoryRegistry.register(getContentClass(), getFactory());
     }
+  }
+
+  private Collection<Settings> nonNullCollection(Collection<Settings> configuration) {
+    return configuration == null ? Collections.emptySet() : configuration;
   }
 }
