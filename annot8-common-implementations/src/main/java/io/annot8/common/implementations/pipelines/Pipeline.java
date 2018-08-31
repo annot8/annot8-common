@@ -1,6 +1,8 @@
 package io.annot8.common.implementations.pipelines;
 
-public interface Pipeline extends AutoCloseable {
+import io.annot8.core.helpers.WithId;
+
+public interface Pipeline extends WithId, AutoCloseable {
 
   void run();
 

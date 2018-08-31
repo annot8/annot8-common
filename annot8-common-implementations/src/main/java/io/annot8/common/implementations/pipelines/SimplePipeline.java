@@ -12,12 +12,15 @@ import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.Annot8Exception;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SimplePipeline implements Pipeline {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimplePipeline.class);
+
+  private String id;
 
   private final ItemFactory itemFactory;
   private final ItemQueue itemQueue;
@@ -28,11 +31,17 @@ public class SimplePipeline implements Pipeline {
   public SimplePipeline(ItemFactory itemFactory, ItemQueue itemQueue,
       Map<String, Resource> resources,
       List<Source> sources, List<Processor> processors) {
+    this.id = UUID.randomUUID().toString();
     this.itemFactory = itemFactory;
     this.itemQueue = itemQueue;
     this.resources = resources;
     this.sources = sources;
     this.processors = processors;
+  }
+
+  @Override
+  public String getId() {
+    return id;
   }
 
   @Override

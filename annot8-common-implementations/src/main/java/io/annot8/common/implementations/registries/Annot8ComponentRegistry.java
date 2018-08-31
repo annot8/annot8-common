@@ -36,7 +36,10 @@ public class Annot8ComponentRegistry {
 
   public <T extends Annot8Component> Optional<Class<? extends T>> getComponent(String klass,
       Class<T> componentType) {
-    return classes.stream().filter(componentType::isAssignableFrom)
-        .filter(c -> c.getName().equals(klass)).findFirst().map(c -> c.asSubclass(componentType));
+    return classes.stream()
+        .filter(componentType::isAssignableFrom)
+        .filter(c -> c.getName().equals(klass))
+        .findFirst()
+        .map(c -> c.asSubclass(componentType));
   }
 }
