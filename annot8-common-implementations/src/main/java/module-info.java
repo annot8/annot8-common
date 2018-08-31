@@ -23,4 +23,6 @@ open module io.annot8.common.implementations {
   exports io.annot8.common.implementations.stores;
   exports io.annot8.common.implementations.properties;
   exports io.annot8.common.implementations.content;
+  exports io.annot8.common.implementations.context;
+
 }
