@@ -14,6 +14,7 @@ open module io.annot8.common.implementations {
   requires com.google.common;
 
   requires transitive io.annot8.core;
+  requires slf4j.api;
 
   exports io.annot8.common.implementations.annotations;
   exports io.annot8.common.implementations.capabilities;
@@ -24,5 +25,7 @@ open module io.annot8.common.implementations {
   exports io.annot8.common.implementations.properties;
   exports io.annot8.common.implementations.content;
   exports io.annot8.common.implementations.context;
+  exports io.annot8.common.implementations.pipelines;
+
 
 }

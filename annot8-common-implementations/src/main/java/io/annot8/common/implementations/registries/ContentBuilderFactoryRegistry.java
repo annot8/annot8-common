@@ -16,4 +16,8 @@ public interface ContentBuilderFactoryRegistry {
    * @return builder (if available for that content class)
    */
   <D, C extends Content<D>> Optional<ContentBuilderFactory<D, C>> get(Class<C> contentClass);
+
+  <D, C extends Content<D>, I extends C> void register(Class<C> contentClass,
+      ContentBuilderFactory<D, I> contentBuilderFactory);
+
 }
