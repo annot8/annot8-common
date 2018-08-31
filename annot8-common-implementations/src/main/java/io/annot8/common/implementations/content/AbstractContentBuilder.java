@@ -1,7 +1,6 @@
 package io.annot8.common.implementations.content;
 
 import io.annot8.common.implementations.properties.MapImmutableProperties;
-import io.annot8.common.implementations.stores.AnnotationStoreFactory;
 import io.annot8.common.implementations.stores.SaveCallback;
 import io.annot8.core.data.Content;
 import io.annot8.core.exceptions.IncompleteException;
@@ -12,7 +11,6 @@ import java.util.function.Supplier;
 
 public abstract class AbstractContentBuilder<D, C extends Content<D>> implements Content.Builder<C, D> {
 
-  private final AnnotationStoreFactory annotationStoreFactory;
     private final SaveCallback<C, C> saver;
     private final ImmutableProperties.Builder properties = new MapImmutableProperties.Builder();
     private String name;
@@ -20,8 +18,7 @@ public abstract class AbstractContentBuilder<D, C extends Content<D>> implements
 
     private Supplier<D> data;
 
-    public AbstractContentBuilder(AnnotationStoreFactory annotationStoreFactory, SaveCallback<C, C> saver) {
-      this.annotationStoreFactory = annotationStoreFactory;
+    public AbstractContentBuilder(SaveCallback<C, C> saver) {
       this.saver = saver;
     }
 
@@ -94,11 +91,6 @@ public abstract class AbstractContentBuilder<D, C extends Content<D>> implements
 
       return saver.save(content);
     }
-
-  protected AnnotationStoreFactory getAnnotationStoreFactory() {
-    return annotationStoreFactory;
-  }
-
 
   protected abstract C create(String id, String name,
         ImmutableProperties properties, Supplier<D> data) throws IncompleteException;

@@ -1,6 +1,5 @@
 package io.annot8.common.implementations.content;
 
-import io.annot8.common.implementations.stores.AnnotationStoreFactory;
 import io.annot8.core.data.Content;
 import io.annot8.core.properties.ImmutableProperties;
 import io.annot8.core.stores.AnnotationStore;
@@ -17,16 +16,15 @@ public abstract class AbstractContent<D> implements Content<D> {
   private final ImmutableProperties properties;
   private final Supplier<D> data;
 
-  protected AbstractContent(Class<D> dataClass, Class<? extends Content<D>> contentClass,  AnnotationStoreFactory annotationStoreFactory,String id, String name,
+  protected AbstractContent(Class<D> dataClass, Class<? extends Content<D>> contentClass, AnnotationStore annotations, String id, String name,
       ImmutableProperties properties, Supplier<D> data) {
     this.dataClass = dataClass;
     this.contentClass = contentClass;
+    this.annotations = annotations;
     this.id = id;
     this.name = name;
     this.properties = properties;
     this.data = data;
-
-    this.annotations = annotationStoreFactory.create(this);
   }
 
   @Override
