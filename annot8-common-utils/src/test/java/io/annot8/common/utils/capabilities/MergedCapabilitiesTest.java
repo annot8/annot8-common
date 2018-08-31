@@ -76,7 +76,7 @@ public class MergedCapabilitiesTest {
 
   @Test
   public void testHandlesNullAndEmpty() {
-    MergedCapabilities capabilities = new MergedCapabilities(null);
+    MergedCapabilities capabilities = new MergedCapabilities(null, null);
     MergedCapabilities capabilities2 = new MergedCapabilities();
     assertEmptyCapabilities(capabilities);
     assertEmptyCapabilities(capabilities2);
