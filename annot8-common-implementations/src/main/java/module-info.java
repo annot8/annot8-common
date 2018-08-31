@@ -27,6 +27,6 @@ open module io.annot8.common.implementations {
   exports io.annot8.common.implementations.context;
   exports io.annot8.common.implementations.pipelines;
   exports io.annot8.common.implementations.pipelines.configuration;
-
+  exports io.annot8.common.implementations.pipelines.management;
 
 }
