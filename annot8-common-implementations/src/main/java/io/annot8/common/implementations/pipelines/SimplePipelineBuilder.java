@@ -28,9 +28,7 @@ public class SimplePipelineBuilder implements PipelineBuilder {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimplePipeline.class);
 
-
   protected ItemQueue itemQueue;
-  protected ContentBuilderFactoryRegistry contentBuilderFactoryRegistry;
   protected ItemFactory itemFactory;
 
   // Use a linked hash map so the addition order = configuration order
@@ -38,14 +36,6 @@ public class SimplePipelineBuilder implements PipelineBuilder {
   private final Map<Processor, Collection<Settings>> processorToConfiguration = new LinkedHashMap<>();
   private final Map<Resource, Collection<Settings>> resourcesToConfiguration = new LinkedHashMap<>();
   private final Map<Resource, String> resourcesToId = new HashMap<>();
-  private final List<ContentClassWithBuilder<?,?,?>> contentBuilders = new ArrayList<>();
-
-
-  public <D, C extends Content<D>, I extends C> PipelineBuilder addContentBuilder(Class<C> contentClass,
-      ContentBuilderFactory<D, I> factory) {
-    contentBuilders.add(new ContentClassWithBuilder<>(contentClass, factory));
-    return this;
-  }
 
   public PipelineBuilder withItemQueue(ItemQueue itemQueue) {
     this.itemQueue = itemQueue;
@@ -54,12 +44,6 @@ public class SimplePipelineBuilder implements PipelineBuilder {
 
   public PipelineBuilder withItemFactory(ItemFactory itemFactory) {
     this.itemFactory = itemFactory;
-    return this;
-  }
-
-
-  public PipelineBuilder withContentBuilderFactory(ContentBuilderFactoryRegistry registry) {
-    this.contentBuilderFactoryRegistry = registry;
     return this;
   }
 
@@ -87,20 +71,9 @@ public class SimplePipelineBuilder implements PipelineBuilder {
       throw new IncompleteException("No item factory specified");
     }
 
-    if(contentBuilderFactoryRegistry != null) {
-      contentBuilderFactoryRegistry =  new SimpleContentBuilderFactoryRegistry();
-      // We do not warn about this as the implementation has no really drawbacks
-    }
-
-
     if(itemQueue == null) {;
-      LOGGER.warn("No item queue specified, you no child items will be created (use SimpleItemQueue as an basic implemntation)");
+      LOGGER.warn("No item queue specified, you no child items will be created (use SimpleItemQueue as an basic implementation)");
     }
-
-
-    contentBuilders.forEach(e ->
-        e.registerWith(contentBuilderFactoryRegistry)
-    );
 
     Map<String, Resource> configuredResources = new HashMap<>();
 
@@ -143,30 +116,6 @@ public class SimplePipelineBuilder implements PipelineBuilder {
       LOGGER.error("Failed to configure component {}",component.getClass().getName(),e);
     }
     return false;
-  }
-
-  private static class ContentClassWithBuilder<D, C extends Content<D>, I extends C> {
-    private final Class<C> contentClass;
-    private final ContentBuilderFactory<D, I> factory;
-
-
-    private ContentClassWithBuilder(Class<C> contentClass,
-        ContentBuilderFactory<D, I> factory) {
-      this.contentClass = contentClass;
-      this.factory = factory;
-    }
-
-    public Class<C> getContentClass() {
-      return contentClass;
-    }
-
-    public ContentBuilderFactory<D, I> getFactory() {
-      return factory;
-    }
-
-    public void registerWith(ContentBuilderFactoryRegistry contentBuilderFactoryRegistry) {
-      contentBuilderFactoryRegistry.register(getContentClass(), getFactory());
-    }
   }
 
   private Collection<Settings> nonNullCollection(Collection<Settings> configuration) {

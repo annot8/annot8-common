@@ -14,14 +14,9 @@ import java.util.Collection;
 
 public interface PipelineBuilder {
 
-  <D, C extends Content<D>, I extends C> PipelineBuilder addContentBuilder(Class<C> contentClass,
-      ContentBuilderFactory<D, I> factory);
-
   PipelineBuilder withItemQueue(ItemQueue itemQueue);
 
   PipelineBuilder withItemFactory(ItemFactory itemFactory);
-
-  PipelineBuilder withContentBuilderFactory(ContentBuilderFactoryRegistry registry);
 
   default PipelineBuilder addResource(final String id, final Resource resource, final Settings... settings)  {
     addResource(id, resource, Arrays.asList(settings));
