@@ -67,6 +67,11 @@ public class SimplePipeline implements Pipeline {
 
   private void processItemQueue() {
 
+    // If we've not been given provided a queue, ignore the request
+    if(itemQueue == null) {
+      return;
+    }
+
     while (itemQueue.hasItems()) {
       Item item = itemQueue.next();
 
