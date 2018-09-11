@@ -1,11 +1,8 @@
 package io.annot8.common.implementations.pipelines;
 
-import io.annot8.common.implementations.factories.ContentBuilderFactory;
-import io.annot8.common.implementations.registries.ContentBuilderFactoryRegistry;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
-import io.annot8.core.data.Content;
 import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
@@ -23,8 +20,8 @@ public interface PipelineBuilder {
     return this;
   }
 
-  default PipelineBuilder addDataSource(final Source source, final Settings... settings) {
-    addDataSource(source, Arrays.asList(settings));
+  default PipelineBuilder addSource(final Source source, final Settings... settings) {
+    addSource(source, Arrays.asList(settings));
     return this;
   }
 
@@ -35,7 +32,7 @@ public interface PipelineBuilder {
 
   PipelineBuilder addResource(final String id, final Resource resource, final Collection<Settings> settings) ;
 
-  PipelineBuilder addDataSource(final Source source, final Collection<Settings> settings);
+  PipelineBuilder addSource(final Source source, final Collection<Settings> settings);
 
   PipelineBuilder addProcessor(final Processor processor, final Collection<Settings> settings);
 

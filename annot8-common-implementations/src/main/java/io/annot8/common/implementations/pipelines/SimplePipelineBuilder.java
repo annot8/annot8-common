@@ -53,7 +53,7 @@ public class SimplePipelineBuilder implements PipelineBuilder {
     return this;
   }
 
-  public PipelineBuilder addDataSource(final Source source, final Collection<Settings> configuration) {
+  public PipelineBuilder addSource(final Source source, final Collection<Settings> configuration) {
     sourcesToConfiguration.put(source, nonNullCollection(configuration));
     return this;
   }

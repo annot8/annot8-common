@@ -43,7 +43,7 @@ public class SimplePipelineFactory implements PipelineFactory {
     PipelineBuilder pipelineBuilder = builderFactory.get();
 
     configuration.getSources().stream()
-        .forEach(s -> addComponentToBuilder(Source.class, s, (i, c) -> pipelineBuilder.addDataSource(i, c)));
+        .forEach(s -> addComponentToBuilder(Source.class, s, (i, c) -> pipelineBuilder.addSource(i, c)));
 
     configuration.getProcessors().stream()
         .forEach(s -> addComponentToBuilder(
