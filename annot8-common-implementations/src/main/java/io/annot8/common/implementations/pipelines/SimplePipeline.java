@@ -1,5 +1,6 @@
 package io.annot8.common.implementations.pipelines;
 
+import io.annot8.common.implementations.factories.NotifyingItemFactory;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
@@ -22,7 +23,7 @@ public class SimplePipeline implements Pipeline {
 
   private String id;
 
-  private final ItemFactory itemFactory;
+  private final NotifyingItemFactory itemFactory;
   private final ItemQueue itemQueue;
   private final Map<String, Resource> resources;
   private final List<Source> sources;
@@ -32,11 +33,13 @@ public class SimplePipeline implements Pipeline {
       Map<String, Resource> resources,
       List<Source> sources, List<Processor> processors) {
     this.id = UUID.randomUUID().toString();
-    this.itemFactory = itemFactory;
+    this.itemFactory = new NotifyingItemFactory(itemFactory);
     this.itemQueue = itemQueue;
     this.resources = resources;
     this.sources = sources;
     this.processors = processors;
+
+    this.itemFactory.registerListener(itemQueue::add);
   }
 
   @Override

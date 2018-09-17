@@ -2,18 +2,13 @@ package io.annot8.common.implementations.pipelines;
 
 
 import io.annot8.common.implementations.context.SimpleContext;
-import io.annot8.common.implementations.factories.ContentBuilderFactory;
-import io.annot8.common.implementations.registries.ContentBuilderFactoryRegistry;
-import io.annot8.common.implementations.registries.SimpleContentBuilderFactoryRegistry;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
-import io.annot8.core.data.Content;
 import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -72,7 +67,8 @@ public class SimplePipelineBuilder implements PipelineBuilder {
     }
 
     if(itemQueue == null) {;
-      LOGGER.warn("No item queue specified, you no child items will be created (use SimpleItemQueue as an basic implementation)");
+      LOGGER.warn("No item queue specified, (using SimpleItemQueue as an basic implementation)");
+      this.itemQueue = new SimpleItemQueue();
     }
 
     Map<String, Resource> configuredResources = new HashMap<>();
