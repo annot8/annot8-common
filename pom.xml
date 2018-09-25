@@ -16,6 +16,7 @@
 
   <name>Annot8 Common</name>
   <description>Common functionality used by Annot8 implementations</description>
+  <version>0.1.0</version>
 
   <issueManagement>
     <url>https://github.com/annot8/common/issues</url>
