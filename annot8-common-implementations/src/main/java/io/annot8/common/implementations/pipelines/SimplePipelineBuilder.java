@@ -2,11 +2,11 @@ package io.annot8.common.implementations.pipelines;
 
 
 import io.annot8.common.implementations.context.SimpleContext;
+import io.annot8.common.implementations.factories.ItemCreator;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
-import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
 import java.util.Collection;
@@ -24,7 +24,7 @@ public class SimplePipelineBuilder implements PipelineBuilder {
   private static final Logger LOGGER = LoggerFactory.getLogger(SimplePipeline.class);
 
   protected ItemQueue itemQueue;
-  protected ItemFactory itemFactory;
+  protected ItemCreator itemCreator;
 
   // Use a linked hash map so the addition order = configuration order
   private final Map<Source, Collection<Settings>> sourcesToConfiguration = new LinkedHashMap<>();
@@ -37,8 +37,8 @@ public class SimplePipelineBuilder implements PipelineBuilder {
     return this;
   }
 
-  public PipelineBuilder withItemFactory(ItemFactory itemFactory) {
-    this.itemFactory = itemFactory;
+  public PipelineBuilder withItemCreator(ItemCreator itemCreator) {
+    this.itemCreator = itemCreator;
     return this;
   }
 
@@ -62,8 +62,8 @@ public class SimplePipelineBuilder implements PipelineBuilder {
 
   public Pipeline build() throws IncompleteException {
 
-    if(itemFactory == null) {
-      throw new IncompleteException("No item factory specified");
+    if(itemCreator == null) {
+      throw new IncompleteException("No item creator specified");
     }
 
     if(itemQueue == null) {;
@@ -86,7 +86,7 @@ public class SimplePipelineBuilder implements PipelineBuilder {
     List<Processor> configurePipelines = configureAllComponents(configuredResources,
         processorToConfiguration);
 
-    return new SimplePipeline(itemFactory, itemQueue, configuredResources, configuredSources,
+    return new SimplePipeline(itemCreator, itemQueue, configuredResources, configuredSources,
         configurePipelines);
   }
 

@@ -1,18 +1,16 @@
 package io.annot8.common.implementations.factories;
 
 import io.annot8.core.data.Item;
-import io.annot8.core.data.ItemFactory;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class NotifyingItemFactory implements ItemFactory {
+public class NotifyingItemFactory extends SimpleItemFactory {
 
   private final Set<Consumer<Item>> listeners = new HashSet<>();
-  private final ItemFactory factory;
 
-  public NotifyingItemFactory(ItemFactory factory) {
-    this.factory = factory;
+  public NotifyingItemFactory(ItemCreator creator) {
+    super(creator);
   }
 
   public void registerListener(Consumer<Item> consumer) {
@@ -25,14 +23,14 @@ public class NotifyingItemFactory implements ItemFactory {
 
   @Override
   public Item create() {
-    Item item = factory.create();
+    Item item = super.create();
     notifyListeners(item);
     return item;
   }
 
   @Override
   public Item create(Item parent) {
-    Item item = factory.create(parent);
+    Item item = super.create(parent);
     notifyListeners(item);
     return item;
   }

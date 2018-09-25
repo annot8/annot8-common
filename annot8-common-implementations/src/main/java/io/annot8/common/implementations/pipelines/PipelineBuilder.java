@@ -1,9 +1,9 @@
 package io.annot8.common.implementations.pipelines;
 
+import io.annot8.common.implementations.factories.ItemCreator;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
-import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public interface PipelineBuilder {
 
   PipelineBuilder withItemQueue(ItemQueue itemQueue);
 
-  PipelineBuilder withItemFactory(ItemFactory itemFactory);
+  PipelineBuilder withItemCreator(ItemCreator itemCreator);
 
   default PipelineBuilder addResource(final String id, final Resource resource, final Settings... settings)  {
     addResource(id, resource, Arrays.asList(settings));
