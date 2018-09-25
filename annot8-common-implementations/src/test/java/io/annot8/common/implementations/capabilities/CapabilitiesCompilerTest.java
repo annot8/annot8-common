@@ -1,6 +1,13 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.capabilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Test;
 
 import io.annot8.common.implementations.capabilities.AnnotationBasedCapabilitiesTest.FakeBounds;
 import io.annot8.common.implementations.capabilities.AnnotationBasedCapabilitiesTest.FakeContent;
@@ -23,10 +30,6 @@ import io.annot8.core.capabilities.UsesResource;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Resource;
 import io.annot8.core.data.Content;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.Test;
 
 public class CapabilitiesCompilerTest {
 
@@ -77,15 +80,10 @@ public class CapabilitiesCompilerTest {
   @ProcessesGroup(value = "g2")
   @DeletesGroup(value = "g3")
   @UsesResource(Resource.class)
-  private class FakeComponent implements Annot8Component {
-
-  }
+  private class FakeComponent implements Annot8Component {}
 
   @CreatesGroup("g2")
-  private class FakeComponentChild extends FakeComponent {
-
-  }
-
+  private class FakeComponentChild extends FakeComponent {}
 
   private class TestCapabilitiesBuilder implements Capabilities.Builder {
 
@@ -213,11 +211,7 @@ public class CapabilitiesCompilerTest {
         public Stream<ResourceCapability> getUsedResources() {
           return resources.stream();
         }
-
       };
     }
-
-
   }
-
 }

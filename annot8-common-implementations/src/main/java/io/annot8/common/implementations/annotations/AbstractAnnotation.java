@@ -1,22 +1,24 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.annotations;
+
+import java.util.Objects;
 
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.properties.Properties;
-import java.util.Objects;
 
 /**
  * Abstract implementation of Annotation, providing correct implementations of equals, hashCode and
  * toString.
  *
- * Two annotations are taken to be equal if the following properties are all equal. The actual
+ * <p>Two annotations are taken to be equal if the following properties are all equal. The actual
  * implementation of the annotation is seen to be irrelevant and not checked.
  *
  * <ul>
- * <li>id</li>
- * <li>type</li>
- * <li>properties</li>
- * <li>bounds</li>
- * <li>contentName</li>
+ *   <li>id
+ *   <li>type
+ *   <li>properties
+ *   <li>bounds
+ *   <li>contentName
  * </ul>
  */
 public abstract class AbstractAnnotation implements Annotation {
@@ -37,7 +39,8 @@ public abstract class AbstractAnnotation implements Annotation {
 
     Annotation a = (Annotation) other;
 
-    return Objects.equals(getId(), a.getId()) && Objects.equals(getType(), a.getType())
+    return Objects.equals(getId(), a.getId())
+        && Objects.equals(getType(), a.getType())
         && Properties.equals(getProperties(), a.getProperties())
         && Objects.equals(getBounds(), a.getBounds())
         && Objects.equals(getContentId(), a.getContentId());
@@ -45,13 +48,23 @@ public abstract class AbstractAnnotation implements Annotation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getType(), Properties.hashCode(getProperties()), getBounds(),
-        getContentId());
+    return Objects.hash(
+        getId(), getType(), Properties.hashCode(getProperties()), getBounds(), getContentId());
   }
 
   @Override
   public String toString() {
-    return this.getClass().getName() + " [id=" + getId() + ", type=" + getType() + ", contentName="
-        + getContentId() + ", bounds=" + getBounds() + ", properties=" + getProperties() + "]";
+    return this.getClass().getName()
+        + " [id="
+        + getId()
+        + ", type="
+        + getType()
+        + ", contentName="
+        + getContentId()
+        + ", bounds="
+        + getBounds()
+        + ", properties="
+        + getProperties()
+        + "]";
   }
 }

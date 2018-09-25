@@ -1,10 +1,6 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.capabilities;
 
-import com.google.common.collect.ImmutableSetMultimap;
-import com.google.common.collect.ImmutableSetMultimap.Builder;
-import io.annot8.core.settings.EmptySettings;
-import io.annot8.core.settings.Settings;
-import io.annot8.core.settings.SettingsClass;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,9 +8,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Collates all settings class for components based on the SettingsClass annotation.
- */
+import com.google.common.collect.ImmutableSetMultimap;
+import com.google.common.collect.ImmutableSetMultimap.Builder;
+
+import io.annot8.core.settings.EmptySettings;
+import io.annot8.core.settings.Settings;
+import io.annot8.core.settings.SettingsClass;
+
+/** Collates all settings class for components based on the SettingsClass annotation. */
 public class SettingsCompiler {
 
   /**
@@ -46,18 +47,14 @@ public class SettingsCompiler {
       return Collections.emptySet();
     }
 
-    return values
-        .stream()
-        .flatMap(s -> s.stream())
-        .collect(Collectors.toSet());
-
+    return values.stream().flatMap(s -> s.stream()).collect(Collectors.toSet());
   }
 
-  protected void addAnnotatedSettings(Builder<Class<?>, Class<? extends Settings>> classes,
-      Class<?> clazz) {
+  protected void addAnnotatedSettings(
+      Builder<Class<?>, Class<? extends Settings>> classes, Class<?> clazz) {
     // Recurse through parents
     Class<?> superclass = clazz.getSuperclass();
-    if(superclass != null) {
+    if (superclass != null) {
       addAnnotatedSettings(classes, superclass);
     }
 
@@ -68,5 +65,4 @@ public class SettingsCompiler {
         .filter(a -> !Settings.class.equals(a.value()) && !EmptySettings.class.equals(a.value()))
         .forEach(a -> classes.put(clazz, a.value()));
   }
-
 }

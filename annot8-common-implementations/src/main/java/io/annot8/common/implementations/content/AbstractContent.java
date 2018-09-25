@@ -1,9 +1,11 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.content;
+
+import java.util.function.Supplier;
 
 import io.annot8.core.data.Content;
 import io.annot8.core.properties.ImmutableProperties;
 import io.annot8.core.stores.AnnotationStore;
-import java.util.function.Supplier;
 
 public abstract class AbstractContent<D> implements Content<D> {
 
@@ -16,8 +18,14 @@ public abstract class AbstractContent<D> implements Content<D> {
   private final ImmutableProperties properties;
   private final Supplier<D> data;
 
-  protected AbstractContent(Class<D> dataClass, Class<? extends Content<D>> contentClass, AnnotationStore annotations, String id, String name,
-      ImmutableProperties properties, Supplier<D> data) {
+  protected AbstractContent(
+      Class<D> dataClass,
+      Class<? extends Content<D>> contentClass,
+      AnnotationStore annotations,
+      String id,
+      String name,
+      ImmutableProperties properties,
+      Supplier<D> data) {
     this.dataClass = dataClass;
     this.contentClass = contentClass;
     this.annotations = annotations;
@@ -61,5 +69,4 @@ public abstract class AbstractContent<D> implements Content<D> {
   public ImmutableProperties getProperties() {
     return properties;
   }
-
 }

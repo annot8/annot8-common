@@ -3,16 +3,15 @@
  * functions, abstract classes, factory objects, and common implementations of some components
  * (notably Bounds).
  *
- * It does not contain default implementations of the majority of components, which are held in the
- * default-impl module.
+ * <p>It does not contain default implementations of the majority of components, which are held in
+ * the default-impl module.
  *
- * The abstract classes in this module are there to provide correct implementations of functions
+ * <p>The abstract classes in this module are there to provide correct implementations of functions
  * such as equals, hashCode and toString. They do not provide any logic beyond this, and should
  * generally be used by any implementations of the interfaces they are abstracting.
  */
 open module io.annot8.common.implementations {
   requires com.google.common;
-
   requires transitive io.annot8.core;
   requires slf4j.api;
 
@@ -28,5 +27,4 @@ open module io.annot8.common.implementations {
   exports io.annot8.common.implementations.pipelines;
   exports io.annot8.common.implementations.pipelines.configuration;
   exports io.annot8.common.implementations.pipelines.management;
-
 }

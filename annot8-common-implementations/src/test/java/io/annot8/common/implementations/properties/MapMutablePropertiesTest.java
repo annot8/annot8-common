@@ -1,13 +1,16 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.annot8.core.properties.MutableProperties;
 import java.util.Map;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
+
+import io.annot8.core.properties.MutableProperties;
 
 public class MapMutablePropertiesTest {
 

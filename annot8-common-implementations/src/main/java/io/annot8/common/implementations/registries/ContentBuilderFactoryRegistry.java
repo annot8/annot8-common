@@ -1,12 +1,12 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.registries;
+
+import java.util.Optional;
 
 import io.annot8.common.implementations.factories.ContentBuilderFactory;
 import io.annot8.core.data.Content;
-import java.util.Optional;
 
-/**
- * A registry of content builder factories.
- */
+/** A registry of content builder factories. */
 public interface ContentBuilderFactoryRegistry {
 
   /**
@@ -17,7 +17,6 @@ public interface ContentBuilderFactoryRegistry {
    */
   <D, C extends Content<D>> Optional<ContentBuilderFactory<D, C>> get(Class<C> contentClass);
 
-  <D, C extends Content<D>, I extends C> void register(Class<C> contentClass,
-      ContentBuilderFactory<D, I> contentBuilderFactory);
-
+  <D, C extends Content<D>, I extends C> void register(
+      Class<C> contentClass, ContentBuilderFactory<D, I> contentBuilderFactory);
 }

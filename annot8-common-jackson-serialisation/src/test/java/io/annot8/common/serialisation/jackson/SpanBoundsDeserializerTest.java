@@ -1,12 +1,15 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.serialisation.jackson;
 
+import java.io.IOException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+
 import io.annot8.common.data.bounds.SpanBounds;
-import java.io.IOException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class SpanBoundsDeserializerTest {
 
@@ -31,5 +34,4 @@ public class SpanBoundsDeserializerTest {
     Assertions.assertEquals(10, spanBounds.getBegin());
     Assertions.assertEquals(20, spanBounds.getEnd());
   }
-
 }

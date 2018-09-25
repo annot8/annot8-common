@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.utils.java;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
 
 class StreamUtilsTest {
@@ -46,27 +48,15 @@ class StreamUtilsTest {
     assertEquals("a", output.get(0));
     assertEquals("b", output.get(1));
     assertEquals("c", output.get(2));
-
   }
-
 
   private Stream<A> createMixedStream() {
-    return Stream.of(
-        new A(),
-        new A(),
-        new B()
-    );
+    return Stream.of(new A(), new A(), new B());
   }
 
-  private static class A {
+  private static class A {}
 
-  }
+  private static class B extends A {}
 
-  private static class B extends A {
-
-  }
-
-  private static class C extends A {
-
-  }
+  private static class C extends A {}
 }

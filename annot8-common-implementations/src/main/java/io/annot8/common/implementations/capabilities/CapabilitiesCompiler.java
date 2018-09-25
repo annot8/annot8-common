@@ -1,22 +1,24 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.capabilities;
+
+import java.util.function.Supplier;
 
 import io.annot8.core.capabilities.Capabilities;
 import io.annot8.core.capabilities.Capabilities.Builder;
 import io.annot8.core.components.Annot8Component;
-import java.util.function.Supplier;
 
 /**
  * Merges capabilities for components from their annotations and buildCapabilities.
  *
- * The annotations are read first, and then buildComponents (though ordering should not matter).
+ * <p>The annotations are read first, and then buildComponents (though ordering should not matter).
  *
- * Since a component parent classes have annotations on them, for each component its entired class
- * hierarchy is processed. For the buildCapabilitites it is up the class itself to call
+ * <p>Since a component parent classes have annotations on them, for each component its entired
+ * class hierarchy is processed. For the buildCapabilitites it is up the class itself to call
  * super.buildCapabilities in order to add the 'dynamic' capabilitties of its parents.
  *
- * The result of the compilation is a single Capabilities object which can be used.
+ * <p>The result of the compilation is a single Capabilities object which can be used.
  *
- * As buildCapabiltiites are configuration dependent if you udpate the configuration (eg rerun
+ * <p>As buildCapabiltiites are configuration dependent if you udpate the configuration (eg rerun
  * Annot8Component.configure) you should recompile the capabilities.
  */
 public class CapabilitiesCompiler {
@@ -62,5 +64,4 @@ public class CapabilitiesCompiler {
     AnnotationBasedCapabilities capabilities = new AnnotationBasedCapabilities(clazz);
     builder.merge(capabilities);
   }
-
 }

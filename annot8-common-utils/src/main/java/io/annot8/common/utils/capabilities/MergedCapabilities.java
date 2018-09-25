@@ -1,19 +1,18 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.utils.capabilities;
+
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import io.annot8.core.capabilities.AnnotationCapability;
 import io.annot8.core.capabilities.Capabilities;
 import io.annot8.core.capabilities.ContentCapability;
 import io.annot8.core.capabilities.GroupCapability;
 import io.annot8.core.capabilities.ResourceCapability;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
-/**
- * Combines multiple capabilities into a single Capabilities object.
- *
- */
+/** Combines multiple capabilities into a single Capabilities object. */
 public class MergedCapabilities implements Capabilities {
 
   private final Capabilities[] capabilities;
@@ -26,7 +25,6 @@ public class MergedCapabilities implements Capabilities {
   public MergedCapabilities(Capabilities... capabilities) {
     this.capabilities = capabilities;
   }
-
 
   @Override
   public Stream<AnnotationCapability> getProcessedAnnotations() {
@@ -61,7 +59,6 @@ public class MergedCapabilities implements Capabilities {
   @Override
   public Stream<ContentCapability> getCreatedContent() {
     return merge(Capabilities::getCreatedContent);
-
   }
 
   @Override
@@ -74,12 +71,10 @@ public class MergedCapabilities implements Capabilities {
     return merge(Capabilities::getProcessedContent);
   }
 
-
   @Override
   public Stream<ResourceCapability> getUsedResources() {
     return merge(Capabilities::getUsedResources);
   }
-
 
   private <T> Stream<T> merge(Function<Capabilities, Stream<T>> extractor) {
     if (capabilities == null || capabilities.length == 0) {

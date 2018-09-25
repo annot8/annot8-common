@@ -1,13 +1,10 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.annot8.core.annotations.Annotation;
-import io.annot8.core.annotations.Group;
-import io.annot8.core.properties.ImmutableProperties;
-import io.annot8.core.references.AnnotationReference;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -15,7 +12,13 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
+
+import io.annot8.core.annotations.Annotation;
+import io.annot8.core.annotations.Group;
+import io.annot8.core.properties.ImmutableProperties;
+import io.annot8.core.references.AnnotationReference;
 
 public class AbstractGroupTest {
 
@@ -39,16 +42,19 @@ public class AbstractGroupTest {
     String groupType = "groupType";
     String key = "key";
     String value = "value";
-    Group group = new TestGroup(groupId, groupType, Collections.emptyMap(),
-        Collections.singletonMap(key, value));
-    Group other = new TestGroup(groupId, groupType, Collections.emptyMap(),
-        Collections.singletonMap(key, value));
+    Group group =
+        new TestGroup(
+            groupId, groupType, Collections.emptyMap(), Collections.singletonMap(key, value));
+    Group other =
+        new TestGroup(
+            groupId, groupType, Collections.emptyMap(), Collections.singletonMap(key, value));
 
     assertTrue(group.equals(other));
     assertEquals(group.hashCode(), other.hashCode());
 
-    Group differentProperties = new TestGroup(groupId, groupType, Collections.emptyMap(),
-        Collections.singletonMap(key, "diffValue"));
+    Group differentProperties =
+        new TestGroup(
+            groupId, groupType, Collections.emptyMap(), Collections.singletonMap(key, "diffValue"));
 
     assertFalse(group.equals(differentProperties));
   }
@@ -62,26 +68,38 @@ public class AbstractGroupTest {
     String role = "role";
     AnnotationReference reference = getAnnotationReference(annotationId, contentId);
 
-    Group group = new TestGroup(groupId, groupType,
-        Collections.singletonMap(role, Collections.singletonList(reference)),
-        Collections.emptyMap());
-    Group other = new TestGroup(groupId, groupType,
-        Collections.singletonMap(role, Collections.singletonList(reference)),
-        Collections.emptyMap());
+    Group group =
+        new TestGroup(
+            groupId,
+            groupType,
+            Collections.singletonMap(role, Collections.singletonList(reference)),
+            Collections.emptyMap());
+    Group other =
+        new TestGroup(
+            groupId,
+            groupType,
+            Collections.singletonMap(role, Collections.singletonList(reference)),
+            Collections.emptyMap());
 
     assertTrue(group.equals(other));
 
     AnnotationReference diffReference = getAnnotationReference("diffId", "diffContentId");
 
-    Group differentReference = new TestGroup(groupId, groupType,
-        Collections.singletonMap(role, Collections.singletonList(diffReference)),
-        Collections.emptyMap());
+    Group differentReference =
+        new TestGroup(
+            groupId,
+            groupType,
+            Collections.singletonMap(role, Collections.singletonList(diffReference)),
+            Collections.emptyMap());
 
     assertFalse(group.equals(differentReference));
 
-    Group differentRole = new TestGroup(groupId, groupType,
-        Collections.singletonMap("diffRole", Collections.singletonList(reference)),
-        Collections.emptyMap());
+    Group differentRole =
+        new TestGroup(
+            groupId,
+            groupType,
+            Collections.singletonMap("diffRole", Collections.singletonList(reference)),
+            Collections.emptyMap());
 
     assertFalse(group.equals(differentRole));
   }
@@ -113,7 +131,10 @@ public class AbstractGroupTest {
     private Map<String, Collection<AnnotationReference>> refs;
     private Map<String, Object> properties;
 
-    public TestGroup(String id, String type, Map<String, Collection<AnnotationReference>> refs,
+    public TestGroup(
+        String id,
+        String type,
+        Map<String, Collection<AnnotationReference>> refs,
         Map<String, Object> properties) {
       this.id = id;
       this.type = type;
@@ -123,7 +144,8 @@ public class AbstractGroupTest {
 
     @Override
     public Map<String, Stream<AnnotationReference>> getReferences() {
-      return refs.entrySet().stream()
+      return refs.entrySet()
+          .stream()
           .collect(Collectors.toMap(Entry::getKey, v -> v.getValue().stream()));
     }
 
@@ -157,8 +179,5 @@ public class AbstractGroupTest {
         }
       };
     }
-
   }
-
-
 }

@@ -1,11 +1,13 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.properties;
 
-import io.annot8.core.properties.ImmutableProperties;
-import io.annot8.core.properties.Properties;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import io.annot8.core.properties.ImmutableProperties;
+import io.annot8.core.properties.Properties;
 
 /**
  * Implementation of ImmutableProperties interface using an in-memory HashMap to store the
@@ -26,8 +28,14 @@ public class MapImmutableProperties implements ImmutableProperties {
 
   @Override
   public String toString() {
-    return this.getClass().getName() + " [" + properties.entrySet().stream()
-        .map(e -> e.getKey() + "=" + e.getValue()).collect(Collectors.joining(", ")) + "]";
+    return this.getClass().getName()
+        + " ["
+        + properties
+            .entrySet()
+            .stream()
+            .map(e -> e.getKey() + "=" + e.getValue())
+            .collect(Collectors.joining(", "))
+        + "]";
   }
 
   @Override
@@ -45,9 +53,7 @@ public class MapImmutableProperties implements ImmutableProperties {
     return Objects.equals(properties, p.getAll());
   }
 
-  /**
-   * AbstractContentBuilder class for InMemoryImmutableProperties
-   */
+  /** AbstractContentBuilder class for InMemoryImmutableProperties */
   public static class Builder implements ImmutableProperties.Builder {
 
     private final Map<String, Object> properties = new HashMap<>();
@@ -60,8 +66,8 @@ public class MapImmutableProperties implements ImmutableProperties {
     }
 
     @Override
-    public io.annot8.core.properties.ImmutableProperties.Builder withProperty(String key,
-        Object value) {
+    public io.annot8.core.properties.ImmutableProperties.Builder withProperty(
+        String key, Object value) {
       properties.put(key, value);
       return this;
     }
@@ -93,6 +99,5 @@ public class MapImmutableProperties implements ImmutableProperties {
     public ImmutableProperties save() {
       return new MapImmutableProperties(properties);
     }
-
   }
 }

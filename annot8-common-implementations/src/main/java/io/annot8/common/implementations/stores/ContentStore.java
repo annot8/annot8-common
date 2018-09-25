@@ -1,7 +1,9 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.stores;
 
 import java.util.Optional;
 import java.util.stream.Stream;
+
 import io.annot8.core.data.Content;
 
 public interface ContentStore {
@@ -15,5 +17,4 @@ public interface ContentStore {
   void removeContent(String contentName);
 
   Content<?> save(Content<?> content);
-
 }

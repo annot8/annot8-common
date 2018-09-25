@@ -1,38 +1,33 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.properties;
 
-import io.annot8.core.properties.MutableProperties;
-import io.annot8.core.properties.Properties;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import io.annot8.core.properties.MutableProperties;
+import io.annot8.core.properties.Properties;
+
 /**
- * Implementation of MutableProperties interface using an in-memory HashMap to store the
- * properties.
+ * Implementation of MutableProperties interface using an in-memory HashMap to store the properties.
  */
 public class MapMutableProperties implements MutableProperties {
 
   private final Map<String, Object> properties = new HashMap<>();
 
-  /**
-   * Create a new instance with no key-values
-   */
+  /** Create a new instance with no key-values */
   public MapMutableProperties() {
-    //Do nothing
+    // Do nothing
   }
 
-  /**
-   * Create a new instance with key-values from an existing Properties object
-   */
+  /** Create a new instance with key-values from an existing Properties object */
   public MapMutableProperties(Properties properties) {
     properties.getAll().forEach(this.properties::put);
   }
 
-  /**
-   * Create a new instance with key-values from an existing Map
-   */
+  /** Create a new instance with key-values from an existing Map */
   public MapMutableProperties(Map<String, Object> properties) {
     properties.forEach(this.properties::put);
   }
@@ -58,8 +53,14 @@ public class MapMutableProperties implements MutableProperties {
 
   @Override
   public String toString() {
-    return this.getClass().getName() + " [" + properties.entrySet().stream()
-        .map(e -> e.getKey() + "=" + e.getValue()).collect(Collectors.joining(", ")) + "]";
+    return this.getClass().getName()
+        + " ["
+        + properties
+            .entrySet()
+            .stream()
+            .map(e -> e.getKey() + "=" + e.getValue())
+            .collect(Collectors.joining(", "))
+        + "]";
   }
 
   @Override
@@ -76,5 +77,4 @@ public class MapMutableProperties implements MutableProperties {
     Properties p = (Properties) o;
     return Objects.equals(properties, p.getAll());
   }
-
 }

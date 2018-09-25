@@ -1,4 +1,10 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.capabilities;
+
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import io.annot8.core.capabilities.AnnotationCapability;
 import io.annot8.core.capabilities.Capabilities;
@@ -16,27 +22,21 @@ import io.annot8.core.capabilities.ProcessesGroup;
 import io.annot8.core.capabilities.ResourceCapability;
 import io.annot8.core.capabilities.UsesResource;
 import io.annot8.core.components.Annot8Component;
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * Implementation of Capabilities which uses annotations on the component class to determine its'
  * capabilities.
  *
- * Annotations are defined in the same package.
+ * <p>Annotations are defined in the same package.
  *
- * Ideally this implementation would not be part of core, but it acts as the default implementation
- * and as such needs to be importable by {@link Annot8Component}.
+ * <p>Ideally this implementation would not be part of core, but it acts as the default
+ * implementation and as such needs to be importable by {@link Annot8Component}.
  */
 public class AnnotationBasedCapabilities implements Capabilities {
 
   private final Class<?> clazz;
 
-  /**
-   * Constructor which will review the annotations on the provided class to implement interface.
-   */
+  /** Constructor which will review the annotations on the provided class to implement interface. */
   public AnnotationBasedCapabilities(Class<?> clazz) {
     this.clazz = clazz;
   }
@@ -91,10 +91,9 @@ public class AnnotationBasedCapabilities implements Capabilities {
     return extractFromAnnotations(UsesResource.class, ResourceCapability::new);
   }
 
-  protected <A extends Annotation, T> Stream<T> extractFromAnnotations(Class<A> annotationClass,
-      Function<A, T> extractor) {
+  protected <A extends Annotation, T> Stream<T> extractFromAnnotations(
+      Class<A> annotationClass, Function<A, T> extractor) {
     A[] annotations = clazz.getAnnotationsByType(annotationClass);
     return Arrays.stream(annotations).map(extractor).distinct();
   }
-
 }

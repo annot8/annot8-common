@@ -1,22 +1,20 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.data.bounds;
+
+import java.util.Objects;
+import java.util.Optional;
 
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
 import io.annot8.core.exceptions.InvalidBoundsException;
-import java.util.Objects;
-import java.util.Optional;
 
-/**
- * Implementation of Bounds for a simple 2D span, such as an offset of text.
- */
+/** Implementation of Bounds for a simple 2D span, such as an offset of text. */
 public class SpanBounds implements Bounds {
 
   private final int begin;
   private final int end;
 
-  /**
-   * Create a new object with the specified begin and end values
-   */
+  /** Create a new object with the specified begin and end values */
   public SpanBounds(final int begin, final int end) {
     if (begin < 0) {
       throw new InvalidBoundsException("Begin must be greater than or equal to 0");
@@ -68,8 +66,8 @@ public class SpanBounds implements Bounds {
       int normBegin = Math.max(0, begin);
       int normEnd = Math.min(s.length(), end);
 
-      @SuppressWarnings("unchecked")          // This is checked R = String.class
-          R r = (R) s.substring(normBegin, normEnd);
+      @SuppressWarnings("unchecked") // This is checked R = String.class
+      R r = (R) s.substring(normBegin, normEnd);
 
       return Optional.of(r);
     }
@@ -153,7 +151,7 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   *  Check if this is after (higher position than) the other
+   * Check if this is after (higher position than) the other
    *
    * @param other the bounds to test against
    * @return true is this is after
@@ -163,7 +161,7 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   *  Check if this is after (higher position than) the offset
+   * Check if this is after (higher position than) the offset
    *
    * @param offset the bounds to test against
    * @return true is this is after
@@ -173,7 +171,7 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   *  Check if this is same bounds as the other
+   * Check if this is same bounds as the other
    *
    * @param other the bounds to test against
    * @return true if the same
@@ -183,7 +181,7 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   *  Check if the bounds overlaps one another
+   * Check if the bounds overlaps one another
    *
    * @param other the bounds to test against
    * @return true if the same

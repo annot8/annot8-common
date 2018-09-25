@@ -1,17 +1,20 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.references;
 
-import io.annot8.core.references.AnnotationReference;
 import java.util.Objects;
+
+import io.annot8.core.references.AnnotationReference;
 
 /**
  * Abstract implementation of AnnotationReference, providing correct implementations of equals,
  * hashCode and toString.
  *
- * Two annotation references are taken to be equal if the following properties are all equal. The
+ * <p>Two annotation references are taken to be equal if the following properties are all equal. The
  * actual implementation of the annotation reference is seen to be irrelevant and not checked.
+ *
  * <ul>
- * <li>annotationId</li>
- * <li>contentName</li>
+ *   <li>annotationId
+ *   <li>contentName
  * </ul>
  */
 public abstract class AbstractAnnotationReference implements AnnotationReference {
@@ -31,8 +34,8 @@ public abstract class AbstractAnnotationReference implements AnnotationReference
     }
 
     AnnotationReference that = (AnnotationReference) other;
-    return Objects.equals(getAnnotationId(), that.getAnnotationId()) && Objects
-        .equals(getContentId(), that.getContentId());
+    return Objects.equals(getAnnotationId(), that.getAnnotationId())
+        && Objects.equals(getContentId(), that.getContentId());
   }
 
   @Override
@@ -42,7 +45,11 @@ public abstract class AbstractAnnotationReference implements AnnotationReference
 
   @Override
   public String toString() {
-    return this.getClass().getName() + " [annotationId=" + getAnnotationId() + ", contentId="
-        + getContentId() + "]";
+    return this.getClass().getName()
+        + " [annotationId="
+        + getAnnotationId()
+        + ", contentId="
+        + getContentId()
+        + "]";
   }
 }

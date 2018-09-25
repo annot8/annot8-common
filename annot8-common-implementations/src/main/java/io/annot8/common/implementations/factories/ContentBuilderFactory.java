@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.factories;
 
 import io.annot8.common.implementations.stores.SaveCallback;
@@ -7,8 +8,8 @@ import io.annot8.core.data.Item;
 /**
  * Factory to create an content builder.
  *
- * Typically used  in a Item.createContent().
- **/
+ * <p>Typically used in a Item.createContent().
+ */
 public interface ContentBuilderFactory<D, C extends Content<D>> {
 
   /**
@@ -33,5 +34,4 @@ public interface ContentBuilderFactory<D, C extends Content<D>> {
    * @return content class (being implemented)
    */
   Class<C> getContentClass();
-
 }

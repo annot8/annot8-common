@@ -1,14 +1,16 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.capabilities;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import io.annot8.core.capabilities.AnnotationCapability;
 import io.annot8.core.capabilities.Capabilities;
 import io.annot8.core.capabilities.ContentCapability;
 import io.annot8.core.capabilities.GroupCapability;
 import io.annot8.core.capabilities.ResourceCapability;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Stream;
 
 public class SetCapabilities implements Capabilities {
 
@@ -26,13 +28,17 @@ public class SetCapabilities implements Capabilities {
 
   private final Set<ResourceCapability> usedResources;
 
-  public SetCapabilities(Set<AnnotationCapability> processedAnnotations,
+  public SetCapabilities(
+      Set<AnnotationCapability> processedAnnotations,
       Set<AnnotationCapability> createdAnnotations,
-      Set<AnnotationCapability> deletedAnnotations, Set<GroupCapability> processedGroups,
+      Set<AnnotationCapability> deletedAnnotations,
+      Set<GroupCapability> processedGroups,
       Set<GroupCapability> createdGroups,
-      Set<GroupCapability> deletedGroups, Set<ContentCapability> processedContent,
+      Set<GroupCapability> deletedGroups,
+      Set<ContentCapability> processedContent,
       Set<ContentCapability> createdContent,
-      Set<ContentCapability> deletedContent, Set<ResourceCapability> usedResources) {
+      Set<ContentCapability> deletedContent,
+      Set<ResourceCapability> usedResources) {
 
     this.processedAnnotations = processedAnnotations;
     this.createdAnnotations = createdAnnotations;
@@ -95,7 +101,6 @@ public class SetCapabilities implements Capabilities {
   public Stream<ResourceCapability> getUsedResources() {
     return usedResources.stream();
   }
-
 
   public static class Builder implements Capabilities.Builder {
 
@@ -187,7 +192,5 @@ public class SetCapabilities implements Capabilities {
           Collections.unmodifiableSet(deletedContent),
           Collections.unmodifiableSet(usedResources));
     }
-
   }
-
 }

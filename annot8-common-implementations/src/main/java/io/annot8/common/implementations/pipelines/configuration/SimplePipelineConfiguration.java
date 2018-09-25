@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.pipelines.configuration;
 
 import java.util.ArrayList;
@@ -9,10 +10,11 @@ public class SimplePipelineConfiguration implements PipelineConfiguration {
   private List<ComponentConfiguration> sources = new ArrayList<>();
   private List<ComponentConfiguration> resources = new ArrayList<>();
 
-  public SimplePipelineConfiguration() {
-   }
+  public SimplePipelineConfiguration() {}
 
-  public SimplePipelineConfiguration(List<ComponentConfiguration> sources, List<ComponentConfiguration> processors,
+  public SimplePipelineConfiguration(
+      List<ComponentConfiguration> sources,
+      List<ComponentConfiguration> processors,
       List<ComponentConfiguration> resources) {
     this.processors.addAll(processors);
     this.sources.addAll(sources);
@@ -22,8 +24,7 @@ public class SimplePipelineConfiguration implements PipelineConfiguration {
     return processors;
   }
 
-  public void setProcessors(
-      List<ComponentConfiguration> processors) {
+  public void setProcessors(List<ComponentConfiguration> processors) {
     this.processors = processors;
   }
 
@@ -31,8 +32,7 @@ public class SimplePipelineConfiguration implements PipelineConfiguration {
     return sources;
   }
 
-  public void setSources(
-      List<ComponentConfiguration> sources) {
+  public void setSources(List<ComponentConfiguration> sources) {
     this.sources = sources;
   }
 
@@ -40,8 +40,7 @@ public class SimplePipelineConfiguration implements PipelineConfiguration {
     return resources;
   }
 
-  public void setResources(
-      List<ComponentConfiguration> resources) {
+  public void setResources(List<ComponentConfiguration> resources) {
     this.resources = resources;
   }
 }

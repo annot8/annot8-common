@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.data.content;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,19 +10,21 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import io.annot8.common.data.bounds.SpanBounds;
-import io.annot8.core.annotations.Annotation;
-import io.annot8.core.bounds.Bounds;
-import io.annot8.core.stores.AnnotationStore;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+
+import io.annot8.common.data.bounds.SpanBounds;
+import io.annot8.core.annotations.Annotation;
+import io.annot8.core.bounds.Bounds;
+import io.annot8.core.stores.AnnotationStore;
 
 class TextTest {
 
@@ -127,13 +130,13 @@ class TextTest {
   private AnnotationStore getAnnotationStore(Annotation annotation) {
     AnnotationStore annotationStore = mock(AnnotationStore.class);
     when(annotationStore.getByBounds(Mockito.eq(SpanBounds.class)))
-        .thenAnswer(new Answer<Stream<Annotation>>() {
-          @Override
-          public Stream<Annotation> answer(InvocationOnMock invocation) throws Throwable {
-            return Stream.of(annotation);
-          }
-        });
+        .thenAnswer(
+            new Answer<Stream<Annotation>>() {
+              @Override
+              public Stream<Annotation> answer(InvocationOnMock invocation) throws Throwable {
+                return Stream.of(annotation);
+              }
+            });
     return annotationStore;
   }
-
 }

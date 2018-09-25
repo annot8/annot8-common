@@ -1,15 +1,18 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.capabilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.annot8.core.components.Annot8Component;
-import io.annot8.core.settings.Settings;
-import io.annot8.core.settings.SettingsClass;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import io.annot8.core.components.Annot8Component;
+import io.annot8.core.settings.Settings;
+import io.annot8.core.settings.SettingsClass;
 
 public class SettingsCompilerTest {
 
@@ -34,7 +37,8 @@ public class SettingsCompilerTest {
 
   @Test
   public void compileWithSingleSettings() {
-    Map<Class<?>, Collection<Class<? extends Settings>>> map = compiler.compile(SingleSettings.class);
+    Map<Class<?>, Collection<Class<? extends Settings>>> map =
+        compiler.compile(SingleSettings.class);
 
     assertThat(map.keySet()).containsExactly(SingleSettings.class);
     assertThat(map.get(SingleSettings.class)).containsExactly(SettingsA.class);
@@ -48,10 +52,12 @@ public class SettingsCompilerTest {
 
   @Test
   public void compileWithMultiSettings() {
-    Map<Class<?>, Collection<Class<? extends Settings>>> map = compiler.compile(MultipleSettings.class);
+    Map<Class<?>, Collection<Class<? extends Settings>>> map =
+        compiler.compile(MultipleSettings.class);
 
     assertThat(map.keySet()).containsExactly(MultipleSettings.class);
-    assertThat(map.get(MultipleSettings.class)).containsExactlyInAnyOrder(SettingsA.class, SettingsB.class);
+    assertThat(map.get(MultipleSettings.class))
+        .containsExactlyInAnyOrder(SettingsA.class, SettingsB.class);
   }
 
   @Test
@@ -62,12 +68,14 @@ public class SettingsCompilerTest {
 
   @Test
   public void compileWithInheritedSettings() {
-    Map<Class<?>, Collection<Class<? extends Settings>>> map = compiler.compile(InheritedSettings.class);
+    Map<Class<?>, Collection<Class<? extends Settings>>> map =
+        compiler.compile(InheritedSettings.class);
 
-    assertThat(map.keySet()).containsExactlyInAnyOrder(MultipleSettings.class, InheritedSettings.class);
-    assertThat(map.get(MultipleSettings.class)).containsExactlyInAnyOrder(SettingsA.class, SettingsB.class);
+    assertThat(map.keySet())
+        .containsExactlyInAnyOrder(MultipleSettings.class, InheritedSettings.class);
+    assertThat(map.get(MultipleSettings.class))
+        .containsExactlyInAnyOrder(SettingsA.class, SettingsB.class);
     assertThat(map.get(InheritedSettings.class)).containsExactlyInAnyOrder(SettingsB.class);
-
   }
 
   @Test
@@ -86,16 +94,15 @@ public class SettingsCompilerTest {
     }
   }
 
-  public static class SettingsB implements Settings{
+  public static class SettingsB implements Settings {
 
     @Override
     public boolean validate() {
       return true;
     }
-
   }
 
-  public static class NoSettings implements Settings{
+  public static class NoSettings implements Settings {
 
     @Override
     public boolean validate() {
@@ -104,8 +111,7 @@ public class SettingsCompilerTest {
   }
 
   @SettingsClass(SettingsA.class)
-  public static class SingleSettings implements Settings{
-
+  public static class SingleSettings implements Settings {
 
     @Override
     public boolean validate() {
@@ -115,13 +121,8 @@ public class SettingsCompilerTest {
 
   @SettingsClass(SettingsA.class)
   @SettingsClass(SettingsB.class)
-  public static class MultipleSettings implements Annot8Component {
-
-  }
+  public static class MultipleSettings implements Annot8Component {}
 
   @SettingsClass(SettingsB.class)
-  public static class InheritedSettings extends MultipleSettings {
-
-  }
-
+  public static class InheritedSettings extends MultipleSettings {}
 }

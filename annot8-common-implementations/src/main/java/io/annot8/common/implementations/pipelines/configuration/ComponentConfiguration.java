@@ -1,7 +1,9 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.pipelines.configuration;
 
-import io.annot8.core.settings.Settings;
 import java.util.Set;
+
+import io.annot8.core.settings.Settings;
 
 public interface ComponentConfiguration {
 
@@ -10,5 +12,4 @@ public interface ComponentConfiguration {
   String getComponent();
 
   Set<Settings> getSettings();
-
 }

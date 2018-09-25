@@ -1,13 +1,16 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.references;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.references.AnnotationReference;
-import java.util.Optional;
-import org.junit.jupiter.api.Test;
 
 public class AbstractAnnotationReferenceTest {
 
@@ -49,7 +52,5 @@ public class AbstractAnnotationReferenceTest {
     public Optional<Annotation> toAnnotation() {
       throw new UnsupportedOperationException("Not supported in test implementation");
     }
-
   }
-
 }

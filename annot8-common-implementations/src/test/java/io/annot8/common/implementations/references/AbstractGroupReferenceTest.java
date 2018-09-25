@@ -1,13 +1,16 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.references;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+
 import io.annot8.core.annotations.Group;
 import io.annot8.core.references.GroupReference;
-import java.util.Optional;
-import org.junit.jupiter.api.Test;
 
 public class AbstractGroupReferenceTest {
 
@@ -42,7 +45,5 @@ public class AbstractGroupReferenceTest {
     public Optional<Group> toGroup() {
       throw new UnsupportedOperationException("Unsupported in this test implementation");
     }
-
   }
-
 }

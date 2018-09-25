@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.stores;
 
 /**
@@ -12,9 +13,7 @@ public interface SaveCallback<T, R> {
   /**
    * Save the parameter.
    *
-   * Should not return null (throw exception)
+   * <p>Should not return null (throw exception)
    */
   R save(T item);
-
-
 }

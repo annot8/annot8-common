@@ -1,20 +1,22 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.data.content;
+
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import io.annot8.common.data.bounds.SpanBounds;
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 /**
  * Represents plain text content having data of type string.
  *
- * This could the content of a document, a cell in a database, or anything else which is actual
+ * <p>This could the content of a document, a cell in a database, or anything else which is actual
  * text.
  *
- * Do not use this for non plain/text (eg HTML), as these have structure to be considered.
+ * <p>Do not use this for non plain/text (eg HTML), as these have structure to be considered.
  */
 public interface Text extends Content<String> {
 
@@ -27,7 +29,6 @@ public interface Text extends Content<String> {
     Bounds bounds = annotation.getBounds();
     return bounds.getData(this, String.class);
   }
-
 
   /**
    * Get annotations between the offsets
@@ -43,7 +44,7 @@ public interface Text extends Content<String> {
 
   /**
    * Get Annotations covering the provided offset
-   * 
+   *
    * @param begin the start offset
    * @param end the end offset
    * @return annotations
@@ -72,9 +73,10 @@ public interface Text extends Content<String> {
     return filterAnnotations(SpanBounds.class, s -> s.isBefore(offset));
   }
 
-  private <T extends Bounds> Stream<Annotation> filterAnnotations(Class<T> boundsClass,
-      Predicate<T> predicate) {
-    return getAnnotations().getByBounds(boundsClass)
+  private <T extends Bounds> Stream<Annotation> filterAnnotations(
+      Class<T> boundsClass, Predicate<T> predicate) {
+    return getAnnotations()
+        .getByBounds(boundsClass)
         .filter(a -> predicate.test(a.getBounds(boundsClass).get()));
   }
 }

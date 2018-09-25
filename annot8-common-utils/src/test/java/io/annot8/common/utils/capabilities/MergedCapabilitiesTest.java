@@ -1,7 +1,15 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.utils.capabilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.capabilities.AnnotationCapability;
@@ -11,11 +19,6 @@ import io.annot8.core.capabilities.GroupCapability;
 import io.annot8.core.capabilities.ResourceCapability;
 import io.annot8.core.components.Resource;
 import io.annot8.core.data.Content;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 public class MergedCapabilitiesTest {
 
@@ -95,9 +98,12 @@ public class MergedCapabilitiesTest {
     assertThat(capabilities.getUsedResources()).isEmpty();
   }
 
-  private void setupMockedCapabilities(Capabilities capabilities,
-      AnnotationCapability annotationCapability, ContentCapability contentCapability,
-      GroupCapability groupCapabiltiy, ResourceCapability resourceCapability) {
+  private void setupMockedCapabilities(
+      Capabilities capabilities,
+      AnnotationCapability annotationCapability,
+      ContentCapability contentCapability,
+      GroupCapability groupCapabiltiy,
+      ResourceCapability resourceCapability) {
     when(capabilities.getProcessedAnnotations()).thenAnswer(getStreamAnswer(annotationCapability));
     when(capabilities.getCreatedAnnotations()).thenAnswer(getStreamAnswer(annotationCapability));
     when(capabilities.getDeletedAnnotations()).thenAnswer(getStreamAnswer(annotationCapability));
@@ -122,19 +128,13 @@ public class MergedCapabilitiesTest {
     };
   }
 
-  private abstract class FakeBounds implements Bounds {
-  }
+  private abstract class FakeBounds implements Bounds {}
 
-  private abstract class FakeContent implements Content<String> {
-  }
+  private abstract class FakeContent implements Content<String> {}
 
-  private abstract class FakeContent2 implements Content<String> {
-  }
+  private abstract class FakeContent2 implements Content<String> {}
 
-  private abstract class FakeResource implements Resource {
-  }
+  private abstract class FakeResource implements Resource {}
 
-  private abstract class FakeResource2 implements Resource {
-  }
-
+  private abstract class FakeResource2 implements Resource {}
 }

@@ -1,21 +1,23 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.data.bounds;
+
+import java.util.Optional;
 
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
-import java.util.Optional;
 
 /**
  * Implementation of Bounds indicating that an annotation does not have any bounds (i.e. it is
  * metadata).
  *
- * This class is a singleton, and should be accessed via getInstance()
+ * <p>This class is a singleton, and should be accessed via getInstance()
  */
 public final class NoBounds implements Bounds {
 
   private static final NoBounds INSTANCE = new NoBounds();
 
   private NoBounds() {
-    //Empty constructor
+    // Empty constructor
   }
 
   /**

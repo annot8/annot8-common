@@ -1,11 +1,10 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.utils.java;
 
 import java.util.Optional;
 import java.util.stream.Stream;
 
-/**
- * Utilities for working with streams
- */
+/** Utilities for working with streams */
 public final class StreamUtils {
 
   private StreamUtils() {
@@ -20,8 +19,7 @@ public final class StreamUtils {
    * @return stream of just clazz implementations
    */
   public static <T, S extends T> Stream<S> cast(Stream<T> stream, Class<S> clazz) {
-    return stream.filter(clazz::isInstance)
-        .map(clazz::cast);
+    return stream.filter(clazz::isInstance).map(clazz::cast);
   }
 
   /**
@@ -31,8 +29,6 @@ public final class StreamUtils {
    * @return stream of non-null (present optionals)
    */
   public static <T> Stream<T> getIfPresent(Stream<Optional<T>> stream) {
-    return stream
-        .filter(Optional::isPresent)
-        .map(Optional::get);
+    return stream.filter(Optional::isPresent).map(Optional::get);
   }
 }

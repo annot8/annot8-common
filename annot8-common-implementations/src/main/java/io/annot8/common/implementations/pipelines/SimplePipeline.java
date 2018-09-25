@@ -1,4 +1,12 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.pipelines;
+
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.annot8.common.implementations.factories.ItemCreator;
 import io.annot8.common.implementations.factories.NotifyingItemFactory;
@@ -11,11 +19,6 @@ import io.annot8.core.components.responses.ProcessorResponse.Status;
 import io.annot8.core.components.responses.SourceResponse;
 import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SimplePipeline implements Pipeline {
 
@@ -29,9 +32,12 @@ public class SimplePipeline implements Pipeline {
   private final List<Source> sources;
   private final List<Processor> processors;
 
-  public SimplePipeline(ItemCreator itemCreator, ItemQueue itemQueue,
+  public SimplePipeline(
+      ItemCreator itemCreator,
+      ItemQueue itemQueue,
       Map<String, Resource> resources,
-      List<Source> sources, List<Processor> processors) {
+      List<Source> sources,
+      List<Processor> processors) {
     this.id = UUID.randomUUID().toString();
     this.itemFactory = new NotifyingItemFactory(itemCreator);
     this.itemQueue = itemQueue;
@@ -65,13 +71,12 @@ public class SimplePipeline implements Pipeline {
     } while (status == SourceResponse.Status.OK || status == SourceResponse.Status.EMPTY);
 
     close();
-
   }
 
   private void processItemQueue() {
 
     // If we've not been given provided a queue, ignore the request
-    if(itemQueue == null) {
+    if (itemQueue == null) {
       return;
     }
 
@@ -80,7 +85,6 @@ public class SimplePipeline implements Pipeline {
 
       processItem(item);
     }
-
   }
 
   private void processItem(final Item item) {
@@ -105,7 +109,8 @@ public class SimplePipeline implements Pipeline {
         }
 
       } catch (final Annot8Exception e) {
-        LOGGER.error("Failed to process data item with processor {}",processor.getClass().getName(),e);
+        LOGGER.error(
+            "Failed to process data item with processor {}", processor.getClass().getName(), e);
       }
     }
   }

@@ -1,22 +1,22 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.utils.properties;
 
-import io.annot8.core.properties.ImmutableProperties;
 import java.util.Collections;
 import java.util.Map;
 
-/**
- * Empty implementation of ImmutableProperties interface
- */
+import io.annot8.core.properties.ImmutableProperties;
+
+/** Empty implementation of ImmutableProperties interface */
 public final class EmptyImmutableProperties implements ImmutableProperties {
 
   private static final EmptyImmutableProperties INSTANCE = new EmptyImmutableProperties();
 
   private EmptyImmutableProperties() {
-    //Empty constructor
+    // Empty constructor
   }
 
   /**
-   * Get the singleton instance of  EmptyImmutableProperties
+   * Get the singleton instance of EmptyImmutableProperties
    *
    * @return instance
    */

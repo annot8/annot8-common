@@ -1,6 +1,13 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.capabilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.capabilities.AnnotationCapability;
@@ -22,13 +29,8 @@ import io.annot8.core.components.Resource;
 import io.annot8.core.data.Content;
 import io.annot8.core.properties.ImmutableProperties;
 import io.annot8.core.stores.AnnotationStore;
-import java.util.Optional;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class AnnotationBasedCapabilitiesTest {
-
 
   private AnnotationBasedCapabilities capabilities;
 
@@ -39,15 +41,22 @@ public class AnnotationBasedCapabilitiesTest {
 
   @Test
   void getRequiredInputAnnotations() {
-    assertThat(capabilities.getProcessedAnnotations().filter(c -> !c.isOptional())
-        .map(AnnotationCapability::getType)).containsExactlyInAnyOrder("ar1", "ar2");
+    assertThat(
+            capabilities
+                .getProcessedAnnotations()
+                .filter(c -> !c.isOptional())
+                .map(AnnotationCapability::getType))
+        .containsExactlyInAnyOrder("ar1", "ar2");
   }
 
   @Test
   void getOptionalInputAnnotations() {
-    assertThat(capabilities.getProcessedAnnotations().filter(AnnotationCapability::isOptional)
-        .map(AnnotationCapability::getType)).containsExactlyInAnyOrder("ao1");
-
+    assertThat(
+            capabilities
+                .getProcessedAnnotations()
+                .filter(AnnotationCapability::isOptional)
+                .map(AnnotationCapability::getType))
+        .containsExactlyInAnyOrder("ao1");
   }
 
   @Test
@@ -67,16 +76,22 @@ public class AnnotationBasedCapabilitiesTest {
 
   @Test
   void getRequiredInputGroups() {
-    assertThat(capabilities.getProcessedGroups().filter(c -> !c.isOptional())
-        .map(GroupCapability::getType)).containsExactlyInAnyOrder("gr1", "gr2");
+    assertThat(
+            capabilities
+                .getProcessedGroups()
+                .filter(c -> !c.isOptional())
+                .map(GroupCapability::getType))
+        .containsExactlyInAnyOrder("gr1", "gr2");
   }
 
   @Test
   void getOptionalInputGroups() {
     assertThat(
-        capabilities.getProcessedGroups().filter(c -> c.isOptional()).map(GroupCapability::getType))
-            .containsExactlyInAnyOrder("go1");
-
+            capabilities
+                .getProcessedGroups()
+                .filter(c -> c.isOptional())
+                .map(GroupCapability::getType))
+        .containsExactlyInAnyOrder("go1");
   }
 
   @Test
@@ -100,8 +115,11 @@ public class AnnotationBasedCapabilitiesTest {
 
   @Test
   void getRequiredContent() {
-    Stream<Class<? extends Content<?>>> classes = capabilities.getProcessedContent()
-        .filter(c -> !c.isOptional()).map(ContentCapability::getType);
+    Stream<Class<? extends Content<?>>> classes =
+        capabilities
+            .getProcessedContent()
+            .filter(c -> !c.isOptional())
+            .map(ContentCapability::getType);
     assertThat(classes).containsExactlyInAnyOrder(FakeContent.class);
   }
 
@@ -124,7 +142,6 @@ public class AnnotationBasedCapabilitiesTest {
     Stream<Class<? extends Bounds>> classes =
         capabilities.getCreatedAnnotations().map(AnnotationCapability::getBounds);
     assertThat(classes.distinct()).containsExactlyInAnyOrder(FakeBounds.class);
-
   }
 
   @Test
@@ -134,7 +151,6 @@ public class AnnotationBasedCapabilitiesTest {
     assertThat(child.getCreatedGroups().map(GroupCapability::getType))
         .containsExactlyInAnyOrder("sg");
   }
-
 
   @CreatesAnnotation(value = "a1", bounds = FakeBounds.class)
   @CreatesAnnotation(value = "a2", bounds = FakeBounds.class)
@@ -151,14 +167,10 @@ public class AnnotationBasedCapabilitiesTest {
   @DeletesAnnotation(value = "a3", bounds = FakeBounds.class)
   @DeletesGroup(value = "go2")
   @DeletesContent(FakeContent.class)
-  public static class AnnotatedComponent implements Annot8Component {
-
-  }
+  public static class AnnotatedComponent implements Annot8Component {}
 
   @CreatesGroup("sg")
-  public static class ChildAnnotatedComponent extends AnnotatedComponent {
-
-  }
+  public static class ChildAnnotatedComponent extends AnnotatedComponent {}
 
   public static class FakeContent implements Content<String> {
 

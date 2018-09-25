@@ -1,16 +1,19 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.references;
 
-import io.annot8.core.references.GroupReference;
 import java.util.Objects;
+
+import io.annot8.core.references.GroupReference;
 
 /**
  * Abstract implementation of GroupReference, providing correct implementations of equals, hashCode
  * and toString.
  *
- * Two group references are taken to be equal if the following properties are all equal. The actual
- * implementation of the group reference is seen to be irrelevant and not checked.
+ * <p>Two group references are taken to be equal if the following properties are all equal. The
+ * actual implementation of the group reference is seen to be irrelevant and not checked.
+ *
  * <ul>
- * <li>groupId</li>
+ *   <li>groupId
  * </ul>
  */
 public abstract class AbstractGroupReference implements GroupReference {

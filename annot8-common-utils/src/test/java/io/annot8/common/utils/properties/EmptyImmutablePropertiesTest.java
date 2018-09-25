@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.utils.properties;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,7 +11,6 @@ class EmptyImmutablePropertiesTest {
   @Test
   void getAll() {
     assertTrue(EmptyImmutableProperties.getInstance().getAll().isEmpty());
-
   }
 
   @Test
@@ -18,7 +18,6 @@ class EmptyImmutablePropertiesTest {
     String s = EmptyImmutableProperties.getInstance().toString();
     Assertions.assertNotNull(s);
     Assertions.assertNotEquals("", s);
-
   }
 
   @Test

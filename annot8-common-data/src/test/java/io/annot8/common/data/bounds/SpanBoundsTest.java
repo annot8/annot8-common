@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.data.bounds;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,10 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+
 import io.annot8.core.data.Content;
 import io.annot8.core.exceptions.Annot8RuntimeException;
-import java.util.Optional;
-import org.junit.jupiter.api.Test;
 
 class SpanBoundsTest {
 

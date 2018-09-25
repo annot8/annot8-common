@@ -1,16 +1,20 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.serialisation.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import io.github.classgraph.ClassGraph;
-import io.github.classgraph.ClassInfo;
-import io.github.classgraph.ScanResult;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfo;
+import io.github.classgraph.ScanResult;
 
 public class Annot8ObjectMapperFactory {
 
@@ -24,7 +28,8 @@ public class Annot8ObjectMapperFactory {
     // Do nothing
   }
 
-  public Annot8ObjectMapperFactory(Collection<AbstractAnnot8Serializer<?>> serializers,
+  public Annot8ObjectMapperFactory(
+      Collection<AbstractAnnot8Serializer<?>> serializers,
       Collection<AbstractAnnot8Deserializer<?>> deserializers) {
     if (deserializers != null) {
       deserializers.forEach(this::register);
@@ -37,53 +42,54 @@ public class Annot8ObjectMapperFactory {
 
   public void scan() {
 
-    ScanResult scan = new ClassGraph()
-        .enableClassInfo()
-        .enableMethodInfo()
-        .scan();
+    ScanResult scan = new ClassGraph().enableClassInfo().enableMethodInfo().scan();
 
     scan.getSubclasses(AbstractAnnot8Deserializer.class.getName())
         .filter(this::hasPublicNoArgumentsConstructor)
         .forEach(ci -> registerDeserialiser((Class<AbstractAnnot8Deserializer<?>>) ci.loadClass()));
 
-
     scan.getSubclasses(AbstractAnnot8Serializer.class.getName())
         .filter(this::hasPublicNoArgumentsConstructor)
         .forEach(ci -> registerSerialiser((Class<AbstractAnnot8Serializer<?>>) ci.loadClass()));
-
   }
 
-
   private boolean hasPublicNoArgumentsConstructor(ClassInfo ci) {
-    return !ci.isAbstract() && ci.getConstructorInfo().stream().anyMatch
-    (mi -> mi.isPublic() && mi.getParameterInfo().length == 0);
+    return !ci.isAbstract()
+        && ci.getConstructorInfo()
+            .stream()
+            .anyMatch(mi -> mi.isPublic() && mi.getParameterInfo().length == 0);
   }
 
   protected void registerSerialiser(Class<AbstractAnnot8Serializer<?>> clazz) {
     try {
       register(clazz.getConstructor().newInstance());
-    } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+    } catch (NoSuchMethodException
+        | InstantiationException
+        | IllegalAccessException
+        | InvocationTargetException e) {
       // Do nothing
     }
   }
 
-
   protected void registerDeserialiser(Class<AbstractAnnot8Deserializer<?>> clazz) {
     try {
       register(clazz.getConstructor().newInstance());
-    } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+    } catch (NoSuchMethodException
+        | InstantiationException
+        | IllegalAccessException
+        | InvocationTargetException e) {
       // Do nothing
     }
   }
 
   public void register(AbstractAnnot8Deserializer<?> deserializer) {
-    if(deserializer != null) {
+    if (deserializer != null) {
       deserializers.add(deserializer);
     }
   }
 
   public void register(AbstractAnnot8Serializer<?> serializer) {
-    if(serializer != null) {
+    if (serializer != null) {
       serializers.add(serializer);
     }
   }
@@ -99,5 +105,4 @@ public class Annot8ObjectMapperFactory {
     mapper.registerModule(getModule());
     return mapper;
   }
-
 }

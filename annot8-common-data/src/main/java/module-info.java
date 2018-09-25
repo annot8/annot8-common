@@ -3,5 +3,4 @@ open module io.annot8.common.data {
 
   exports io.annot8.common.data.bounds;
   exports io.annot8.common.data.content;
-
 }

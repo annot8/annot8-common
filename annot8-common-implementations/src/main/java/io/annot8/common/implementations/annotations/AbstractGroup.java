@@ -1,24 +1,26 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.annotations;
+
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import io.annot8.core.annotations.Group;
 import io.annot8.core.properties.Properties;
 import io.annot8.core.references.AnnotationReference;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 /**
  * Abstract implementation of Group, providing correct implementations of equals, hashCode and
  * toString.
  *
- * Two groups are taken to be equal if the following properties are all equal. The actual
+ * <p>Two groups are taken to be equal if the following properties are all equal. The actual
  * implementation of the group is seen to be irrelevant and not checked.
  *
  * <ul>
- * <li>id</li>
- * <li>type</li>
- * <li>properties</li>
- * <li>annotationReferences</li>
+ *   <li>id
+ *   <li>type
+ *   <li>properties
+ *   <li>annotationReferences
  * </ul>
  */
 public abstract class AbstractGroup implements Group {
@@ -40,7 +42,8 @@ public abstract class AbstractGroup implements Group {
     Group g = (Group) other;
 
     // First check "easy properties" so we can fail fast
-    if (!(Objects.equals(getId(), g.getId()) && Objects.equals(getType(), g.getType())
+    if (!(Objects.equals(getId(), g.getId())
+        && Objects.equals(getType(), g.getType())
         && Properties.equals(this.getProperties(), g.getProperties()))) {
       return false;
     }
@@ -77,7 +80,15 @@ public abstract class AbstractGroup implements Group {
 
   @Override
   public String toString() {
-    return this.getClass().getName() + " [id=" + getId() + ", type=" + getType() + ", properties="
-        + getProperties() + ", annotations=" + getAnnotations() + "]";
+    return this.getClass().getName()
+        + " [id="
+        + getId()
+        + ", type="
+        + getType()
+        + ", properties="
+        + getProperties()
+        + ", annotations="
+        + getAnnotations()
+        + "]";
   }
 }

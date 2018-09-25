@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.registries;
 
 import io.annot8.core.components.Source;
@@ -10,7 +11,4 @@ public class TestSource implements Source {
   public SourceResponse read(ItemFactory itemFactory) {
     return SourceResponse.done();
   }
-
-
-
 }

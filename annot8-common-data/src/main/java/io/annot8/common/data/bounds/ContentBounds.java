@@ -1,20 +1,22 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.data.bounds;
+
+import java.util.Optional;
 
 import io.annot8.core.bounds.Bounds;
 import io.annot8.core.data.Content;
-import java.util.Optional;
 
 /**
  * Implementation of Bounds indicating that an annotation covers the entire content.
  *
- * This class is a singleton, and should be accessed via getInstance()
+ * <p>This class is a singleton, and should be accessed via getInstance()
  */
 public final class ContentBounds implements Bounds {
 
   private static final ContentBounds INSTANCE = new ContentBounds();
 
   private ContentBounds() {
-    //Empty constructor
+    // Empty constructor
   }
 
   /**
@@ -36,7 +38,8 @@ public final class ContentBounds implements Bounds {
     D data = content.getData();
 
     if (requiredClass.isAssignableFrom(data.getClass())) {
-      @SuppressWarnings("unchecked") R r = (R) data;
+      @SuppressWarnings("unchecked")
+      R r = (R) data;
       return Optional.of(r);
     } else {
       return Optional.empty();

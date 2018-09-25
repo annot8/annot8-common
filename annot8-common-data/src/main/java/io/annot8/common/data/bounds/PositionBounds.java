@@ -1,24 +1,24 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.data.bounds;
 
-import io.annot8.core.bounds.Bounds;
-import io.annot8.core.data.Content;
-import io.annot8.core.exceptions.InvalidBoundsException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import io.annot8.core.bounds.Bounds;
+import io.annot8.core.data.Content;
+import io.annot8.core.exceptions.InvalidBoundsException;
+
 /**
  * A position marker within a content.
  *
- * Currently supports Content type of String, Object[] or List&lt;Object&gt; (or their subtypes)
+ * <p>Currently supports Content type of String, Object[] or List&lt;Object&gt; (or their subtypes)
  */
 public class PositionBounds implements Bounds {
 
   private final int position;
 
-  /**
-   * New position at offset >= 0
-   */
+  /** New position at offset >= 0 */
   public PositionBounds(int position) {
     if (position < 0) {
       throw new InvalidBoundsException("Position must be greater than or equal to 0");
@@ -37,7 +37,7 @@ public class PositionBounds implements Bounds {
   }
 
   @Override
-  @SuppressWarnings("unchecked")    //All casts are checked below
+  @SuppressWarnings("unchecked") // All casts are checked below
   public <D, C extends Content<D>, R> Optional<R> getData(C content, Class<R> requiredClass) {
     if (position < 0) {
       return Optional.empty();
@@ -70,7 +70,7 @@ public class PositionBounds implements Bounds {
   }
 
   @Override
-  @SuppressWarnings("unchecked")    //All casts are checked below
+  @SuppressWarnings("unchecked") // All casts are checked below
   public <D, C extends Content<D>> boolean isValid(C content) {
     if (position < 0) {
       return false;

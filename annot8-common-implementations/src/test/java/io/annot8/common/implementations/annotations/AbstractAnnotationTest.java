@@ -1,14 +1,17 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.annot8.core.bounds.Bounds;
-import io.annot8.core.properties.ImmutableProperties;
 import java.util.Collections;
 import java.util.Map;
+
 import org.junit.jupiter.api.Test;
+
+import io.annot8.core.bounds.Bounds;
+import io.annot8.core.properties.ImmutableProperties;
 
 public class AbstractAnnotationTest {
 
@@ -34,20 +37,24 @@ public class AbstractAnnotationTest {
     assertTrue(annotation.equals(same));
     assertEquals(annotation.hashCode(), same.hashCode());
 
-    TestAnnotation differentMap = new TestAnnotation("id", "type", "content",
-        Collections.singletonMap("key", "diffValue"), null);
+    TestAnnotation differentMap =
+        new TestAnnotation(
+            "id", "type", "content", Collections.singletonMap("key", "diffValue"), null);
     assertFalse(annotation.equals(differentMap));
 
-    TestAnnotation differentId = new TestAnnotation("diffId", "type", "content",
-        Collections.singletonMap("key", "value"), null);
+    TestAnnotation differentId =
+        new TestAnnotation(
+            "diffId", "type", "content", Collections.singletonMap("key", "value"), null);
     assertFalse(annotation.equals(differentId));
 
-    TestAnnotation differentType = new TestAnnotation("id", "diffType", "content",
-        Collections.singletonMap("key", "value"), null);
+    TestAnnotation differentType =
+        new TestAnnotation(
+            "id", "diffType", "content", Collections.singletonMap("key", "value"), null);
     assertFalse(annotation.equals(differentType));
 
-    TestAnnotation differentContent = new TestAnnotation("id", "type", "diffContent",
-        Collections.singletonMap("key", "value"), null);
+    TestAnnotation differentContent =
+        new TestAnnotation(
+            "id", "type", "diffContent", Collections.singletonMap("key", "value"), null);
     assertFalse(annotation.equals(differentContent));
   }
 
@@ -59,8 +66,8 @@ public class AbstractAnnotationTest {
     private String contentId;
     private Bounds bounds;
 
-    public TestAnnotation(String id, String type, String contentId,
-        Map<String, Object> properties, Bounds bounds) {
+    public TestAnnotation(
+        String id, String type, String contentId, Map<String, Object> properties, Bounds bounds) {
       this.id = id;
       this.type = type;
       this.contentId = contentId;
@@ -98,5 +105,4 @@ public class AbstractAnnotationTest {
       };
     }
   }
-
 }
