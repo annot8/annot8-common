@@ -12,3 +12,4 @@ annot8-common-data/target
 annot8-common-implementations/target
 annot8-common-utils/target
 annot8-common-jackson-serialisation/target
+*.versionsBackup
