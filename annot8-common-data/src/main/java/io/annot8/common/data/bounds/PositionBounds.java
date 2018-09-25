@@ -18,7 +18,9 @@ public class PositionBounds implements Bounds {
 
   private final int position;
 
-  /** New position at offset >= 0 */
+  /** New position
+   * @param position offset at least 0
+   */
   public PositionBounds(int position) {
     if (position < 0) {
       throw new InvalidBoundsException("Position must be greater than or equal to 0");

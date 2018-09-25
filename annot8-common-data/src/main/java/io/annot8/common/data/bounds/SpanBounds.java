@@ -14,7 +14,11 @@ public class SpanBounds implements Bounds {
   private final int begin;
   private final int end;
 
-  /** Create a new object with the specified begin and end values */
+  /** Create a new object with the specified begin and end values
+   *
+   * @param begin start offset, at least 0
+   * @param end (must be greater than begin)
+   */
   public SpanBounds(final int begin, final int end) {
     if (begin < 0) {
       throw new InvalidBoundsException("Begin must be greater than or equal to 0");
