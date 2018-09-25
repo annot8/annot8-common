@@ -3,6 +3,7 @@ package io.annot8.common.data.bounds;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -148,9 +149,9 @@ class SpanBoundsTest {
     SpanBounds bounds2 = new SpanBounds(1, 2);
     SpanBounds bounds3 = new SpanBounds(3, 5);
 
-    assertTrue(bounds.equals(bounds));
-    assertTrue(bounds.equals(bounds2));
-    assertFalse(bounds.equals(bounds3));
-    assertFalse(bounds.equals(null));
+    assertEquals(bounds, bounds);
+    assertEquals(bounds, bounds2);
+    assertNotEquals(bounds, bounds3);
+    assertNotEquals(null, bounds);
   }
 }

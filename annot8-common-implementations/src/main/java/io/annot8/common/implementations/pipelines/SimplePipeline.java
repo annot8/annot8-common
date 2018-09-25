@@ -24,7 +24,7 @@ public class SimplePipeline implements Pipeline {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimplePipeline.class);
 
-  private String id;
+  private final String id;
 
   private final NotifyingItemFactory itemFactory;
   private final ItemQueue itemQueue;

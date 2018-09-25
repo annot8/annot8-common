@@ -46,13 +46,11 @@ public class SimplePipelineFactory implements PipelineFactory {
 
     configuration
         .getSources()
-        .stream()
         .forEach(
             s -> addComponentToBuilder(Source.class, s, (i, c) -> pipelineBuilder.addSource(i, c)));
 
     configuration
         .getProcessors()
-        .stream()
         .forEach(
             s ->
                 addComponentToBuilder(
@@ -60,7 +58,6 @@ public class SimplePipelineFactory implements PipelineFactory {
 
     configuration
         .getResources()
-        .stream()
         .forEach(
             s ->
                 addComponentToBuilder(

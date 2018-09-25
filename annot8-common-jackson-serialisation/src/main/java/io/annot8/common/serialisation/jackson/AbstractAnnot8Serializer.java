@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 public abstract class AbstractAnnot8Serializer<D> extends StdSerializer<D> {
 
-  private Class<D> clazz;
+  private final Class<D> clazz;
 
   public AbstractAnnot8Serializer(Class<D> clazz) {
     super(clazz);

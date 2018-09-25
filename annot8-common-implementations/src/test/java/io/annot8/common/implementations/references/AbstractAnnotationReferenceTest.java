@@ -2,8 +2,7 @@
 package io.annot8.common.implementations.references;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Optional;
 
@@ -20,18 +19,18 @@ public class AbstractAnnotationReferenceTest {
     AnnotationReference same = new TestAnnotationReference("content", "annotationID");
     AnnotationReference diff = new TestAnnotationReference("diffContent", "diffId");
 
-    assertTrue(ref.equals(ref));
-    assertTrue(ref.equals(same));
+    assertEquals(ref, ref);
+    assertEquals(ref, same);
     assertEquals(ref.hashCode(), same.hashCode());
-    assertFalse(same.equals(diff));
-    assertFalse(ref.equals(null));
-    assertFalse(ref.equals(new Object()));
+    assertNotEquals(same, diff);
+    assertNotEquals(null, ref);
+    assertNotEquals(ref, new Object());
   }
 
   private class TestAnnotationReference extends AbstractAnnotationReference {
 
-    private String contentId;
-    private String annotationId;
+    private final String contentId;
+    private final String annotationId;
 
     public TestAnnotationReference(String contentId, String annotationId) {
       this.contentId = contentId;

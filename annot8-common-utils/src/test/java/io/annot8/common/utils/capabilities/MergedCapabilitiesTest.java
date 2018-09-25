@@ -22,14 +22,16 @@ import io.annot8.core.data.Content;
 
 public class MergedCapabilitiesTest {
 
-  private AnnotationCapability annCap = new AnnotationCapability("test", FakeBounds.class, true);
-  private AnnotationCapability annCap2 = new AnnotationCapability("test2", FakeBounds.class, true);
-  private ContentCapability conCap = new ContentCapability(FakeContent.class, true);
-  private ContentCapability conCap2 = new ContentCapability(FakeContent2.class, true);
-  private GroupCapability groupCap = new GroupCapability("group", true);
-  private GroupCapability groupCap2 = new GroupCapability("group2", true);
-  private ResourceCapability resCap = new ResourceCapability(FakeResource.class, true);
-  private ResourceCapability resCap2 = new ResourceCapability(FakeResource2.class, true);
+  private final AnnotationCapability annCap =
+      new AnnotationCapability("test", FakeBounds.class, true);
+  private final AnnotationCapability annCap2 =
+      new AnnotationCapability("test2", FakeBounds.class, true);
+  private final ContentCapability conCap = new ContentCapability(FakeContent.class, true);
+  private final ContentCapability conCap2 = new ContentCapability(FakeContent2.class, true);
+  private final GroupCapability groupCap = new GroupCapability("group", true);
+  private final GroupCapability groupCap2 = new GroupCapability("group2", true);
+  private final ResourceCapability resCap = new ResourceCapability(FakeResource.class, true);
+  private final ResourceCapability resCap2 = new ResourceCapability(FakeResource2.class, true);
 
   @Test
   public void testMergedCapabilities() {
@@ -120,9 +122,9 @@ public class MergedCapabilitiesTest {
   }
 
   private <T> Answer<Stream<T>> getStreamAnswer(T content) {
-    return new Answer<Stream<T>>() {
+    return new Answer<>() {
       @Override
-      public Stream<T> answer(InvocationOnMock invocation) throws Throwable {
+      public Stream<T> answer(InvocationOnMock invocation) {
         return Stream.of(content);
       }
     };

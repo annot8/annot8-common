@@ -2,8 +2,7 @@
 package io.annot8.common.implementations.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Collections;
 import java.util.Map;
@@ -22,9 +21,9 @@ public class AbstractAnnotationTest {
     TestAnnotation different =
         new TestAnnotation("diffId", "diffType", "diffContentName", Collections.emptyMap(), null);
 
-    assertTrue(annotation.equals(annotation));
-    assertFalse(annotation.equals(null));
-    assertFalse(annotation.equals(new Object()));
+    assertEquals(annotation, annotation);
+    assertNotEquals(null, annotation);
+    assertNotEquals(annotation, new Object());
   }
 
   @Test
@@ -34,37 +33,37 @@ public class AbstractAnnotationTest {
     TestAnnotation same =
         new TestAnnotation("id", "type", "content", Collections.singletonMap("key", "value"), null);
 
-    assertTrue(annotation.equals(same));
+    assertEquals(annotation, same);
     assertEquals(annotation.hashCode(), same.hashCode());
 
     TestAnnotation differentMap =
         new TestAnnotation(
             "id", "type", "content", Collections.singletonMap("key", "diffValue"), null);
-    assertFalse(annotation.equals(differentMap));
+    assertNotEquals(annotation, differentMap);
 
     TestAnnotation differentId =
         new TestAnnotation(
             "diffId", "type", "content", Collections.singletonMap("key", "value"), null);
-    assertFalse(annotation.equals(differentId));
+    assertNotEquals(annotation, differentId);
 
     TestAnnotation differentType =
         new TestAnnotation(
             "id", "diffType", "content", Collections.singletonMap("key", "value"), null);
-    assertFalse(annotation.equals(differentType));
+    assertNotEquals(annotation, differentType);
 
     TestAnnotation differentContent =
         new TestAnnotation(
             "id", "type", "diffContent", Collections.singletonMap("key", "value"), null);
-    assertFalse(annotation.equals(differentContent));
+    assertNotEquals(annotation, differentContent);
   }
 
   private class TestAnnotation extends AbstractAnnotation {
 
-    private String id;
-    private String type;
-    private Map<String, Object> properties;
-    private String contentId;
-    private Bounds bounds;
+    private final String id;
+    private final String type;
+    private final Map<String, Object> properties;
+    private final String contentId;
+    private final Bounds bounds;
 
     public TestAnnotation(
         String id, String type, String contentId, Map<String, Object> properties, Bounds bounds) {

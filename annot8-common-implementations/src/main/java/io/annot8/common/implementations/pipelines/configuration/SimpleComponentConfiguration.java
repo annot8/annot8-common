@@ -42,7 +42,7 @@ public class SimpleComponentConfiguration implements ComponentConfiguration {
     return component;
   }
 
-  public void setComponent(String className) {
+  public void setComponent(String component) {
     this.component = component;
   }
 

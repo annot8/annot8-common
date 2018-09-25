@@ -3,6 +3,7 @@ package io.annot8.common.data.bounds;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -135,10 +136,10 @@ class PositionBoundsTest {
     PositionBounds p1 = new PositionBounds(1);
     PositionBounds p2 = new PositionBounds(1);
     PositionBounds p3 = new PositionBounds(2);
-    assertTrue(p1.equals(p1));
-    assertTrue(p1.equals(p2));
-    assertFalse(p1.equals(p3));
-    assertFalse(p1.equals(new Object()));
-    assertFalse(p1.equals(null));
+    assertEquals(p1, p1);
+    assertEquals(p1, p2);
+    assertNotEquals(p1, p3);
+    assertNotEquals(p1, new Object());
+    assertNotEquals(null, p1);
   }
 }

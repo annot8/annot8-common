@@ -2,8 +2,7 @@
 package io.annot8.common.implementations.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -29,11 +28,11 @@ public class AbstractGroupTest {
     Group group = new TestGroup(groupId, groupType, Collections.emptyMap(), Collections.emptyMap());
     Group other = new TestGroup(groupId, groupType, Collections.emptyMap(), Collections.emptyMap());
 
-    assertTrue(group.equals(group));
-    assertTrue(group.equals(other));
+    assertEquals(group, group);
+    assertEquals(group, other);
     assertEquals(group.hashCode(), other.hashCode());
-    assertFalse(group.equals(null));
-    assertFalse(group.equals(new Object()));
+    assertNotEquals(null, group);
+    assertNotEquals(group, new Object());
   }
 
   @Test
@@ -49,14 +48,14 @@ public class AbstractGroupTest {
         new TestGroup(
             groupId, groupType, Collections.emptyMap(), Collections.singletonMap(key, value));
 
-    assertTrue(group.equals(other));
+    assertEquals(group, other);
     assertEquals(group.hashCode(), other.hashCode());
 
     Group differentProperties =
         new TestGroup(
             groupId, groupType, Collections.emptyMap(), Collections.singletonMap(key, "diffValue"));
 
-    assertFalse(group.equals(differentProperties));
+    assertNotEquals(group, differentProperties);
   }
 
   @Test
@@ -81,7 +80,7 @@ public class AbstractGroupTest {
             Collections.singletonMap(role, Collections.singletonList(reference)),
             Collections.emptyMap());
 
-    assertTrue(group.equals(other));
+    assertEquals(group, other);
 
     AnnotationReference diffReference = getAnnotationReference("diffId", "diffContentId");
 
@@ -92,7 +91,7 @@ public class AbstractGroupTest {
             Collections.singletonMap(role, Collections.singletonList(diffReference)),
             Collections.emptyMap());
 
-    assertFalse(group.equals(differentReference));
+    assertNotEquals(group, differentReference);
 
     Group differentRole =
         new TestGroup(
@@ -101,7 +100,7 @@ public class AbstractGroupTest {
             Collections.singletonMap("diffRole", Collections.singletonList(reference)),
             Collections.emptyMap());
 
-    assertFalse(group.equals(differentRole));
+    assertNotEquals(group, differentRole);
   }
 
   private AnnotationReference getAnnotationReference(String annotationId, String contentId) {
@@ -109,7 +108,7 @@ public class AbstractGroupTest {
 
       @Override
       public Optional<Annotation> toAnnotation() {
-        return null;
+        return Optional.empty();
       }
 
       @Override
@@ -126,10 +125,10 @@ public class AbstractGroupTest {
 
   private class TestGroup extends AbstractGroup {
 
-    private String id;
-    private String type;
-    private Map<String, Collection<AnnotationReference>> refs;
-    private Map<String, Object> properties;
+    private final String id;
+    private final String type;
+    private final Map<String, Collection<AnnotationReference>> refs;
+    private final Map<String, Object> properties;
 
     public TestGroup(
         String id,

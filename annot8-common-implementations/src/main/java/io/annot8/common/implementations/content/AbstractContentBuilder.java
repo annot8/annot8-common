@@ -96,6 +96,5 @@ public abstract class AbstractContentBuilder<D, C extends Content<D>>
   }
 
   protected abstract C create(
-      String id, String name, ImmutableProperties properties, Supplier<D> data)
-      throws IncompleteException;
+      String id, String name, ImmutableProperties properties, Supplier<D> data);
 }

@@ -70,7 +70,7 @@ public class SimplePipelineBuilder implements PipelineBuilder {
       throw new IncompleteException("No item creator specified");
     }
 
-    if (itemQueue == null) {;
+    if (itemQueue == null) {
       LOGGER.warn("No item queue specified, (using SimpleItemQueue as an basic implementation)");
       this.itemQueue = new SimpleItemQueue();
     }

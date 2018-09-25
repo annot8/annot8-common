@@ -87,16 +87,16 @@ public class CapabilitiesCompilerTest {
 
   private class TestCapabilitiesBuilder implements Capabilities.Builder {
 
-    private List<AnnotationCapability> processesAnnotations = new ArrayList<>();
-    private List<AnnotationCapability> createsAnnotations = new ArrayList<>();
-    private List<AnnotationCapability> deletesAnnotations = new ArrayList<>();
-    private List<GroupCapability> processesGroup = new ArrayList<>();
-    private List<GroupCapability> createsGroup = new ArrayList<>();
-    private List<GroupCapability> deletesGroup = new ArrayList<>();
-    private List<ContentCapability> processesContent = new ArrayList<>();
-    private List<ContentCapability> createsContent = new ArrayList<>();
-    private List<ContentCapability> deletesContent = new ArrayList<>();
-    private List<ResourceCapability> resources = new ArrayList<>();
+    private final List<AnnotationCapability> processesAnnotations = new ArrayList<>();
+    private final List<AnnotationCapability> createsAnnotations = new ArrayList<>();
+    private final List<AnnotationCapability> deletesAnnotations = new ArrayList<>();
+    private final List<GroupCapability> processesGroup = new ArrayList<>();
+    private final List<GroupCapability> createsGroup = new ArrayList<>();
+    private final List<GroupCapability> deletesGroup = new ArrayList<>();
+    private final List<ContentCapability> processesContent = new ArrayList<>();
+    private final List<ContentCapability> createsContent = new ArrayList<>();
+    private final List<ContentCapability> deletesContent = new ArrayList<>();
+    private final List<ResourceCapability> resources = new ArrayList<>();
 
     @Override
     public Builder processesAnnotation(AnnotationCapability capability) {

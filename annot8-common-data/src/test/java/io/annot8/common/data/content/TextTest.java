@@ -133,7 +133,7 @@ class TextTest {
         .thenAnswer(
             new Answer<Stream<Annotation>>() {
               @Override
-              public Stream<Annotation> answer(InvocationOnMock invocation) throws Throwable {
+              public Stream<Annotation> answer(InvocationOnMock invocation) {
                 return Stream.of(annotation);
               }
             });

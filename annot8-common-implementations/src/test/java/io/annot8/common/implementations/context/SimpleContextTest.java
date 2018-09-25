@@ -1,7 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.context;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class SimpleContextTest {
     context.addResource("resource1", r1);
     context.addResource("resource2", r2);
 
-    Assertions.assertTrue(context.getSettings().count() == 0);
+    Assertions.assertEquals(0, context.getSettings().count());
 
     Assertions.assertFalse(context.getResource("foo", Resource.class).isPresent());
     Assertions.assertFalse(context.getResource("resource1", TestResource.class).isPresent());
@@ -53,7 +53,7 @@ public class SimpleContextTest {
 
     SimpleContext context = new SimpleContext(r);
 
-    Assertions.assertTrue(context.getSettings().count() == 0);
+    Assertions.assertEquals(0, context.getSettings().count());
 
     Assertions.assertFalse(context.getResource("foo", Resource.class).isPresent());
     Assertions.assertFalse(context.getResource("resource1", NotTestResource.class).isPresent());
@@ -75,7 +75,7 @@ public class SimpleContextTest {
   public void testSimpleContextSettings() {
     Settings s = Mockito.mock(Settings.class);
 
-    SimpleContext context = new SimpleContext(Arrays.asList(s));
+    SimpleContext context = new SimpleContext(Collections.singletonList(s));
 
     Assertions.assertEquals(1, context.getSettings().count());
     Assertions.assertEquals(s, context.getSettings().findFirst().get());
@@ -97,7 +97,7 @@ public class SimpleContextTest {
     r.put("resource1", r1);
     r.put("resource2", r2);
 
-    SimpleContext context = new SimpleContext(Arrays.asList(s), r);
+    SimpleContext context = new SimpleContext(Collections.singletonList(s), r);
 
     Assertions.assertEquals(1, context.getSettings().count());
     Assertions.assertEquals(s, context.getSettings().findFirst().get());

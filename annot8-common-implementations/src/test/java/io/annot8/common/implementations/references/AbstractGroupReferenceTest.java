@@ -2,8 +2,7 @@
 package io.annot8.common.implementations.references;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Optional;
 
@@ -20,17 +19,17 @@ public class AbstractGroupReferenceTest {
     GroupReference same = new TestGroupReference("groupId");
     GroupReference diff = new TestGroupReference("diff");
 
-    assertTrue(ref.equals(ref));
-    assertTrue(ref.equals(same));
+    assertEquals(ref, ref);
+    assertEquals(ref, same);
     assertEquals(ref.hashCode(), same.hashCode());
-    assertFalse(ref.equals(diff));
-    assertFalse(ref.equals(new Object()));
-    assertFalse(ref.equals(null));
+    assertNotEquals(ref, diff);
+    assertNotEquals(ref, new Object());
+    assertNotEquals(null, ref);
   }
 
   private class TestGroupReference extends AbstractGroupReference {
 
-    private String groupId;
+    private final String groupId;
 
     public TestGroupReference(String groupId) {
       this.groupId = groupId;
