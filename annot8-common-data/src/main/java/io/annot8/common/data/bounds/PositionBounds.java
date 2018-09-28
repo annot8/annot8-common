@@ -18,7 +18,9 @@ public class PositionBounds implements Bounds {
 
   private final int position;
 
-  /** New position
+  /**
+   * New position
+   *
    * @param position offset at least 0
    */
   public PositionBounds(int position) {
