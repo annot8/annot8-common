@@ -22,6 +22,7 @@ public interface Text extends Content<String> {
 
   /**
    * Get the text under the annotation, if the annotation's bounds are of a supported type.
+   *
    * @param annotation the annotation
    * @return the text under the annotation
    */
