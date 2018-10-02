@@ -4,7 +4,7 @@ package io.annot8.common.implementations.pipelines.feeders;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import io.annot8.common.implementations.pipelines.common.ItemProcessor;
 import io.annot8.common.implementations.pipelines.common.SourceListener;
@@ -15,7 +15,7 @@ public class MultiSourceFeeder implements SourceFeeder {
 
   private final Collection<Source> sources;
 
-  private final Set<SourceListener> listeners = new ConcurrentSkipListSet<>();
+  private final Set<SourceListener> listeners = new CopyOnWriteArraySet<>();
 
   public MultiSourceFeeder(Source... sources) {
     this(Arrays.asList(sources));

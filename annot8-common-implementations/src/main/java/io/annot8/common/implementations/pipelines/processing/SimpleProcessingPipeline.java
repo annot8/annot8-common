@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class SimpleProcessingPipeline implements ProcessingPipeline {
   private Map<String, Resource> resources = new HashMap<>();
   private List<Processor> processors = new ArrayList<>();
 
-  private final Set<ProcessingListener> listeners = new ConcurrentSkipListSet<>();
+  private final Set<ProcessingListener> listeners = new CopyOnWriteArraySet<>();
   private ProcessingPipe pipe;
   private QueueProcessor queueProcessor;
 
