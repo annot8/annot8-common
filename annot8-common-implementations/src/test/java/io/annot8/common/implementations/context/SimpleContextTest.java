@@ -1,6 +1,8 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.context;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -9,19 +11,23 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import io.annot8.core.components.Resource;
+import io.annot8.core.data.ItemFactory;
 import io.annot8.core.settings.Settings;
 
 public class SimpleContextTest {
 
   @Test
   public void testSimpleContextDefault() {
-    Resource r1 = Mockito.mock(Resource.class);
+    Resource r1 = mock(Resource.class);
     Resource r2 = new TestResource();
+    ItemFactory itemFactory = mock(ItemFactory.class);
 
-    SimpleContext context = new SimpleContext();
+    SimpleContext context = new SimpleContext(itemFactory);
+
+    Assertions.assertEquals(itemFactory, context.getItemFactory());
+
     context.addResource("resource1", r1);
     context.addResource("resource2", r2);
 
@@ -44,14 +50,16 @@ public class SimpleContextTest {
 
   @Test
   public void testSimpleContextMap() {
-    Resource r1 = Mockito.mock(Resource.class);
+    Resource r1 = mock(Resource.class);
     Resource r2 = new TestResource();
 
     Map<String, Resource> r = new HashMap<>();
     r.put("resource1", r1);
     r.put("resource2", r2);
+    ItemFactory itemFactory = mock(ItemFactory.class);
 
-    SimpleContext context = new SimpleContext(r);
+    SimpleContext context = new SimpleContext(itemFactory, r);
+    Assertions.assertEquals(itemFactory, context.getItemFactory());
 
     Assertions.assertEquals(0, context.getSettings().count());
 
@@ -73,9 +81,12 @@ public class SimpleContextTest {
 
   @Test
   public void testSimpleContextSettings() {
-    Settings s = Mockito.mock(Settings.class);
+    Settings s = mock(Settings.class);
+    ItemFactory itemFactory = mock(ItemFactory.class);
 
-    SimpleContext context = new SimpleContext(Collections.singletonList(s));
+    SimpleContext context = new SimpleContext(itemFactory, Collections.singletonList(s));
+
+    Assertions.assertEquals(itemFactory, context.getItemFactory());
 
     Assertions.assertEquals(1, context.getSettings().count());
     Assertions.assertEquals(s, context.getSettings().findFirst().get());
@@ -89,15 +100,19 @@ public class SimpleContextTest {
 
   @Test
   public void testSimpleContextSettingsAndMap() {
-    Resource r1 = Mockito.mock(Resource.class);
+    Resource r1 = mock(Resource.class);
     Resource r2 = new TestResource();
-    Settings s = Mockito.mock(Settings.class);
+    Settings s = mock(Settings.class);
 
     Map<String, Resource> r = new HashMap<>();
     r.put("resource1", r1);
     r.put("resource2", r2);
 
-    SimpleContext context = new SimpleContext(Collections.singletonList(s), r);
+    ItemFactory itemFactory = mock(ItemFactory.class);
+
+    SimpleContext context = new SimpleContext(itemFactory, Collections.singletonList(s), r);
+
+    Assertions.assertEquals(itemFactory, context.getItemFactory());
 
     Assertions.assertEquals(1, context.getSettings().count());
     Assertions.assertEquals(s, context.getSettings().findFirst().get());

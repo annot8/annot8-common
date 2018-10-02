@@ -1,32 +1,32 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
-package io.annot8.common.implementations.pipelines;
+package io.annot8.common.implementations.pipelines.processing;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import io.annot8.common.implementations.pipelines.queues.ItemQueue;
+import io.annot8.common.implementations.pipelines.PipelineBuilder;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
 
-public interface PipelineBuilder {
+public interface ProcessingPipelineBuilder extends PipelineBuilder {
 
-  default PipelineBuilder addResource(
+  default ProcessingPipelineBuilder addResource(
       final String id, final Resource resource, final Settings... settings) {
     return addResource(id, resource, Arrays.asList(settings));
   }
 
-  default PipelineBuilder addProcessor(final Processor processor, final Settings... settings) {
+  default ProcessingPipelineBuilder addProcessor(
+      final Processor processor, final Settings... settings) {
     return addProcessor(processor, Arrays.asList(settings));
   }
 
-  PipelineBuilder addResource(
+  ProcessingPipelineBuilder addResource(
       final String id, final Resource resource, final Collection<Settings> settings);
 
-  PipelineBuilder addProcessor(final Processor processor, final Collection<Settings> settings);
+  ProcessingPipelineBuilder addProcessor(
+      final Processor processor, final Collection<Settings> settings);
 
-  PipelineBuilder withQueue(final ItemQueue queue);
-
-  Pipeline build() throws IncompleteException;
+  ProcessingPipeline build() throws IncompleteException;
 }

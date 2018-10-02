@@ -9,11 +9,11 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.annot8.common.implementations.pipelines.Pipeline;
-import io.annot8.common.implementations.pipelines.PipelineBuilder;
 import io.annot8.common.implementations.pipelines.configuration.ComponentConfiguration;
 import io.annot8.common.implementations.pipelines.configuration.PipelineConfiguration;
 import io.annot8.common.implementations.pipelines.configuration.TypedComponentConfiguration;
+import io.annot8.common.implementations.pipelines.runnable.RunnablePipeline;
+import io.annot8.common.implementations.pipelines.runnable.RunnablePipelineBuilder;
 import io.annot8.common.implementations.registries.Annot8ComponentRegistry;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Processor;
@@ -27,22 +27,24 @@ public class SimplePipelineFactory implements PipelineFactory {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimplePipelineFactory.class);
 
-  private final Supplier<PipelineBuilder> builderFactory;
+  private final Supplier<RunnablePipelineBuilder> builderFactory;
   private final Annot8ComponentRegistry componentRegistry;
 
   public SimplePipelineFactory(
-      Supplier<PipelineBuilder> builderFactory, Annot8ComponentRegistry componentRegistry) {
+      Supplier<RunnablePipelineBuilder> builderFactory, Annot8ComponentRegistry componentRegistry) {
     this.builderFactory = builderFactory;
     this.componentRegistry = componentRegistry;
   }
 
   @Override
-  public Pipeline create(PipelineConfiguration pipelineConfiguration) throws IncompleteException {
+  public RunnablePipeline create(PipelineConfiguration pipelineConfiguration)
+      throws IncompleteException {
     return createPipeline(pipelineConfiguration);
   }
 
-  private Pipeline createPipeline(PipelineConfiguration configuration) throws IncompleteException {
-    PipelineBuilder pipelineBuilder = builderFactory.get();
+  private RunnablePipeline createPipeline(PipelineConfiguration configuration)
+      throws IncompleteException {
+    RunnablePipelineBuilder pipelineBuilder = builderFactory.get();
 
     configuration
         .getSources()
