@@ -1,7 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.pipelines.processing;
 
-import java.util.Set;
+import java.util.Collection;
 import java.util.function.Consumer;
 
 import io.annot8.common.implementations.pipelines.common.ProcessingListener;
@@ -11,9 +11,9 @@ import io.annot8.core.data.Item;
 
 public class MultiProcessingPipelineListener implements ProcessingListener {
 
-  private final Set<ProcessingListener> listeners;
+  private final Collection<ProcessingListener> listeners;
 
-  public MultiProcessingPipelineListener(Set<ProcessingListener> listeners) {
+  public MultiProcessingPipelineListener(Collection<ProcessingListener> listeners) {
     this.listeners = listeners;
   }
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class SimpleRunnablePipeline implements RunnablePipeline {
   private List<Processor> processors = new ArrayList<>();
   private List<Source> sources = new ArrayList<>();
 
-  private final Set<ProcessingListener> listeners = new ConcurrentSkipListSet<>();
+  private final Set<ProcessingListener> listeners = new CopyOnWriteArraySet<>();
   private ProcessingPipe pipe;
 
   private ItemFactory itemFactory;

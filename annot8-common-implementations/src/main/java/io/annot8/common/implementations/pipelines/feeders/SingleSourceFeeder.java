@@ -2,7 +2,7 @@
 package io.annot8.common.implementations.pipelines.feeders;
 
 import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Consumer;
 
 import io.annot8.common.implementations.pipelines.common.ItemProcessor;
@@ -15,7 +15,7 @@ public class SingleSourceFeeder implements SourceFeeder {
 
   private final Source source;
 
-  private final Set<SourceListener> listeners = new ConcurrentSkipListSet<>();
+  private final Set<SourceListener> listeners = new CopyOnWriteArraySet<>();
 
   public SingleSourceFeeder(Source source) {
     this.source = source;
