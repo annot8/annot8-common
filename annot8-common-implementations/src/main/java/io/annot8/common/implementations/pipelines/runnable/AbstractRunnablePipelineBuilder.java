@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import io.annot8.common.implementations.pipelines.context.ComponentHolder;
 import io.annot8.common.implementations.pipelines.context.ResourcesHolder;
 import io.annot8.common.implementations.pipelines.queues.ItemQueue;
+import io.annot8.common.implementations.pipelines.queues.SimpleItemQueue;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
@@ -61,6 +62,13 @@ public abstract class AbstractRunnablePipelineBuilder implements RunnablePipelin
   }
 
   protected ItemQueue getQueue() {
+    // TODO: There's a difference between a Source push queue and the sub items queue
+    // the latter should be optional
+    if (queue == null) {
+      LOGGER.warn(
+          "Queue requires for Source ingest, non specified so using the an in-memory queue");
+      queue = new SimpleItemQueue();
+    }
     return queue;
   }
 }
