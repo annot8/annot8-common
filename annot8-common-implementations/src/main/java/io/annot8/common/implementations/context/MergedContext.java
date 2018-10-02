@@ -32,7 +32,7 @@ public class MergedContext implements Context {
   public <T extends Settings> Optional<T> getSettings(Class<T> clazz) {
     return contexts
         .stream()
-        .map(c -> getSettings(clazz))
+        .map(c -> c.getSettings(clazz))
         .filter(Optional::isPresent)
         .map(Optional::get)
         .findFirst();
@@ -42,7 +42,7 @@ public class MergedContext implements Context {
   public <T extends Resource> Optional<T> getResource(String key, Class<T> clazz) {
     return contexts
         .stream()
-        .map(c -> getResource(key, clazz))
+        .map(c -> c.getResource(key, clazz))
         .filter(Optional::isPresent)
         .map(Optional::get)
         .findFirst();
@@ -62,7 +62,7 @@ public class MergedContext implements Context {
   public <T extends Resource> Optional<T> getResource(Class<T> clazz) {
     return contexts
         .stream()
-        .map(c -> getResource(clazz))
+        .map(c -> c.getResource(clazz))
         .filter(Optional::isPresent)
         .map(Optional::get)
         .findFirst();
@@ -77,7 +77,7 @@ public class MergedContext implements Context {
   public ItemFactory getItemFactory() {
     return contexts
         .stream()
-        .map(c -> getItemFactory())
+        .map(c -> c.getItemFactory())
         .filter(Objects::nonNull)
         .findFirst()
         .orElseThrow(() -> new Annot8RuntimeException("Missing ItemFactory"));
