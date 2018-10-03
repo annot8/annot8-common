@@ -1,8 +1,8 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
-package io.annot8.common.pipelines.management;
+package io.annot8.common.pipelines.creation;
 
 import io.annot8.common.pipelines.runnable.RunnablePipeline;
-import io.annot8.common.pipelines.configuration.PipelineConfiguration;
+import io.annot8.common.pipelines.creation.configuration.PipelineConfiguration;
 import io.annot8.core.exceptions.IncompleteException;
 
 public interface PipelineFactory {

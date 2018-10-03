@@ -1,12 +1,12 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.feeders;
 
+import io.annot8.core.helpers.WithProcessItem;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import io.annot8.common.pipelines.common.ItemProcessor;
 import io.annot8.common.pipelines.common.SourceListener;
 import io.annot8.core.components.Source;
 import io.annot8.core.data.ItemFactory;
@@ -26,12 +26,12 @@ public class MultiSourceFeeder implements SourceFeeder {
   }
 
   @Override
-  public void feed(ItemFactory itemFactory, ItemProcessor pipeline) {
+  public void feed(ItemFactory itemFactory, WithProcessItem processor) {
     for (Source source : sources) {
       SingleSourceFeeder feeder = new SingleSourceFeeder(source);
       listeners.forEach(feeder::register);
 
-      feeder.feed(itemFactory, pipeline);
+      feeder.feed(itemFactory, processor);
     }
   }
 

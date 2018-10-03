@@ -1,7 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.feeders;
 
-import io.annot8.common.pipelines.common.ItemProcessor;
+import io.annot8.core.helpers.WithProcessItem;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Consumer;
@@ -21,7 +21,7 @@ public class SingleSourceFeeder implements SourceFeeder {
     this.source = source;
   }
 
-  public void feed(ItemFactory itemFactory, ItemProcessor pipeline) {
+  public void feed(ItemFactory itemFactory, WithProcessItem pipeline) {
     SourceResponse.Status status;
     do {
       final SourceResponse response = source.read(itemFactory);

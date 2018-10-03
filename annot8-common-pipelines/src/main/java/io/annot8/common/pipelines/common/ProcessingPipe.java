@@ -1,6 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.common;
 
+import io.annot8.core.helpers.WithProcessItem;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -14,7 +15,7 @@ import io.annot8.core.components.responses.ProcessorResponse.Status;
 import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
 
-public class ProcessingPipe implements ItemProcessor {
+public class ProcessingPipe implements WithProcessItem {
   private static final Logger LOGGER = LoggerFactory.getLogger(SimpleProcessingPipeline.class);
 
   private final ProcessingListener listener;
