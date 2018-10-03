@@ -34,6 +34,7 @@
     <module>annot8-common-data</module>
     <module>annot8-common-utils</module>
     <module>annot8-common-jackson-serialisation</module>
+    <module>annot8-common-pipelines</module>
   </modules>
 
   <profiles>
