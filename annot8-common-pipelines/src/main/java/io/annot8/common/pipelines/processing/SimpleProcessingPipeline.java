@@ -1,11 +1,12 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.processing;
 
+import io.annot8.common.pipelines.common.MultiProcessingPipelineListener;
 import io.annot8.common.pipelines.common.ProcessingListener;
 import io.annot8.common.pipelines.common.ProcessingPipe;
-import io.annot8.common.pipelines.context.ComponentConfigurer;
-import io.annot8.common.pipelines.context.ComponentHolder;
-import io.annot8.common.pipelines.context.ResourcesHolder;
+import io.annot8.common.pipelines.configuration.ComponentConfigurer;
+import io.annot8.common.pipelines.configuration.ComponentHolder;
+import io.annot8.common.pipelines.configuration.ResourcesHolder;
 import io.annot8.common.pipelines.queues.ItemQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.annot8.common.pipelines.queues.QueueProcessor;
+import io.annot8.common.pipelines.queues.QueuePusher;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
@@ -41,7 +42,7 @@ public class SimpleProcessingPipeline implements ProcessingPipeline {
 
   private final Set<ProcessingListener> listeners = new CopyOnWriteArraySet<>();
   private ProcessingPipe pipe;
-  private QueueProcessor queueProcessor;
+  private QueuePusher queuePusher;
 
   public SimpleProcessingPipeline(
       ResourcesHolder resourcesHolder,
@@ -68,8 +69,8 @@ public class SimpleProcessingPipeline implements ProcessingPipeline {
 
     // Should we queue items?
     if (queue.isPresent()) {
-      queueProcessor = new QueueProcessor(queue.get());
-      globalContext = queueProcessor.setupContext(context);
+      queuePusher = new QueuePusher(queue.get());
+      globalContext = queuePusher.setupContext(context);
     }
 
     // Create a new
@@ -86,8 +87,8 @@ public class SimpleProcessingPipeline implements ProcessingPipeline {
     final ProcessorResponse response = pipe.process(item);
 
     // Also process all the queue which have jsut been added
-    if (queueProcessor != null) {
-      queueProcessor.process(pipe);
+    if (queuePusher != null) {
+      queuePusher.process(pipe);
     }
 
     return response;
@@ -112,6 +113,6 @@ public class SimpleProcessingPipeline implements ProcessingPipeline {
     processors.clear();
 
     pipe = null;
-    queueProcessor = null;
+    queuePusher = null;
   }
 }

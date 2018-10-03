@@ -3,16 +3,16 @@ package io.annot8.common.pipelines.runnable;
 
 import io.annot8.common.pipelines.common.ProcessingPipe;
 import io.annot8.common.pipelines.common.SourceListener;
-import io.annot8.common.pipelines.queues.QueueProcessor;
+import io.annot8.common.pipelines.queues.QueuePusher;
 import io.annot8.core.components.Source;
 
 public class ProcessQueueSourceListener implements SourceListener {
 
-  private final QueueProcessor queueProcessor;
+  private final QueuePusher queuePusher;
   private final ProcessingPipe pipe;
 
-  public ProcessQueueSourceListener(QueueProcessor queueProcessor, ProcessingPipe pipe) {
-    this.queueProcessor = queueProcessor;
+  public ProcessQueueSourceListener(QueuePusher queuePusher, ProcessingPipe pipe) {
+    this.queuePusher = queuePusher;
     this.pipe = pipe;
   }
 
@@ -37,8 +37,8 @@ public class ProcessQueueSourceListener implements SourceListener {
   }
 
   protected void processQueue() {
-    if (queueProcessor != null && pipe != null) {
-      queueProcessor.process(pipe);
+    if (queuePusher != null && pipe != null) {
+      queuePusher.process(pipe);
     }
   }
 }

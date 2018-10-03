@@ -1,5 +1,5 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
-package io.annot8.common.pipelines.context;
+package io.annot8.common.pipelines.configuration;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;

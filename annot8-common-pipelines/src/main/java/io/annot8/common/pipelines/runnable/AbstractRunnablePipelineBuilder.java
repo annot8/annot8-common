@@ -8,8 +8,8 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.annot8.common.pipelines.context.ComponentHolder;
-import io.annot8.common.pipelines.context.ResourcesHolder;
+import io.annot8.common.pipelines.configuration.ComponentHolder;
+import io.annot8.common.pipelines.configuration.ResourcesHolder;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;

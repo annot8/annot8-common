@@ -12,13 +12,14 @@ import io.annot8.core.data.Item;
 import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.Annot8Exception;
 
-public class QueueProcessor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(QueueProcessor.class);
+public class QueuePusher {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(QueuePusher.class);
 
   private final ItemQueue queue;
 
-  public QueueProcessor(ItemQueue queue) {
+  public QueuePusher(ItemQueue queue) {
     this.queue = queue;
   }
 
