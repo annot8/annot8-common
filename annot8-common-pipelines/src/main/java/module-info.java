@@ -6,7 +6,7 @@ open module io.annot8.common.pipelines {
 
   exports io.annot8.common.pipelines;
   exports io.annot8.common.pipelines.creation.configuration;
-  exports io.annot8.common.pipelines.management;
+  exports io.annot8.common.pipelines.creation;
   exports io.annot8.common.pipelines.common;
   exports io.annot8.common.pipelines.processing;
   exports io.annot8.common.pipelines.runnable;

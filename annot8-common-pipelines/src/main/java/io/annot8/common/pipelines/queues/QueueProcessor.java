@@ -1,6 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.queues;
 
+import io.annot8.core.helpers.WithProcessItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,7 @@ public class QueueProcessor {
     this.queue = queue;
   }
 
-  public void process(ItemProcessor pipe) {
+  public void process(WithProcessItem pipe) {
     while (queue.hasItems()) {
       Item item = queue.next();
       try {
