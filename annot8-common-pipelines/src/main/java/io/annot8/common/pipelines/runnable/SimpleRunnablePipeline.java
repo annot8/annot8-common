@@ -18,11 +18,11 @@ import org.slf4j.LoggerFactory;
 
 import io.annot8.common.pipelines.common.ProcessingListener;
 import io.annot8.common.pipelines.common.ProcessingPipe;
-import io.annot8.common.pipelines.context.ComponentConfigurer;
-import io.annot8.common.pipelines.context.ComponentHolder;
-import io.annot8.common.pipelines.context.ResourcesHolder;
-import io.annot8.common.pipelines.processing.MultiProcessingPipelineListener;
-import io.annot8.common.pipelines.queues.QueueProcessor;
+import io.annot8.common.pipelines.configuration.ComponentConfigurer;
+import io.annot8.common.pipelines.configuration.ComponentHolder;
+import io.annot8.common.pipelines.configuration.ResourcesHolder;
+import io.annot8.common.pipelines.common.MultiProcessingPipelineListener;
+import io.annot8.common.pipelines.queues.QueuePusher;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
@@ -50,7 +50,7 @@ public class SimpleRunnablePipeline implements RunnablePipeline {
   private ProcessingPipe pipe;
 
   private ItemFactory itemFactory;
-  private QueueProcessor queueProcessor;
+  private QueuePusher queuePusher;
 
   public SimpleRunnablePipeline(
       ResourcesHolder resourcesHolder,
@@ -80,8 +80,8 @@ public class SimpleRunnablePipeline implements RunnablePipeline {
 
     // Should we queue items?
     if (queue.isPresent()) {
-      queueProcessor = new QueueProcessor(queue.get());
-      globalContext = queueProcessor.setupContext(context);
+      queuePusher = new QueuePusher(queue.get());
+      globalContext = queuePusher.setupContext(context);
     }
 
     // Create a new
@@ -109,7 +109,7 @@ public class SimpleRunnablePipeline implements RunnablePipeline {
   @Override
   public void run() {
     MultiSourceFeeder feeder = new MultiSourceFeeder(sources);
-    feeder.register(new ProcessQueueSourceListener(queueProcessor, pipe));
+    feeder.register(new ProcessQueueSourceListener(queuePusher, pipe));
     feeder.feed(itemFactory, pipe);
   }
 
@@ -125,7 +125,7 @@ public class SimpleRunnablePipeline implements RunnablePipeline {
     sources.clear();
 
     itemFactory = null;
-    queueProcessor = null;
+    queuePusher = null;
     pipe = null;
   }
 }
