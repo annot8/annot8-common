@@ -1,15 +1,15 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.runnable;
 
-import io.annot8.common.pipelines.queues.ItemQueue;
+import io.annot8.queues.ItemQueue;
 import io.annot8.common.pipelines.queues.SimpleItemQueue;
 import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.annot8.common.pipelines.configuration.ComponentHolder;
-import io.annot8.common.pipelines.configuration.ResourcesHolder;
+import io.annot8.configuration.ComponentHolder;
+import io.annot8.configuration.ResourcesHolder;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
