@@ -19,7 +19,7 @@ public class SpanBoundsSerializer extends AbstractAnnot8Serializer<SpanBounds> {
       throws IOException {
     gen.writeStartObject();
     gen.writeNumberField("begin", value.getBegin());
-    gen.writeNumberField("end", value.getBegin());
+    gen.writeNumberField("end", value.getEnd());
     gen.writeEndObject();
   }
 }
