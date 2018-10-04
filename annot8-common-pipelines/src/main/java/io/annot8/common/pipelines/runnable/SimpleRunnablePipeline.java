@@ -1,8 +1,9 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.runnable;
 
-import io.annot8.common.pipelines.feeders.MultiSourceFeeder;
-import io.annot8.common.pipelines.queues.ItemQueue;
+import io.annot8.common.pipelines.Pipeline;
+import io.annot8.feeders.feeders.MultiSourceFeeder;
+import io.annot8.queues.ItemQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,13 +17,11 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.annot8.common.pipelines.common.ProcessingListener;
-import io.annot8.common.pipelines.common.ProcessingPipe;
-import io.annot8.common.pipelines.configuration.ComponentConfigurer;
-import io.annot8.common.pipelines.configuration.ComponentHolder;
-import io.annot8.common.pipelines.configuration.ResourcesHolder;
-import io.annot8.common.pipelines.common.MultiProcessingPipelineListener;
-import io.annot8.common.pipelines.queues.QueuePusher;
+import io.annot8.pipelines.simple.SimplePipe;
+import io.annot8.configuration.ComponentConfigurer;
+import io.annot8.configuration.ComponentHolder;
+import io.annot8.configuration.ResourcesHolder;
+import io.annot8.feeders.QueuePusher;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
@@ -32,7 +31,7 @@ import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.MissingResourceException;
 
-public class SimpleRunnablePipeline implements RunnablePipeline {
+public class SimpleRunnablePipeline implements Pipeline, Runnable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimpleRunnablePipeline.class);
 
@@ -47,7 +46,7 @@ public class SimpleRunnablePipeline implements RunnablePipeline {
   private List<Source> sources = new ArrayList<>();
 
   private final Set<ProcessingListener> listeners = new CopyOnWriteArraySet<>();
-  private ProcessingPipe pipe;
+  private SimplePipe pipe;
 
   private ItemFactory itemFactory;
   private QueuePusher queuePusher;
@@ -93,7 +92,7 @@ public class SimpleRunnablePipeline implements RunnablePipeline {
     processors = componentConfigurer.configureComponents(processorHolder);
     sources = componentConfigurer.configureComponents(sourceHolder);
 
-    pipe = new ProcessingPipe(new MultiProcessingPipelineListener(this.listeners), processors);
+    pipe = new SimplePipe(new MultiProcessingPipelineListener(this.listeners), processors);
   }
 
   @Override

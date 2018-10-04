@@ -1,7 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.runnable;
 
-import io.annot8.common.pipelines.queues.ItemQueue;
+import io.annot8.queues.ItemQueue;
 import java.util.Optional;
 
 import org.slf4j.Logger;

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import io.annot8.common.pipelines.creation.configuration.ComponentConfiguration;
 import io.annot8.common.pipelines.creation.configuration.PipelineConfiguration;
 import io.annot8.common.pipelines.creation.configuration.TypedComponentConfiguration;
-import io.annot8.common.pipelines.runnable.RunnablePipeline;
 import io.annot8.common.pipelines.runnable.RunnablePipelineBuilder;
 import io.annot8.common.implementations.registries.Annot8ComponentRegistry;
 import io.annot8.core.components.Annot8Component;
