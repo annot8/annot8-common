@@ -1,0 +1,11 @@
+package io.annot8.common.pipelines.events.tasks;
+
+import io.annot8.common.pipelines.elements.Task;
+
+public class TaskBegunEvent extends AbstractTaskEvent {
+
+  public TaskBegunEvent(Task task) {
+    super(task);
+  }
+
+}

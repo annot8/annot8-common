@@ -3,12 +3,18 @@ open module io.annot8.common.pipelines {
   requires transitive io.annot8.core;
   requires slf4j.api;
   requires io.annot8.common.implementations;
+  requires io.annot8.common.utils;
 
-  exports io.annot8.common.pipelines;
-  exports io.annot8.common.pipelines.creation.configuration;
-  exports io.annot8.common.pipelines.creation;
-  exports io.annot8.common.pipelines.common;
-  exports io.annot8.common.pipelines.processing;
-  exports io.annot8.common.pipelines.runnable;
+  exports io.annot8.common.pipelines.events.pipe;
+  exports io.annot8.common.pipelines.events.source;
+  exports io.annot8.common.pipelines.events.tasks;
+  exports io.annot8.common.pipelines.events.jobs;
+  exports io.annot8.common.pipelines.factory;
+  exports io.annot8.common.pipelines.factory.configuration;
+  exports io.annot8.common.pipelines.base;
+  exports io.annot8.common.pipelines.elements;
+  exports io.annot8.common.pipelines.listeners;
+  exports io.annot8.common.pipelines.pipeline;
   exports io.annot8.common.pipelines.queues;
+  exports io.annot8.common.pipelines.simple;
 }
