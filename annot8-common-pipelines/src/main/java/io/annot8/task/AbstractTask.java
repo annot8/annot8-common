@@ -33,7 +33,7 @@ public abstract class AbstractTask implements Task {
   }
 
   @Override
-  public void run() {
+  public final void run() {
     try {
       listeners.fire(new TaskBegunEvent(this));
 

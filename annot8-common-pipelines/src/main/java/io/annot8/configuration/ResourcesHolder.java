@@ -1,6 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.configuration;
 
+import io.annot8.utils.CollectionUtils;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -17,7 +18,7 @@ public class ResourcesHolder {
 
   public ResourcesHolder addResource(
       final String id, final Resource resource, final Collection<Settings> configuration) {
-    resourcesToConfiguration.put(resource, HolderUtils.nonNullCollection(configuration));
+    resourcesToConfiguration.put(resource, CollectionUtils.nonNullCollection(configuration));
     resourcesToId.put(resource, id);
     return this;
   }

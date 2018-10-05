@@ -4,6 +4,7 @@ import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
+import io.annot8.queues.ItemQueue;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -26,8 +27,19 @@ public interface PipelineBuilder {
 
   PipelineBuilder addSource(final Source source, final Collection<Settings> settings);
 
+  PipelineBuilder addPipe(final PipeBuilder pipe) throws IncompleteException;
 
+  PipelineBuilder addPipe(String key, final PipeBuilder pipe) throws IncompleteException;
 
+  PipelineBuilder addPipe(Pipe pipe);
+
+  PipelineBuilder addPipe(String key, Pipe pipe);
+
+  PipelineBuilder addBranch(final Branch branch, String... keys);
+
+  PipelineBuilder addMerge(final Merge merge, String... keys);
+
+  PipelineBuilder withQueue(ItemQueue queue);
 
   Pipeline build() throws IncompleteException;
 }

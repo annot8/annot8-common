@@ -1,6 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.configuration;
 
+import io.annot8.utils.CollectionUtils;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class ComponentHolder<T extends Annot8Component> {
   private final Map<T, Collection<Settings>> componentToConfiguration = new LinkedHashMap<>();
 
   public ComponentHolder add(final T t, final Collection<Settings> configuration) {
-    componentToConfiguration.put(t, HolderUtils.nonNullCollection(configuration));
+    componentToConfiguration.put(t, CollectionUtils.nonNullCollection(configuration));
     return this;
   }
 
