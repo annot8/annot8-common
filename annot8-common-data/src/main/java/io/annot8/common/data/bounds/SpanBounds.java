@@ -126,7 +126,7 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   * If the provided other bounds is within this object's bounds
+   * If the provided utils bounds is within this object's bounds
    *
    * @param other the bounds to test against
    * @return true if completely within
@@ -146,7 +146,7 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   * Check if this is before (lower position than) the other
+   * Check if this is before (lower position than) the utils
    *
    * @param other the bounds to test against
    * @return true is this is before
@@ -156,7 +156,7 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   * Check if this is after (higher position than) the other
+   * Check if this is after (higher position than) the utils
    *
    * @param other the bounds to test against
    * @return true is this is after
@@ -176,7 +176,7 @@ public class SpanBounds implements Bounds {
   }
 
   /**
-   * Check if this is same bounds as the other
+   * Check if this is same bounds as the utils
    *
    * @param other the bounds to test against
    * @return true if the same

@@ -117,7 +117,7 @@ public class PositionBounds implements Bounds {
   }
 
   /**
-   * Check is the this is before (lower position than) the other
+   * Check is the this is before (lower position than) the utils
    *
    * @param other the bounds to test against
    * @return true is this is before
@@ -127,7 +127,7 @@ public class PositionBounds implements Bounds {
   }
 
   /**
-   * Check is the this is before (lower position than) the other
+   * Check is the this is before (lower position than) the utils
    *
    * @param other the bounds to test against
    * @return true is this is after
@@ -137,7 +137,7 @@ public class PositionBounds implements Bounds {
   }
 
   /**
-   * Check is the this is same position as the other
+   * Check is the this is same position as the utils
    *
    * @param other the bounds to test against
    * @return true if the same
