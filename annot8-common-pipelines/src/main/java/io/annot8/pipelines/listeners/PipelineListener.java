@@ -1,5 +1,10 @@
 package io.annot8.pipelines.listeners;
 
-public class PipelineListener {
+import io.annot8.pipelines.events.PipelineEvent;
+
+@FunctionalInterface
+public interface PipelineListener {
+
+  void onPipelineEvent(PipelineEvent event);
 
 }

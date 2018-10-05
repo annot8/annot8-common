@@ -1,21 +1,19 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.configuration;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.annot8.common.implementations.context.MergedContext;
 import io.annot8.common.implementations.context.SimpleContext;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Resource;
 import io.annot8.core.context.Context;
 import io.annot8.core.settings.Settings;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ComponentConfigurer {
 
@@ -69,7 +67,7 @@ public class ComponentConfigurer {
         .collect(Collectors.toList());
   }
 
-  protected <T extends Annot8Component> boolean configureComponent(
+  public <T extends Annot8Component> boolean configureComponent(
       T component, Collection<Settings> settings) {
 
     // TODO: COmpletely ignore capabilties here.. we could check for resources etc
@@ -84,4 +82,5 @@ public class ComponentConfigurer {
     }
     return false;
   }
+
 }

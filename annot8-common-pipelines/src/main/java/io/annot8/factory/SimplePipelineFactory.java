@@ -1,19 +1,10 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
-package io.annot8.common.pipelines.creation;
+package io.annot8.factory;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import io.annot8.common.pipelines.creation.configuration.ComponentConfiguration;
-import io.annot8.common.pipelines.creation.configuration.PipelineConfiguration;
-import io.annot8.common.pipelines.creation.configuration.TypedComponentConfiguration;
-import io.annot8.common.pipelines.runnable.RunnablePipelineBuilder;
 import io.annot8.common.implementations.registries.Annot8ComponentRegistry;
+import io.annot8.factory.configuration.ComponentConfiguration;
+import io.annot8.factory.configuration.PipelineConfiguration;
+import io.annot8.factory.configuration.TypedComponentConfiguration;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
@@ -21,41 +12,57 @@ import io.annot8.core.components.Source;
 import io.annot8.core.exceptions.Annot8Exception;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
+import io.annot8.pipelines.elements.PipeBuilder;
+import io.annot8.pipelines.elements.Pipeline;
+import io.annot8.pipelines.elements.PipelineBuilder;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SimplePipelineFactory implements PipelineFactory {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimplePipelineFactory.class);
 
-  private final Supplier<RunnablePipelineBuilder> builderFactory;
+  private final Supplier<PipelineBuilder> pipelineBuilderSupplier;
+  private final Supplier<PipeBuilder> pipeBuilderSupplier;
   private final Annot8ComponentRegistry componentRegistry;
 
   public SimplePipelineFactory(
-      Supplier<RunnablePipelineBuilder> builderFactory, Annot8ComponentRegistry componentRegistry) {
-    this.builderFactory = builderFactory;
+      Supplier<PipelineBuilder> pipelineBuilderSupplier, Supplier<PipeBuilder> pipeBuilderSupplier, Annot8ComponentRegistry componentRegistry) {
+    this.pipelineBuilderSupplier = pipelineBuilderSupplier;
+    this.pipeBuilderSupplier = pipeBuilderSupplier;
     this.componentRegistry = componentRegistry;
   }
 
   @Override
-  public RunnablePipeline create(PipelineConfiguration pipelineConfiguration)
+  public Pipeline create(PipelineConfiguration pipelineConfiguration)
       throws IncompleteException {
     return createPipeline(pipelineConfiguration);
   }
 
-  private RunnablePipeline createPipeline(PipelineConfiguration configuration)
+  private Pipeline createPipeline(PipelineConfiguration configuration)
       throws IncompleteException {
-    RunnablePipelineBuilder pipelineBuilder = builderFactory.get();
+    PipelineBuilder pipelineBuilder = pipelineBuilderSupplier.get();
 
     configuration
         .getSources()
         .forEach(
             s -> addComponentToBuilder(Source.class, s, (i, c) -> pipelineBuilder.addSource(i, c)));
 
+
+    // Currently just convert to a pipe and pass that in
+    PipeBuilder pipeBuilder = pipeBuilderSupplier.get();
     configuration
         .getProcessors()
         .forEach(
             s ->
                 addComponentToBuilder(
-                    Processor.class, s, (i, c) -> pipelineBuilder.addProcessor(i, c)));
+                    Processor.class, s, (i, c) -> pipeBuilder.addProcessor(i, c)));
+
+    pipelineBuilder.addPipe(pipeBuilder);
 
     configuration
         .getResources()

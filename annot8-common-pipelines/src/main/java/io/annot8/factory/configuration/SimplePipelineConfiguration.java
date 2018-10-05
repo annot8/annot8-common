@@ -1,5 +1,5 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
-package io.annot8.common.pipelines.creation.configuration;
+package io.annot8.factory.configuration;
 
 import java.util.ArrayList;
 import java.util.List;

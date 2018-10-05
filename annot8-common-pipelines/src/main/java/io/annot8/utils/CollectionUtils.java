@@ -1,12 +1,12 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
-package io.annot8.configuration;
+package io.annot8.utils;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class HolderUtils {
+public class CollectionUtils {
 
-  private HolderUtils() {
+  private CollectionUtils() {
     // Singleton
   }
 
