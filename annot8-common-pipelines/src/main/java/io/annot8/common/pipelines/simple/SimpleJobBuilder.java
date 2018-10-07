@@ -1,11 +1,13 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
-import io.annot8.common.pipelines.elements.Job;
-import io.annot8.common.pipelines.elements.Task;
-import io.annot8.common.pipelines.elements.JobBuilder;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+
+import io.annot8.common.pipelines.elements.Job;
+import io.annot8.common.pipelines.elements.JobBuilder;
+import io.annot8.common.pipelines.elements.Task;
 
 public class SimpleJobBuilder implements JobBuilder {
 

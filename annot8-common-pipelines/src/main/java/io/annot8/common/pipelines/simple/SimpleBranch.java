@@ -1,8 +1,10 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
+
+import java.util.function.Function;
 
 import io.annot8.common.pipelines.base.AbstractBranch;
 import io.annot8.core.data.Item;
-import java.util.function.Function;
 
 public class SimpleBranch extends AbstractBranch {
 

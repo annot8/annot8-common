@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
 import io.annot8.common.pipelines.base.AbstractTask;
@@ -14,6 +15,6 @@ public class JobTask extends AbstractTask {
 
   @Override
   protected void perform() {
-   job.run();
+    job.run();
   }
 }

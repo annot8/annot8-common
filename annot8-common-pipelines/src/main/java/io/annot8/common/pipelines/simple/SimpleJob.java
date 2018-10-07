@@ -4,6 +4,7 @@ package io.annot8.common.pipelines.simple;
 import java.util.List;
 import java.util.UUID;
 
+import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.common.pipelines.elements.Job;
 import io.annot8.common.pipelines.elements.Task;
@@ -39,8 +40,8 @@ public class SimpleJob implements Job {
   }
 
   @Override
-  public void register(JobListener listener) {
-    listeners.register(listener);
+  public Deregister register(JobListener listener) {
+    return listeners.register(listener);
   }
 
   @Override

@@ -1,12 +1,14 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
+import io.annot8.common.implementations.listeners.Deregister;
+import io.annot8.common.pipelines.elements.Pipe;
+import io.annot8.common.pipelines.feeders.QueueFeeder;
+import io.annot8.common.pipelines.listeners.PipeListener;
+import io.annot8.common.pipelines.queues.ItemQueue;
 import io.annot8.core.components.responses.ProcessorResponse;
 import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
-import io.annot8.common.pipelines.feeders.QueueFeeder;
-import io.annot8.common.pipelines.elements.Pipe;
-import io.annot8.common.pipelines.listeners.PipeListener;
-import io.annot8.common.pipelines.queues.ItemQueue;
 
 public class QueuingPipe implements Pipe {
 
@@ -14,7 +16,7 @@ public class QueuingPipe implements Pipe {
   private final QueueFeeder queueFeeder;
 
   public QueuingPipe(ItemQueue queue, Pipe delegate) {
-    this.delegate  = delegate;
+    this.delegate = delegate;
     this.queueFeeder = new QueueFeeder(queue);
   }
 
@@ -33,8 +35,8 @@ public class QueuingPipe implements Pipe {
   }
 
   @Override
-  public void register(PipeListener listener) {
-    delegate.register(listener);
+  public Deregister register(PipeListener listener) {
+    return delegate.register(listener);
   }
 
   @Override

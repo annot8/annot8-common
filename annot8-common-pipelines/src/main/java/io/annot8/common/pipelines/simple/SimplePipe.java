@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import io.annot8.common.implementations.configuration.ComponentConfigurer;
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
+import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.events.PipeEvent;
@@ -101,8 +102,8 @@ public class SimplePipe implements Pipe {
     return ProcessorResponse.ok();
   }
 
-  public void register(PipeListener listener) {
-    listeners.register(listener);
+  public Deregister register(PipeListener listener) {
+    return listeners.register(listener);
   }
 
   public void deregister(PipeListener listener) {
