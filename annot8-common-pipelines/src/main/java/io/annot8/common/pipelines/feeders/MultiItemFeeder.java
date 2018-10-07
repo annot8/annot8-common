@@ -1,15 +1,16 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.feeders;
 
-import io.annot8.core.helpers.WithProcessItem;
-import io.annot8.common.pipelines.listeners.SourceListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import io.annot8.common.implementations.listeners.Deregister;
+import io.annot8.common.pipelines.listeners.SourceListener;
 import io.annot8.core.components.Source;
 import io.annot8.core.data.ItemFactory;
+import io.annot8.core.helpers.WithProcessItem;
 
 public class MultiItemFeeder implements ItemFeeder {
 
@@ -44,8 +45,9 @@ public class MultiItemFeeder implements ItemFeeder {
   // NOTE: these wont act on the current feeder
 
   @Override
-  public void register(SourceListener listener) {
+  public Deregister register(SourceListener listener) {
     listeners.add(listener);
+    return () -> listeners.remove(listener);
   }
 
   @Override

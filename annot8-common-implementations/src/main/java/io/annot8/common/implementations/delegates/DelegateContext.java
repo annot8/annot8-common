@@ -1,11 +1,13 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.delegates;
+
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import io.annot8.core.components.Resource;
 import io.annot8.core.context.Context;
 import io.annot8.core.data.ItemFactory;
 import io.annot8.core.settings.Settings;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 public class DelegateContext implements Context {
 

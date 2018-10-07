@@ -1,5 +1,11 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
+import java.util.List;
+
+import io.annot8.common.implementations.listeners.Deregister;
+import io.annot8.common.pipelines.elements.Pipe;
+import io.annot8.common.pipelines.listeners.PipeListener;
 import io.annot8.core.components.responses.ProcessorResponse;
 import io.annot8.core.components.responses.ProcessorResponse.Status;
 import io.annot8.core.context.Context;
@@ -7,9 +13,6 @@ import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.MissingResourceException;
-import io.annot8.common.pipelines.elements.Pipe;
-import io.annot8.common.pipelines.listeners.PipeListener;
-import java.util.List;
 
 public class MultiPipe implements Pipe {
 
@@ -22,7 +25,6 @@ public class MultiPipe implements Pipe {
     this.pipes = pipes;
   }
 
-
   @Override
   public String getName() {
     return name;
@@ -31,7 +33,7 @@ public class MultiPipe implements Pipe {
   @Override
   public void configure(Context context)
       throws BadConfigurationException, MissingResourceException {
-    for(Pipe p : pipes) {
+    for (Pipe p : pipes) {
       p.configure(context);
     }
   }
@@ -40,13 +42,13 @@ public class MultiPipe implements Pipe {
   public ProcessorResponse process(Item item) throws Annot8Exception {
     ProcessorResponse response = ProcessorResponse.ok();
 
-    for(Pipe p : pipes) {
-     response = p.process(item);
+    for (Pipe p : pipes) {
+      response = p.process(item);
       Status status = response.getStatus();
 
-      if(status == Status.ITEM_ERROR || status == Status.PROCESSOR_ERROR) {
+      if (status == Status.ITEM_ERROR || status == Status.PROCESSOR_ERROR) {
         return response;
-      } else if(item.isDiscarded()) {
+      } else if (item.isDiscarded()) {
         return response;
       }
     }
@@ -60,8 +62,9 @@ public class MultiPipe implements Pipe {
   }
 
   @Override
-  public void register(PipeListener listener) {
+  public Deregister register(PipeListener listener) {
     pipes.forEach(p -> p.register(listener));
+    return () -> deregister(listener);
   }
 
   @Override

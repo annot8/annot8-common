@@ -1,6 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.feeders;
 
+import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.common.pipelines.events.SourceEvent;
 import io.annot8.common.pipelines.events.source.SourceDoneEvent;
@@ -58,8 +59,8 @@ public class SingleItemFeeder implements ItemFeeder {
   }
 
   @Override
-  public void register(SourceListener listener) {
-    listeners.register(listener);
+  public Deregister register(SourceListener listener) {
+    return listeners.register(listener);
   }
 
   @Override

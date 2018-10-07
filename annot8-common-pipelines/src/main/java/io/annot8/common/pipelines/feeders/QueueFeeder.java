@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import io.annot8.common.implementations.delegates.DelegateContext;
 import io.annot8.common.implementations.factories.NotifyingItemFactory;
+import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.common.pipelines.events.SourceEvent;
 import io.annot8.common.pipelines.listeners.SourceListener;
@@ -50,8 +51,8 @@ public class QueueFeeder implements ItemFeeder {
   }
 
   @Override
-  public void register(SourceListener listener) {
-    listeners.register(listener);
+  public Deregister register(SourceListener listener) {
+    return listeners.register(listener);
   }
 
   @Override
@@ -63,7 +64,7 @@ public class QueueFeeder implements ItemFeeder {
   public Context setupContext(Context context) {
     // Wrap itemFactory with our item factory which will call us back
     final NotifyingItemFactory nif = new NotifyingItemFactory(context.getItemFactory());
-    nif.registerListener(queue::add);
+    nif.register(queue::add);
 
     return new DelegateContext(context) {
       @Override

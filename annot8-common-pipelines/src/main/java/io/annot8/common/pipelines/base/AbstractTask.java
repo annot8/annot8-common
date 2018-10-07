@@ -3,6 +3,7 @@ package io.annot8.common.pipelines.base;
 
 import java.util.UUID;
 
+import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.common.pipelines.elements.Task;
 import io.annot8.common.pipelines.events.TaskEvent;
@@ -56,8 +57,8 @@ public abstract class AbstractTask implements Task {
   protected abstract void perform();
 
   @Override
-  public void register(TaskListener listener) {
-    listeners.register(listener);
+  public Deregister register(TaskListener listener) {
+    return listeners.register(listener);
   }
 
   @Override

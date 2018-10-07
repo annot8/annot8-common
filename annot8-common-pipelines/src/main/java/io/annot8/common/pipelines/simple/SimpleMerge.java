@@ -1,10 +1,12 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
-import io.annot8.core.data.Item;
-import io.annot8.common.pipelines.elements.Merge;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+
+import io.annot8.common.pipelines.elements.Merge;
+import io.annot8.core.data.Item;
 
 public class SimpleMerge implements Merge {
 
@@ -23,7 +25,7 @@ public class SimpleMerge implements Merge {
 
   @Override
   public boolean receive(Item item) {
-    if(predicate != null && !predicate.test(item)) {
+    if (predicate != null && !predicate.test(item)) {
       return false;
     }
 

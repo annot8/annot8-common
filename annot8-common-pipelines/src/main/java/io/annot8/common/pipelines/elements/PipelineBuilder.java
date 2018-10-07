@@ -1,12 +1,14 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.elements;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import io.annot8.common.pipelines.queues.ItemQueue;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
-import io.annot8.common.pipelines.queues.ItemQueue;
-import java.util.Arrays;
-import java.util.Collection;
 
 public interface PipelineBuilder {
   PipelineBuilder withName(String name);
@@ -18,7 +20,6 @@ public interface PipelineBuilder {
 
   PipelineBuilder addResource(
       final String id, final Resource resource, final Collection<Settings> settings);
-
 
   default PipelineBuilder addSource(final Source source, final Settings... settings) {
     addSource(source, Arrays.asList(settings));
