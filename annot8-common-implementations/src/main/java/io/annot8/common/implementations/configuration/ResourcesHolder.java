@@ -1,13 +1,14 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.configuration;
 
-import io.annot8.common.utils.java.CollectionUtils;
-import io.annot8.core.components.Resource;
-import io.annot8.core.settings.Settings;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import io.annot8.common.utils.java.CollectionUtils;
+import io.annot8.core.components.Resource;
+import io.annot8.core.settings.Settings;
 
 public class ResourcesHolder {
 

@@ -1,19 +1,21 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.configuration;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.annot8.common.implementations.context.MergedContext;
 import io.annot8.common.implementations.context.SimpleContext;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Resource;
 import io.annot8.core.context.Context;
 import io.annot8.core.settings.Settings;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ComponentConfigurer {
 
@@ -25,13 +27,13 @@ public class ComponentConfigurer {
   public ComponentConfigurer(Context context) {
     this.globalContext = context;
 
-
     // Add the global resources to our resource pool
-    this.globalContext.getResourceKeys()
-        .forEach(k -> {
-          globalContext.getResource(k, Resource.class)
-              .ifPresent(r -> resources.put(k, r));
-        });
+    this.globalContext
+        .getResourceKeys()
+        .forEach(
+            k -> {
+              globalContext.getResource(k, Resource.class).ifPresent(r -> resources.put(k, r));
+            });
   }
 
   public Map<String, Resource> configureResources(ResourcesHolder resourcesHolder) {
@@ -82,5 +84,4 @@ public class ComponentConfigurer {
     }
     return false;
   }
-
 }
