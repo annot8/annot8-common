@@ -1,9 +1,15 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
-package io.annot8.common.pipelines.pipeline;
+package io.annot8.common.pipelines.base;
+
+import java.util.Collection;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
+
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
 import io.annot8.common.pipelines.elements.Branch;
@@ -18,14 +24,10 @@ import io.annot8.core.components.Source;
 import io.annot8.core.exceptions.Annot8RuntimeException;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
-import java.util.Collection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPipelineBuilder implements PipelineBuilder {
 
-  private static final Logger LOGGER =
-      LoggerFactory.getLogger(AbstractPipelineBuilder.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPipelineBuilder.class);
 
   public static final String DEFAULT_PIPE = "DEFAULT";
 
@@ -52,10 +54,8 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
     return this;
   }
 
-
   @Override
-  public PipelineBuilder addSource(
-      final Source source, final Collection<Settings> configuration) {
+  public PipelineBuilder addSource(final Source source, final Collection<Settings> configuration) {
     sourceHolder.add(source, configuration);
     return this;
   }
@@ -84,15 +84,15 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
 
   @Override
   public PipelineBuilder addBranch(Branch branch, String... keys) {
-//    branches.putAll((branch, Arrays.asList(keys));
-//    return this;
+    //    branches.putAll((branch, Arrays.asList(keys));
+    //    return this;
     throw new Annot8RuntimeException("No yet supported");
   }
 
   @Override
   public PipelineBuilder addMerge(Merge merge, String... keys) {
-//    merges.putAll(merge, Arrays.asList(keys));
-//    return this;
+    //    merges.putAll(merge, Arrays.asList(keys));
+    //    return this;
     throw new Annot8RuntimeException("No yet supported");
   }
 
@@ -111,7 +111,6 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
   protected String getName() {
     return name;
   }
-
 
   public PipelineBuilder withQueue(final ItemQueue queue) {
     this.queue = queue;

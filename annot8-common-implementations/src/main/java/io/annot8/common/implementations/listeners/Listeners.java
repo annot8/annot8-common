@@ -1,4 +1,5 @@
-package io.annot8.common.pipelines.listeners;
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
+package io.annot8.common.implementations.listeners;
 
 import java.util.Objects;
 import java.util.Set;
@@ -15,13 +16,13 @@ public class Listeners<L, E> {
   }
 
   public void register(L listener) {
-    if(publish == null) {
+    if (publish == null) {
       return;
     }
 
     Objects.requireNonNull(listener);
 
-    if(listeners == null) {
+    if (listeners == null) {
       listeners = new CopyOnWriteArraySet<>();
     }
 
@@ -29,19 +30,19 @@ public class Listeners<L, E> {
   }
 
   public void deregister(L listener) {
-    if(listeners != null) {
+    if (listeners != null) {
       listeners.remove(listener);
     }
   }
 
   public void fire(E event) {
-    if(listeners != null && event != null && publish != null) {
+    if (listeners != null && event != null && publish != null) {
       listeners.forEach(l -> publish.accept(l, event));
     }
   }
 
   public void clear() {
-    if(listeners != null) {
+    if (listeners != null) {
       listeners.clear();
     }
   }

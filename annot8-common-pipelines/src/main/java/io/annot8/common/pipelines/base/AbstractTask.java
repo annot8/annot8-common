@@ -1,17 +1,20 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.base;
 
+import java.util.UUID;
+
+import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.common.pipelines.elements.Task;
+import io.annot8.common.pipelines.events.TaskEvent;
 import io.annot8.common.pipelines.events.tasks.TaskBegunEvent;
 import io.annot8.common.pipelines.events.tasks.TaskCompleteEvent;
-import io.annot8.common.pipelines.events.TaskEvent;
-import io.annot8.common.pipelines.listeners.Listeners;
 import io.annot8.common.pipelines.events.tasks.TaskErrorEvent;
 import io.annot8.common.pipelines.listeners.TaskListener;
-import java.util.UUID;
 
 public abstract class AbstractTask implements Task {
 
-  private final Listeners<TaskListener, TaskEvent> listeners = new Listeners<>(TaskListener::onTaskEvent);
+  private final Listeners<TaskListener, TaskEvent> listeners =
+      new Listeners<>(TaskListener::onTaskEvent);
 
   private final String name;
   private final String id;
