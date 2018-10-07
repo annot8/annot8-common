@@ -10,7 +10,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>annot8-common-pipelines</artifactId>
-
+  <name>Annot8 Common Pipelines</name>
+  <description>Higher order elements for jobs and pipelines</description>
 
   <dependencies>
     <dependency>
