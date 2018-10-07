@@ -14,7 +14,6 @@ open module io.annot8.common.pipelines {
   exports io.annot8.common.pipelines.base;
   exports io.annot8.common.pipelines.elements;
   exports io.annot8.common.pipelines.listeners;
-  exports io.annot8.common.pipelines.pipeline;
   exports io.annot8.common.pipelines.queues;
   exports io.annot8.common.pipelines.simple;
 }

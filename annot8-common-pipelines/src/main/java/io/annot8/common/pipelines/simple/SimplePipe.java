@@ -1,10 +1,15 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.annot8.common.implementations.configuration.ComponentConfigurer;
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
-import io.annot8.core.context.Context;
+import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.events.PipeEvent;
 import io.annot8.common.pipelines.events.pipe.AfterItemProcessedPipeEvent;
@@ -12,37 +17,31 @@ import io.annot8.common.pipelines.events.pipe.BeforeItemProcessedPipeEvent;
 import io.annot8.common.pipelines.events.pipe.ItemDiscardedPipeEvent;
 import io.annot8.common.pipelines.events.pipe.ItemEnteredPipeEvent;
 import io.annot8.common.pipelines.events.pipe.ItemExitedPipeEvent;
-import io.annot8.common.pipelines.listeners.Listeners;
 import io.annot8.common.pipelines.listeners.PipeListener;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.responses.ProcessorResponse;
 import io.annot8.core.components.responses.ProcessorResponse.Status;
+import io.annot8.core.context.Context;
 import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
 
 public class SimplePipe implements Pipe {
   private static final Logger LOGGER = LoggerFactory.getLogger(SimplePipe.class);
 
-  private final Listeners<PipeListener, PipeEvent> listeners = new Listeners<>(PipeListener::onPipeEvent);
+  private final Listeners<PipeListener, PipeEvent> listeners =
+      new Listeners<>(PipeListener::onPipeEvent);
   private final String name;
   private final ResourcesHolder resourcesHolder;
   private final ComponentHolder<Processor> processorHolder;
 
-
   private List<Processor> processors;
 
-  public SimplePipe(ResourcesHolder resourcesHolder,
-      ComponentHolder<Processor> processorHolder) {
+  public SimplePipe(ResourcesHolder resourcesHolder, ComponentHolder<Processor> processorHolder) {
     this("anonymous", resourcesHolder, processorHolder);
   }
 
-  public SimplePipe(String name, ResourcesHolder resourcesHolder,
-      ComponentHolder<Processor> processorHolder) {
+  public SimplePipe(
+      String name, ResourcesHolder resourcesHolder, ComponentHolder<Processor> processorHolder) {
     this.name = name;
     this.resourcesHolder = resourcesHolder;
     this.processorHolder = processorHolder;

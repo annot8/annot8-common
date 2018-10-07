@@ -1,21 +1,20 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.feeders;
 
-import io.annot8.common.pipelines.events.SourceEvent;
-import io.annot8.core.helpers.WithProcessItem;
-import io.annot8.common.pipelines.listeners.Listeners;
-import io.annot8.common.pipelines.listeners.SourceListener;
-import io.annot8.common.pipelines.queues.ItemQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.annot8.common.implementations.delegates.DelegateContext;
 import io.annot8.common.implementations.factories.NotifyingItemFactory;
+import io.annot8.common.implementations.listeners.Listeners;
+import io.annot8.common.pipelines.events.SourceEvent;
+import io.annot8.common.pipelines.listeners.SourceListener;
+import io.annot8.common.pipelines.queues.ItemQueue;
 import io.annot8.core.context.Context;
 import io.annot8.core.data.Item;
 import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.Annot8Exception;
-
+import io.annot8.core.helpers.WithProcessItem;
 
 public class QueueFeeder implements ItemFeeder {
 
@@ -23,7 +22,8 @@ public class QueueFeeder implements ItemFeeder {
 
   private final ItemQueue queue;
 
-  private final Listeners<SourceListener, SourceEvent> listeners = new Listeners<>(SourceListener::onSourceEvent);
+  private final Listeners<SourceListener, SourceEvent> listeners =
+      new Listeners<>(SourceListener::onSourceEvent);
 
   public QueueFeeder(ItemQueue queue) {
     this.queue = queue;
