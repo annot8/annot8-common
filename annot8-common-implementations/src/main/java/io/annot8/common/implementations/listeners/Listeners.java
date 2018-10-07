@@ -15,9 +15,9 @@ public class Listeners<L, E> {
     this.publish = publish;
   }
 
-  public void register(L listener) {
+  public Deregister register(L listener) {
     if (publish == null) {
-      return;
+      return () -> {};
     }
 
     Objects.requireNonNull(listener);
@@ -27,6 +27,8 @@ public class Listeners<L, E> {
     }
 
     listeners.add(listener);
+
+    return () -> deregister(listener);
   }
 
   public void deregister(L listener) {
