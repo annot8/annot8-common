@@ -27,5 +27,4 @@ open module io.annot8.common.implementations {
   exports io.annot8.common.implementations.context;
   exports io.annot8.common.implementations.delegates;
   exports io.annot8.common.implementations.configuration;
-
 }
