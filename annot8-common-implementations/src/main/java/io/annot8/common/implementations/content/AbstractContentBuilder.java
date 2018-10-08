@@ -5,7 +5,6 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 import io.annot8.common.implementations.properties.MapImmutableProperties;
-import io.annot8.common.implementations.stores.SaveCallback;
 import io.annot8.core.data.Content;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.properties.ImmutableProperties;
@@ -14,16 +13,11 @@ import io.annot8.core.properties.Properties;
 public abstract class AbstractContentBuilder<D, C extends Content<D>>
     implements Content.Builder<C, D> {
 
-  private final SaveCallback<C, C> saver;
   private final ImmutableProperties.Builder properties = new MapImmutableProperties.Builder();
   private String name;
   private String id;
 
   private Supplier<D> data;
-
-  public AbstractContentBuilder(SaveCallback<C, C> saver) {
-    this.saver = saver;
-  }
 
   @Override
   public Content.Builder<C, D> withId(String id) {
@@ -86,13 +80,7 @@ public abstract class AbstractContentBuilder<D, C extends Content<D>>
       throw new IncompleteException("Data supplier is required");
     }
 
-    C content = create(id, name, properties.save(), data);
-
-    if (saver == null) {
-      return content;
-    }
-
-    return saver.save(content);
+    return create(id, name, properties.save(), data);
   }
 
   protected abstract C create(

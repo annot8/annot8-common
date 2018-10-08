@@ -1,7 +1,6 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.factories;
 
-import io.annot8.common.implementations.stores.SaveCallback;
 import io.annot8.core.data.BaseItem;
 import io.annot8.core.data.Content;
 
@@ -16,10 +15,9 @@ public interface ContentBuilderFactory<D, C extends Content<D>> {
    * Create a new builder for the provided item.
    *
    * @param item the item owning this content
-   * @param saver the save callback used by builder
    * @return non-null builder
    */
-  Content.Builder<C, D> create(BaseItem item, SaveCallback<C, C> saver);
+  Content.Builder<C, D> create(BaseItem item);
 
   /**
    * Get the class of the data this content holds

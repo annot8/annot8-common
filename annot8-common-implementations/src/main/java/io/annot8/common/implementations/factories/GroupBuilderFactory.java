@@ -1,7 +1,6 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.factories;
 
-import io.annot8.common.implementations.stores.SaveCallback;
 import io.annot8.core.annotations.Group;
 import io.annot8.core.data.BaseItem;
 import io.annot8.core.stores.GroupStore;
@@ -19,8 +18,7 @@ public interface GroupBuilderFactory<T> {
    *
    * @param item the item owning this content
    * @param groupStore the group store
-   * @param saver the save callback used by builder
    * @return non-null
    */
-  Group.Builder create(BaseItem item, GroupStore groupStore, SaveCallback<T, Group> saver);
+  Group.Builder create(BaseItem item, GroupStore groupStore);
 }
