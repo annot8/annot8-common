@@ -2,36 +2,39 @@
 package io.annot8.common.pipelines.simple;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import io.annot8.common.pipelines.elements.Merge;
+import io.annot8.core.components.responses.ProcessorResponse;
+import io.annot8.core.components.responses.ProcessorResponse.Status;
 import io.annot8.core.data.Item;
+import io.annot8.core.exceptions.Annot8Exception;
+import io.annot8.core.helpers.WithProcessItem;
 
 public class SimpleMerge implements Merge {
 
-  private final Consumer<Item> consumer;
+  private final WithProcessItem consumer;
   private final Predicate<Item> predicate;
 
-  public SimpleMerge(Consumer<Item> consumer) {
+  public SimpleMerge(WithProcessItem consumer) {
     this(consumer, null);
   }
 
-  public SimpleMerge(Consumer<Item> consumer, Predicate<Item> predicate) {
+  public SimpleMerge(WithProcessItem consumer, Predicate<Item> predicate) {
     this.predicate = predicate;
     Objects.requireNonNull(consumer);
     this.consumer = consumer;
   }
 
   @Override
-  public boolean receive(Item item) {
+  public boolean receive(Item item) throws Annot8Exception {
     if (predicate != null && !predicate.test(item)) {
       return false;
     }
 
-    consumer.accept(item);
+    final ProcessorResponse response = consumer.process(item);
 
-    return true;
+    return response.getStatus() == Status.OK;
   }
 
   @Override
