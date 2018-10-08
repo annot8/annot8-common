@@ -6,4 +6,10 @@ import io.annot8.common.pipelines.listeners.JobListener;
 import io.annot8.core.helpers.WithId;
 import io.annot8.core.helpers.WithName;
 
-public interface Job extends Runnable, Listenable<JobListener>, WithId, WithName {}
+public interface Job extends Runnable, Listenable<JobListener>, WithId, WithName, AutoCloseable {
+
+  @Override
+  default void close() {
+    // Do nothing
+  }
+}

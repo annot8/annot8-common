@@ -17,4 +17,9 @@ public class JobTask extends AbstractTask {
   protected void perform() {
     job.run();
   }
+
+  @Override
+  public void close() {
+    job.close();
+  }
 }

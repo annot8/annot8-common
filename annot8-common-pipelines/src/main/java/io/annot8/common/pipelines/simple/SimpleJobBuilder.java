@@ -17,6 +17,7 @@ public class SimpleJobBuilder implements JobBuilder {
   @Override
   public JobBuilder withName(String name) {
     Objects.requireNonNull(name);
+    this.name = name;
     return this;
   }
 

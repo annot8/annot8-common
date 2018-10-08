@@ -13,6 +13,6 @@ public class SimplePipeBuilder extends AbstractPipeBuilder {
 
   @Override
   public Pipe build() {
-    return new SimplePipe(getResourcesHolder(), getProcessorHolder());
+    return new SimplePipe(getName(), getResourcesHolder(), getProcessorHolder());
   }
 }

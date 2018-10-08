@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import io.annot8.common.pipelines.base.AbstractBranch;
 import io.annot8.core.data.Item;
+import io.annot8.core.exceptions.Annot8Exception;
 
 public class SimpleBranch extends AbstractBranch {
 
@@ -15,7 +16,7 @@ public class SimpleBranch extends AbstractBranch {
   }
 
   @Override
-  public boolean forward(Item item) {
+  public boolean forward(Item item) throws Annot8Exception {
 
     String key = decider.apply(item);
 

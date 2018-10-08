@@ -51,11 +51,15 @@ public class SimpleJob implements Job {
 
   @Override
   public void run() {
-    // TODO: This is basic - we could listen for TaskCompleteEvent
+    // TODO: This is very basic - we could listen for TaskCompleteEvent
     listeners.fire(new JobBegunEvent(this));
     for (Task task : tasks) {
       task.run();
     }
     listeners.fire(new JobCompleteEvent(this));
+  }
+
+  public void close() {
+    tasks.forEach(Task::close);
   }
 }
