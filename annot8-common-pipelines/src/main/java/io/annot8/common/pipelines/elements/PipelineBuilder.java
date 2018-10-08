@@ -4,10 +4,10 @@ package io.annot8.common.pipelines.elements;
 import java.util.Arrays;
 import java.util.Collection;
 
+import io.annot8.common.implementations.data.BaseItemFactory;
 import io.annot8.common.pipelines.queues.BaseItemQueue;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
-import io.annot8.core.data.BaseItemFactory;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
 

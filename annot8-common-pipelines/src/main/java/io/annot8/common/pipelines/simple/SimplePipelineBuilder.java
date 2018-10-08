@@ -7,11 +7,11 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.annot8.common.implementations.data.BaseItemFactory;
 import io.annot8.common.pipelines.base.AbstractPipelineBuilder;
 import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.elements.Pipeline;
 import io.annot8.common.pipelines.queues.BaseItemQueue;
-import io.annot8.core.data.BaseItemFactory;
 import io.annot8.core.exceptions.IncompleteException;
 
 public class SimplePipelineBuilder extends AbstractPipelineBuilder {
