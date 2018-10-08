@@ -3,17 +3,12 @@ package io.annot8.common.implementations.context;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import io.annot8.core.components.Resource;
 import io.annot8.core.context.Context;
-import io.annot8.core.data.ItemFactory;
-import io.annot8.core.exceptions.Annot8RuntimeException;
 import io.annot8.core.settings.Settings;
-
-// TODO: this could be cleans up with a helper method for stream and optional
 
 public class MergedContext implements Context {
 
@@ -71,15 +66,5 @@ public class MergedContext implements Context {
   @Override
   public <T extends Resource> Stream<T> getResources(Class<T> clazz) {
     return contexts.stream().flatMap(c -> c.getResources(clazz));
-  }
-
-  @Override
-  public ItemFactory getItemFactory() {
-    return contexts
-        .stream()
-        .map(c -> c.getItemFactory())
-        .filter(Objects::nonNull)
-        .findFirst()
-        .orElseThrow(() -> new Annot8RuntimeException("Missing ItemFactory"));
   }
 }

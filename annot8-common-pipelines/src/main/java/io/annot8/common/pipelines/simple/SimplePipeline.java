@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +17,14 @@ import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.elements.Pipeline;
 import io.annot8.common.pipelines.feeders.MultiItemFeeder;
 import io.annot8.common.pipelines.feeders.QueueFeeder;
-import io.annot8.common.pipelines.queues.ItemQueue;
+import io.annot8.common.pipelines.queues.BaseItemQueue;
 import io.annot8.common.pipelines.queues.ProcessQueueSourceListener;
+import io.annot8.common.pipelines.queues.QueuingSupport;
 import io.annot8.core.components.Annot8Component;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
 import io.annot8.core.context.Context;
+import io.annot8.core.data.BaseItemFactory;
 import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.MissingResourceException;
@@ -35,23 +36,26 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
   private final ResourcesHolder resourcesHolder;
   private final ComponentHolder<Source> sourceHolder;
   private final List<Pipe> pipes;
-  private final Optional<ItemQueue> queue;
+  private final BaseItemQueue queue;
+  private final BaseItemFactory baseItemFactory;
 
   private Map<String, Resource> resources;
   private List<Source> sources;
 
   private Pipe pipe;
+  private QueueFeeder queueFeeder;
   private ItemFactory itemFactory;
-  private QueueFeeder queuePusher;
 
   public SimplePipeline(
       String name,
       ResourcesHolder resourcesHolder,
       ComponentHolder<Source> sourceHolder,
       List<Pipe> pipes,
-      Optional<ItemQueue> queue) {
+      BaseItemFactory baseItemFactory,
+      BaseItemQueue queue) {
     super(name);
     this.pipes = pipes;
+    this.baseItemFactory = baseItemFactory;
     this.queue = queue;
     this.resourcesHolder = resourcesHolder;
     this.sourceHolder = sourceHolder;
@@ -64,19 +68,16 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
     // Close old values
     close();
 
-    Context globalContext = context;
-
-    // Should we queue items?
-    if (queue.isPresent()) {
-      queuePusher = new QueueFeeder(queue.get());
-      globalContext = queuePusher.setupContext(context);
-    }
+    // COnverter
+    // Hook up the item queuing
+    QueuingSupport support = new QueuingSupport(queue, baseItemFactory);
+    queueFeeder = support.getQueueFeeder();
+    itemFactory = support.getItemFactory();
 
     // Create a new
-    itemFactory = globalContext.getItemFactory();
     Objects.requireNonNull(itemFactory);
 
-    ComponentConfigurer componentConfigurer = new ComponentConfigurer(globalContext);
+    ComponentConfigurer componentConfigurer = new ComponentConfigurer(context);
     resources = componentConfigurer.configureResources(resourcesHolder);
     sources = componentConfigurer.configureComponents(sourceHolder);
 
@@ -88,7 +89,7 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
   @Override
   protected void perform() {
     MultiItemFeeder feeder = new MultiItemFeeder(itemFactory, sources);
-    feeder.register(new ProcessQueueSourceListener(queuePusher, pipe));
+    feeder.register(new ProcessQueueSourceListener(queueFeeder, pipe));
     feeder.feed(pipe);
   }
 
@@ -109,7 +110,7 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
     }
 
     itemFactory = null;
-    queuePusher = null;
+    queueFeeder = null;
     pipe = null;
   }
 }

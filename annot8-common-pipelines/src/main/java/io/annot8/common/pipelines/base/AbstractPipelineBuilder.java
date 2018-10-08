@@ -17,10 +17,11 @@ import io.annot8.common.pipelines.elements.Merge;
 import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.elements.PipeBuilder;
 import io.annot8.common.pipelines.elements.PipelineBuilder;
-import io.annot8.common.pipelines.queues.ItemQueue;
+import io.annot8.common.pipelines.queues.BaseItemQueue;
 import io.annot8.common.pipelines.queues.MemoryItemQueue;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
+import io.annot8.core.data.BaseItemFactory;
 import io.annot8.core.exceptions.Annot8RuntimeException;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
@@ -38,8 +39,9 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
   private final Multimap<Merge, String> merges = ArrayListMultimap.create();
   private final Multimap<Branch, String> branches = ArrayListMultimap.create();
 
-  private ItemQueue queue = null;
+  private BaseItemQueue queue = null;
   private String name = "anonymous";
+  private BaseItemFactory itemFactory = null;
 
   @Override
   public PipelineBuilder withName(String name) {
@@ -96,6 +98,16 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
     throw new Annot8RuntimeException("No yet supported");
   }
 
+  public PipelineBuilder withQueue(final BaseItemQueue queue) {
+    this.queue = queue;
+    return this;
+  }
+
+  public PipelineBuilder withItemFactory(final BaseItemFactory itemFactory) {
+    this.itemFactory = itemFactory;
+    return this;
+  }
+
   protected ResourcesHolder getResourcesHolder() {
     return resourcesHolder;
   }
@@ -112,12 +124,11 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
     return name;
   }
 
-  public PipelineBuilder withQueue(final ItemQueue queue) {
-    this.queue = queue;
-    return this;
+  protected BaseItemFactory getItemFactory() {
+    return itemFactory;
   }
 
-  protected ItemQueue getQueue() {
+  protected BaseItemQueue getQueue() {
     if (queue == null) {
       LOGGER.warn(
           "Queue requires for Source ingest, non specified so using the an in-memory queue");

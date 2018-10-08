@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import io.annot8.core.components.Resource;
 import io.annot8.core.context.Context;
-import io.annot8.core.data.ItemFactory;
 import io.annot8.core.settings.Settings;
 
 public class DelegateContext implements Context {
@@ -51,10 +50,5 @@ public class DelegateContext implements Context {
   @Override
   public <T extends Resource> Stream<T> getResources(Class<T> clazz) {
     return delegate.getResources(clazz);
-  }
-
-  @Override
-  public ItemFactory getItemFactory() {
-    return delegate.getItemFactory();
   }
 }

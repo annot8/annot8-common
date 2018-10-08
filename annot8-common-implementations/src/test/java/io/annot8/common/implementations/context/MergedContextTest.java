@@ -2,7 +2,6 @@
 package io.annot8.common.implementations.context;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -14,15 +13,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.annot8.core.components.Resource;
-import io.annot8.core.data.ItemFactory;
 import io.annot8.core.settings.Settings;
 
 @ExtendWith(MockitoExtension.class)
 class MergedContextTest {
-
-  @Mock ItemFactory aItemFactory;
-
-  @Mock ItemFactory bItemFactory;
 
   @Mock Resource aResource;
 
@@ -38,8 +32,8 @@ class MergedContextTest {
 
   @BeforeEach
   public void beforeEach() {
-    a = new SimpleContext(null, Arrays.asList(aSettings), Map.of("a", aResource));
-    b = new SimpleContext(bItemFactory, Arrays.asList(bSettings), Map.of("b", bResource));
+    a = new SimpleContext(Arrays.asList(aSettings), Map.of("a", aResource));
+    b = new SimpleContext(Arrays.asList(bSettings), Map.of("b", bResource));
     m = new MergedContext(a, b);
   }
 
@@ -76,10 +70,5 @@ class MergedContextTest {
   @Test
   void getResources() {
     assertThat(m.getResources(Resource.class)).containsExactly(aResource, bResource);
-  }
-
-  @Test
-  void getItemFactory() {
-    assertThat(m.getItemFactory()).isEqualTo(bItemFactory);
   }
 }

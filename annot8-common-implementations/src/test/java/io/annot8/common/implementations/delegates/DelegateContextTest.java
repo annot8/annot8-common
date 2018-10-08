@@ -70,10 +70,4 @@ class DelegateContextTest {
     context.getResources(Resource.class);
     Mockito.verify(delegate, Mockito.times(1)).getResources(Resource.class);
   }
-
-  @Test
-  void getItemFactory() {
-    context.getItemFactory();
-    Mockito.verify(delegate, Mockito.times(1)).getItemFactory();
-  }
 }

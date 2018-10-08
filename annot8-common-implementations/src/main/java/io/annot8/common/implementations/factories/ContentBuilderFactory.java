@@ -2,8 +2,8 @@
 package io.annot8.common.implementations.factories;
 
 import io.annot8.common.implementations.stores.SaveCallback;
+import io.annot8.core.data.BaseItem;
 import io.annot8.core.data.Content;
-import io.annot8.core.data.Item;
 
 /**
  * Factory to create an content builder.
@@ -19,7 +19,7 @@ public interface ContentBuilderFactory<D, C extends Content<D>> {
    * @param saver the save callback used by builder
    * @return non-null builder
    */
-  Content.Builder<C, D> create(Item item, SaveCallback<C, C> saver);
+  Content.Builder<C, D> create(BaseItem item, SaveCallback<C, C> saver);
 
   /**
    * Get the class of the data this content holds
