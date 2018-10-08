@@ -12,6 +12,7 @@ import com.google.common.collect.Multimap;
 
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
+import io.annot8.common.implementations.data.BaseItemFactory;
 import io.annot8.common.pipelines.elements.Branch;
 import io.annot8.common.pipelines.elements.Merge;
 import io.annot8.common.pipelines.elements.Pipe;
@@ -21,7 +22,6 @@ import io.annot8.common.pipelines.queues.BaseItemQueue;
 import io.annot8.common.pipelines.queues.MemoryItemQueue;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
-import io.annot8.core.data.BaseItemFactory;
 import io.annot8.core.exceptions.Annot8RuntimeException;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;

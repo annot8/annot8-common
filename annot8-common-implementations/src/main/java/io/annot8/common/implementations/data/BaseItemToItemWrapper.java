@@ -3,8 +3,6 @@ package io.annot8.common.implementations.data;
 
 import io.annot8.common.implementations.delegates.DelegateBaseItem;
 import io.annot8.core.data.BaseItem;
-import io.annot8.core.data.BaseItemFactory;
-import io.annot8.core.data.BaseItemToItem;
 import io.annot8.core.data.Item;
 
 public class BaseItemToItemWrapper extends DelegateBaseItem implements Item {

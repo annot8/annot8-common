@@ -4,12 +4,12 @@ package io.annot8.common.pipelines.queues;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.annot8.common.implementations.data.BaseItemFactory;
+import io.annot8.common.implementations.data.BaseItemToItem;
 import io.annot8.common.implementations.data.WrappingBaseItemToItem;
 import io.annot8.common.implementations.factories.NotifyingBaseItemFactory;
 import io.annot8.common.implementations.factories.SimpleItemFactory;
 import io.annot8.common.pipelines.feeders.QueueFeeder;
-import io.annot8.core.data.BaseItemFactory;
-import io.annot8.core.data.BaseItemToItem;
 import io.annot8.core.data.ItemFactory;
 
 public class QueuingSupport {

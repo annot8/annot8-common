@@ -3,11 +3,11 @@ package io.annot8.common.implementations.factories;
 
 import java.util.function.Consumer;
 
+import io.annot8.common.implementations.data.BaseItemFactory;
 import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.implementations.listeners.Listenable;
 import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.core.data.BaseItem;
-import io.annot8.core.data.BaseItemFactory;
 
 public class NotifyingBaseItemFactory implements BaseItemFactory, Listenable<Consumer<BaseItem>> {
 
