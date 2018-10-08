@@ -42,7 +42,7 @@ class PipeEventsTest {
   }
 
   @Test
-  void testNewBeforeItem(Class<PipeEvent> clazz) {
+  void testNewBeforeItem() {
     final Item item = mock(Item.class);
     final Pipe pipe = mock(Pipe.class);
     final Processor processor = mock(Processor.class);
@@ -55,7 +55,7 @@ class PipeEventsTest {
   }
 
   @Test
-  void testNewAfterItem(Class<PipeEvent> clazz) {
+  void testNewAfterItem() {
     final Item item = mock(Item.class);
     final Pipe pipe = mock(Pipe.class);
     final Processor processor = mock(Processor.class);

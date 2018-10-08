@@ -4,9 +4,10 @@ package io.annot8.common.pipelines.elements;
 import java.util.Arrays;
 import java.util.Collection;
 
-import io.annot8.common.pipelines.queues.ItemQueue;
+import io.annot8.common.pipelines.queues.BaseItemQueue;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
+import io.annot8.core.data.BaseItemFactory;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
 
@@ -40,7 +41,9 @@ public interface PipelineBuilder {
 
   PipelineBuilder addMerge(final Merge merge, String... keys);
 
-  PipelineBuilder withQueue(ItemQueue queue);
+  PipelineBuilder withQueue(BaseItemQueue queue);
+
+  PipelineBuilder withItemFactory(BaseItemFactory itemFactory);
 
   Pipeline build() throws IncompleteException;
 }

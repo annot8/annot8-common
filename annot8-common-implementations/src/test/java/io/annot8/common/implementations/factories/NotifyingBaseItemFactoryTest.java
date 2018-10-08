@@ -2,7 +2,6 @@
 package io.annot8.common.implementations.factories;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
@@ -17,24 +16,24 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.annot8.common.implementations.listeners.Deregister;
-import io.annot8.core.data.Item;
-import io.annot8.core.data.ItemFactory;
+import io.annot8.core.data.BaseItem;
+import io.annot8.core.data.BaseItemFactory;
 
 @ExtendWith(MockitoExtension.class)
-class NotifyingItemFactoryTest {
+class NotifyingBaseItemFactoryTest {
 
-  @Mock ItemFactory delegateItemFactory;
+  @Mock BaseItemFactory delegateItemFactory;
 
-  @Mock Item itemWithoutParent;
+  @Mock BaseItem itemWithoutParent;
 
-  @Mock Item itemWithParent;
+  @Mock BaseItem itemWithParent;
 
-  private NotifyingItemFactory itemFactory;
+  private NotifyingBaseItemFactory itemFactory;
 
   @BeforeEach
   public void beforeEach() {
 
-    itemFactory = new NotifyingItemFactory(delegateItemFactory);
+    itemFactory = new NotifyingBaseItemFactory(delegateItemFactory);
   }
 
   @Test
@@ -42,9 +41,9 @@ class NotifyingItemFactoryTest {
 
     when(delegateItemFactory.create()).thenReturn(itemWithoutParent);
 
-    List<Item> items = new LinkedList<>();
+    List<BaseItem> items = new LinkedList<>();
     itemFactory.register(items::add);
-    final Item item = itemFactory.create();
+    final BaseItem item = itemFactory.create();
 
     assertThat(item).isEqualTo(itemWithoutParent);
     assertThat(items).containsExactly(itemWithoutParent);
@@ -52,11 +51,11 @@ class NotifyingItemFactoryTest {
 
   @Test
   void createWithParent() {
-    when(delegateItemFactory.create(Mockito.any(Item.class))).thenReturn(itemWithParent);
+    when(delegateItemFactory.create(Mockito.any(BaseItem.class))).thenReturn(itemWithParent);
 
-    List<Item> items = new LinkedList<>();
+    List<BaseItem> items = new LinkedList<>();
     itemFactory.register(items::add);
-    final Item item = itemFactory.create(itemWithoutParent);
+    final BaseItem item = itemFactory.create(itemWithoutParent);
 
     assertThat(item).isEqualTo(itemWithParent);
     assertThat(items).containsExactly(itemWithParent);
@@ -64,18 +63,18 @@ class NotifyingItemFactoryTest {
 
   @Test
   void deregister() {
-    when(delegateItemFactory.create(Mockito.any(Item.class))).thenReturn(itemWithParent);
+    when(delegateItemFactory.create(Mockito.any(BaseItem.class))).thenReturn(itemWithParent);
 
-    List<Item> items = new LinkedList<>();
+    List<BaseItem> items = new LinkedList<>();
 
-    Consumer<Item> consumer = items::add;
+    Consumer<BaseItem> consumer = items::add;
     Deregister deregister = itemFactory.register(consumer);
 
     // This would fire as above
 
     deregister.deregister();
 
-    final Item item = itemFactory.create(itemWithoutParent);
+    final BaseItem item = itemFactory.create(itemWithoutParent);
 
     assertThat(item).isEqualTo(itemWithParent);
     assertThat(items).isEmpty();

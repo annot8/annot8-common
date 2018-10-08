@@ -3,19 +3,18 @@ package io.annot8.common.pipelines.queues;
 
 import java.util.function.Consumer;
 
-import io.annot8.core.data.Item;
+import io.annot8.core.data.BaseItem;
 
-public interface ItemQueue extends Consumer<Item> {
+public interface BaseItemQueue extends Consumer<BaseItem> {
 
-  // TODO: Delete this
-  void add(Item item);
+  void add(BaseItem item);
 
   @Override
-  default void accept(Item item) {
+  default void accept(BaseItem item) {
     add(item);
   }
 
   boolean hasItems();
 
-  Item next();
+  BaseItem next();
 }

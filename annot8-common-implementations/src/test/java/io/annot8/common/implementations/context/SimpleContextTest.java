@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import io.annot8.core.components.Resource;
-import io.annot8.core.data.ItemFactory;
+import io.annot8.core.data.BaseItemFactory;
 import io.annot8.core.settings.Settings;
 
 public class SimpleContextTest {
@@ -22,11 +22,9 @@ public class SimpleContextTest {
   public void testSimpleContextDefault() {
     Resource r1 = mock(Resource.class);
     Resource r2 = new TestResource();
-    ItemFactory itemFactory = mock(ItemFactory.class);
+    BaseItemFactory itemFactory = mock(BaseItemFactory.class);
 
-    SimpleContext context = new SimpleContext(itemFactory);
-
-    Assertions.assertEquals(itemFactory, context.getItemFactory());
+    SimpleContext context = new SimpleContext();
 
     context.addResource("resource1", r1);
     context.addResource("resource2", r2);
@@ -56,10 +54,9 @@ public class SimpleContextTest {
     Map<String, Resource> r = new HashMap<>();
     r.put("resource1", r1);
     r.put("resource2", r2);
-    ItemFactory itemFactory = mock(ItemFactory.class);
+    BaseItemFactory itemFactory = mock(BaseItemFactory.class);
 
-    SimpleContext context = new SimpleContext(itemFactory, r);
-    Assertions.assertEquals(itemFactory, context.getItemFactory());
+    SimpleContext context = new SimpleContext(r);
 
     Assertions.assertEquals(0, context.getSettings().count());
 
@@ -82,11 +79,9 @@ public class SimpleContextTest {
   @Test
   public void testSimpleContextSettings() {
     Settings s = mock(Settings.class);
-    ItemFactory itemFactory = mock(ItemFactory.class);
+    BaseItemFactory itemFactory = mock(BaseItemFactory.class);
 
-    SimpleContext context = new SimpleContext(itemFactory, Collections.singletonList(s));
-
-    Assertions.assertEquals(itemFactory, context.getItemFactory());
+    SimpleContext context = new SimpleContext(Collections.singletonList(s));
 
     Assertions.assertEquals(1, context.getSettings().count());
     Assertions.assertEquals(s, context.getSettings().findFirst().get());
@@ -108,11 +103,9 @@ public class SimpleContextTest {
     r.put("resource1", r1);
     r.put("resource2", r2);
 
-    ItemFactory itemFactory = mock(ItemFactory.class);
+    BaseItemFactory itemFactory = mock(BaseItemFactory.class);
 
-    SimpleContext context = new SimpleContext(itemFactory, Collections.singletonList(s), r);
-
-    Assertions.assertEquals(itemFactory, context.getItemFactory());
+    SimpleContext context = new SimpleContext(Collections.singletonList(s), r);
 
     Assertions.assertEquals(1, context.getSettings().count());
     Assertions.assertEquals(s, context.getSettings().findFirst().get());

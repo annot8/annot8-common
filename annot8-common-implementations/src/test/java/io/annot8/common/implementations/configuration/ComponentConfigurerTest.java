@@ -2,7 +2,6 @@
 package io.annot8.common.implementations.configuration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -22,7 +21,6 @@ import io.annot8.common.implementations.context.SimpleContext;
 import io.annot8.core.components.Processor;
 import io.annot8.core.components.Resource;
 import io.annot8.core.context.Context;
-import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.MissingResourceException;
 import io.annot8.core.settings.Settings;
@@ -32,13 +30,11 @@ class ComponentConfigurerTest {
 
   @Mock Resource globalResource;
 
-  @Mock ItemFactory itemFactory;
-
   ComponentConfigurer configurer;
 
   @BeforeEach
   public void beforeEach() {
-    Context context = new SimpleContext(itemFactory, Map.of("global", globalResource));
+    Context context = new SimpleContext(Map.of("global", globalResource));
     configurer = new ComponentConfigurer(context);
   }
 

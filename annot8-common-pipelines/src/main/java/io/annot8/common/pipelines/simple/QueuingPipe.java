@@ -5,7 +5,6 @@ import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.feeders.QueueFeeder;
 import io.annot8.common.pipelines.listeners.PipeListener;
-import io.annot8.common.pipelines.queues.ItemQueue;
 import io.annot8.core.components.responses.ProcessorResponse;
 import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
@@ -15,9 +14,9 @@ public class QueuingPipe implements Pipe {
   private final Pipe delegate;
   private final QueueFeeder queueFeeder;
 
-  public QueuingPipe(ItemQueue queue, Pipe delegate) {
+  public QueuingPipe(QueueFeeder queueFeeder, Pipe delegate) {
     this.delegate = delegate;
-    this.queueFeeder = new QueueFeeder(queue);
+    this.queueFeeder = queueFeeder;
   }
 
   @Override

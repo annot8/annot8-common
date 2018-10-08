@@ -75,7 +75,7 @@ public class ComponentConfigurer {
     // TODO: COmpletely ignore capabilties here.. we could check for resources etc
 
     try {
-      final SimpleContext componentContext = new SimpleContext(null, settings, resources);
+      final SimpleContext componentContext = new SimpleContext(settings, resources);
       Context context = new MergedContext(globalContext, componentContext);
       component.configure(context);
       return true;
