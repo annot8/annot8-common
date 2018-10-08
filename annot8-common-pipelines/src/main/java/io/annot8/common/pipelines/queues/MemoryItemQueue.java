@@ -11,7 +11,7 @@ public class MemoryItemQueue implements ItemQueue {
   private final Deque<Item> items = new ConcurrentLinkedDeque<>();
 
   public void add(Item item) {
-    items.push(item);
+    items.addLast(item);
   }
 
   public boolean hasItems() {

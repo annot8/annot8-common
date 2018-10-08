@@ -60,7 +60,7 @@ public class QueueFeeder implements ItemFeeder {
     listeners.deregister(listener);
   }
 
-  // TODO: This should be elsewhere
+  // TODO: This should be elsewhere?
   public Context setupContext(Context context) {
     // Wrap itemFactory with our item factory which will call us back
     final NotifyingItemFactory nif = new NotifyingItemFactory(context.getItemFactory());
