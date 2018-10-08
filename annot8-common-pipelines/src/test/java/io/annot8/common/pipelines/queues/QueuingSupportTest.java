@@ -1,11 +1,13 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.queues;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.annot8.common.implementations.data.BaseItemFactory;
+import io.annot8.core.exceptions.Annot8RuntimeException;
 import io.annot8.core.helpers.WithProcessItem;
 
 @ExtendWith(MockitoExtension.class)
@@ -17,10 +19,10 @@ class QueuingSupportTest {
 
   @Mock WithProcessItem processor;
 
-  //  @Test
-  //  void test() {
-  //    throw new Annot8RuntimeException("Not implemented");
-  //  }
+  @Test
+  void test() {
+    throw new Annot8RuntimeException("Not implemented");
+  }
 
   //  @Test
   //  void feedProcessesAllQueue() throws Annot8Exception {
