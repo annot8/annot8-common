@@ -112,7 +112,10 @@ public class SimplePipe implements Pipe {
 
   @Override
   public void close() {
-    processors.forEach(Processor::close);
-    processors.clear();
+    if (processors != null) {
+      processors.forEach(Processor::close);
+      processors.clear();
+      processors = null;
+    }
   }
 }
