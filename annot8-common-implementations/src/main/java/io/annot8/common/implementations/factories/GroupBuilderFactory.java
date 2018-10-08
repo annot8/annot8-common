@@ -3,7 +3,7 @@ package io.annot8.common.implementations.factories;
 
 import io.annot8.common.implementations.stores.SaveCallback;
 import io.annot8.core.annotations.Group;
-import io.annot8.core.data.Item;
+import io.annot8.core.data.BaseItem;
 import io.annot8.core.stores.GroupStore;
 
 /**
@@ -22,5 +22,5 @@ public interface GroupBuilderFactory<T> {
    * @param saver the save callback used by builder
    * @return non-null
    */
-  Group.Builder create(Item item, GroupStore groupStore, SaveCallback<T, Group> saver);
+  Group.Builder create(BaseItem item, GroupStore groupStore, SaveCallback<T, Group> saver);
 }
