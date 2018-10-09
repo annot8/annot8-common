@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.plumbing;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -5,6 +6,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.annot8.common.implementations.context.SimpleContext;
 import io.annot8.common.pipelines.elements.Branch;
@@ -14,33 +23,25 @@ import io.annot8.core.components.responses.ProcessorResponse;
 import io.annot8.core.context.Context;
 import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
-import java.util.Collections;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class ForwardingPipeTest {
 
-  @Mock
-  Item item;
+  @Mock Item item;
 
-  @Mock
-  Branch branch;
+  @Mock Branch branch;
 
-  @Mock
-  Merge merge;
+  @Mock Merge merge;
 
-  @Mock
-  Pipe innerPipe;
+  @Mock Pipe innerPipe;
 
   @Test
   void process() throws Annot8Exception {
     when(innerPipe.process(item)).thenReturn(ProcessorResponse.ok());
 
-    ForwardingPipe pipe = new ForwardingPipe("test", innerPipe, Collections.singletonList(branch), Collections.singletonList(merge));
+    ForwardingPipe pipe =
+        new ForwardingPipe(
+            "test", innerPipe, Collections.singletonList(branch), Collections.singletonList(merge));
 
     assertThat(pipe.getName()).isEqualTo("test");
 
@@ -66,7 +67,5 @@ class ForwardingPipeTest {
     verify(innerPipe, never()).close();
     verify(branch, never()).close();
     verify(merge, never()).close();
-
-
   }
 }

@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.plumbing;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -5,6 +6,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.annot8.common.implementations.context.SimpleContext;
 import io.annot8.common.implementations.data.BaseItemFactory;
@@ -29,43 +36,28 @@ import io.annot8.core.exceptions.Annot8Exception;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.exceptions.MissingResourceException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-/**
- * This is not really a unit test, since it uses many other classes.
- */
+/** This is not really a unit test, since it uses many other classes. */
 @ExtendWith(MockitoExtension.class)
 class PipelinePlumberTest {
 
   // TODO: This should be a lot more comphrensive
 
-  @Mock
-  BaseItemFactory baseItemFactory;
+  @Mock BaseItemFactory baseItemFactory;
 
-  @Mock
-  BaseItemQueue baseItemQueue;
+  @Mock BaseItemQueue baseItemQueue;
 
-  @Mock
-  BaseItem item;
+  @Mock BaseItem item;
 
-  @Mock
-  Source source;
+  @Mock Source source;
 
-  @Mock
-  Processor defaultProcessor;
+  @Mock Processor defaultProcessor;
 
-  @Mock
-  Processor branchProcessor;
+  @Mock Processor branchProcessor;
 
-  @Mock
-  Processor offBranchProcessor;
+  @Mock Processor offBranchProcessor;
 
-  @Mock
-  Processor mergeProcessor;
+  @Mock Processor mergeProcessor;
 
   @BeforeEach
   void beforeEach() {
@@ -77,11 +69,11 @@ class PipelinePlumberTest {
 
   @Test
   void empty() throws IncompleteException, BadConfigurationException, MissingResourceException {
-    Pipeline pipeline = newPipelineBuilder()
-        // We need a processor for the default
-        .addPipe(new SimplePipeBuilder().build())
-        .build();
-
+    Pipeline pipeline =
+        newPipelineBuilder()
+            // We need a processor for the default
+            .addPipe(new SimplePipeBuilder().build())
+            .build();
 
     run(pipeline);
   }
@@ -90,10 +82,10 @@ class PipelinePlumberTest {
   void simple() throws Annot8Exception {
     when(defaultProcessor.process(any(Item.class))).thenReturn(ProcessorResponse.ok());
 
-    Pipeline pipeline = newPipelineBuilder()
-        .addPipe(new SimplePipeBuilder().addProcessor(defaultProcessor).build())
-        .build();
-
+    Pipeline pipeline =
+        newPipelineBuilder()
+            .addPipe(new SimplePipeBuilder().addProcessor(defaultProcessor).build())
+            .build();
 
     run(pipeline);
 
@@ -101,23 +93,24 @@ class PipelinePlumberTest {
     verify(defaultProcessor).close();
   }
 
-
-
   @Test
   void branching() throws Annot8Exception {
     when(defaultProcessor.process(any(Item.class))).thenReturn(ProcessorResponse.ok());
     when(branchProcessor.process(any(Item.class))).thenReturn(ProcessorResponse.ok());
 
-    Pipeline pipeline = newPipelineBuilder()
-        .addPipe(new SimplePipeBuilder().addProcessor(defaultProcessor).build())
-        .addPipe("branched", new SimplePipeBuilder().addProcessor(branchProcessor).build())
-        .addPipe("offBranched", new SimplePipeBuilder().addProcessor(offBranchProcessor).build())
-        .addBranch(new SimpleBranchBuilder()
-          .withInput(AbstractPipelineBuilder.DEFAULT_PIPE)
-          .withOutput("branched")
-          .use(new SimpleBranch(i -> "branched"))
-          .build())
-        .build();
+    Pipeline pipeline =
+        newPipelineBuilder()
+            .addPipe(new SimplePipeBuilder().addProcessor(defaultProcessor).build())
+            .addPipe("branched", new SimplePipeBuilder().addProcessor(branchProcessor).build())
+            .addPipe(
+                "offBranched", new SimplePipeBuilder().addProcessor(offBranchProcessor).build())
+            .addBranch(
+                new SimpleBranchBuilder()
+                    .withInput(AbstractPipelineBuilder.DEFAULT_PIPE)
+                    .withOutput("branched")
+                    .use(new SimpleBranch(i -> "branched"))
+                    .build())
+            .build();
 
     run(pipeline);
 
@@ -135,30 +128,33 @@ class PipelinePlumberTest {
   }
 
   @Test
-  void branchingAndMerging()
-      throws Annot8Exception {
+  void branchingAndMerging() throws Annot8Exception {
 
     when(defaultProcessor.process(any(Item.class))).thenReturn(ProcessorResponse.ok());
     when(branchProcessor.process(any(Item.class))).thenReturn(ProcessorResponse.ok());
     when(mergeProcessor.process(any(Item.class))).thenReturn(ProcessorResponse.ok());
 
-    Pipeline pipeline = newPipelineBuilder()
-        .addPipe(new SimplePipeBuilder().addProcessor(defaultProcessor).build())
-        .addPipe("branched", new SimplePipeBuilder().addProcessor(branchProcessor).build())
-        .addPipe("offBranched", new SimplePipeBuilder().addProcessor(offBranchProcessor).build())
-        .addPipe("merge", new SimplePipeBuilder().addProcessor(mergeProcessor).build())
-        .addBranch(new SimpleBranchBuilder()
-            .withInput(AbstractPipelineBuilder.DEFAULT_PIPE)
-            .withOutput("branched")
-            .use(new SimpleBranch(i -> "branched"))
-            .build())
-        .addMerge(new SimpleMergeBuilder()
-            .withInput("branched")
-            .withInput("offBranched")
-            .withOutput("merge")
-            .use(new SimpleMerge())
-            .build())
-        .build();
+    Pipeline pipeline =
+        newPipelineBuilder()
+            .addPipe(new SimplePipeBuilder().addProcessor(defaultProcessor).build())
+            .addPipe("branched", new SimplePipeBuilder().addProcessor(branchProcessor).build())
+            .addPipe(
+                "offBranched", new SimplePipeBuilder().addProcessor(offBranchProcessor).build())
+            .addPipe("merge", new SimplePipeBuilder().addProcessor(mergeProcessor).build())
+            .addBranch(
+                new SimpleBranchBuilder()
+                    .withInput(AbstractPipelineBuilder.DEFAULT_PIPE)
+                    .withOutput("branched")
+                    .use(new SimpleBranch(i -> "branched"))
+                    .build())
+            .addMerge(
+                new SimpleMergeBuilder()
+                    .withInput("branched")
+                    .withInput("offBranched")
+                    .withOutput("merge")
+                    .use(new SimpleMerge())
+                    .build())
+            .build();
 
     run(pipeline);
 
@@ -177,7 +173,6 @@ class PipelinePlumberTest {
     verify(mergeProcessor).configure(any(Context.class));
     verify(mergeProcessor).process(any(Item.class));
     verify(mergeProcessor).close();
-
   }
 
   private PipelineBuilder newPipelineBuilder() {
@@ -187,7 +182,6 @@ class PipelinePlumberTest {
         .withQueue(baseItemQueue)
         .addSource(source);
   }
-
 
   private void run(Pipeline pipeline) throws BadConfigurationException, MissingResourceException {
     assertThat(pipeline.getName()).isEqualTo("test");

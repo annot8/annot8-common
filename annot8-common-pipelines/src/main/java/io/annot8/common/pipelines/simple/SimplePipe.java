@@ -1,6 +1,11 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.annot8.common.implementations.configuration.ComponentConfigurer;
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
@@ -17,9 +22,6 @@ import io.annot8.core.components.responses.ProcessorResponse.Status;
 import io.annot8.core.context.Context;
 import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SimplePipe extends AbstractPipe implements Pipe {
   private static final Logger LOGGER = LoggerFactory.getLogger(SimplePipe.class);
@@ -39,7 +41,6 @@ public class SimplePipe extends AbstractPipe implements Pipe {
     this.resourcesHolder = resourcesHolder;
     this.processorHolder = processorHolder;
   }
-
 
   @Override
   public void configure(Context context) {

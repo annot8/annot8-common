@@ -1,8 +1,19 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.base;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
 import io.annot8.common.implementations.data.BaseItemFactory;
@@ -19,14 +30,6 @@ import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPipelineBuilder implements PipelineBuilder {
 
@@ -121,14 +124,17 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
   }
 
   protected Map<String, Pipe> getPipesAsMap() {
-    return pipes.keys()
+    return pipes
+        .keys()
         .stream()
-        .collect(Collectors.toMap(k -> k,
-            k -> {
-              String name = k;
-              List<Pipe> list = pipes.get(k);
-              return new MultiPipe(name, list);
-            }));
+        .collect(
+            Collectors.toMap(
+                k -> k,
+                k -> {
+                  String name = k;
+                  List<Pipe> list = pipes.get(k);
+                  return new MultiPipe(name, list);
+                }));
   }
 
   protected String getName() {
@@ -139,7 +145,7 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
     return itemFactory;
   }
 
-  protected  List<BranchDefinition> getBranches() {
+  protected List<BranchDefinition> getBranches() {
     return branches;
   }
 
@@ -162,7 +168,14 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
     Objects.requireNonNull(name);
     Objects.requireNonNull(itemFactory);
 
-
-    return new PipelineDefinition(name, itemFactory, queue, getResourcesHolder(), getSourceHolder(), getPipesAsMap(), getBranches(), getMerges());
+    return new PipelineDefinition(
+        name,
+        itemFactory,
+        queue,
+        getResourcesHolder(),
+        getSourceHolder(),
+        getPipesAsMap(),
+        getBranches(),
+        getMerges());
   }
 }

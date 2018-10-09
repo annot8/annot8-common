@@ -1,8 +1,10 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.definitions;
 
-import io.annot8.common.pipelines.elements.Merge;
 import java.util.Set;
 import java.util.function.Supplier;
+
+import io.annot8.common.pipelines.elements.Merge;
 
 public class MergeDefinition {
 
@@ -29,5 +31,4 @@ public class MergeDefinition {
   public Merge create() {
     return mergeSupplier.get();
   }
-
 }

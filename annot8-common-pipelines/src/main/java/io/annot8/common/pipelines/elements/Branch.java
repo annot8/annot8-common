@@ -13,6 +13,4 @@ public interface Branch extends Annot8Component {
   void addOutput(String key, WithProcessItem queue);
 
   void removeOutput(String key);
-
-
 }

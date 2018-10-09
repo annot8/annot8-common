@@ -30,7 +30,7 @@ public class SimpleMerge implements Merge {
       return false;
     }
 
-    if(consumer != null) {
+    if (consumer != null) {
       final ProcessorResponse response = consumer.process(item);
       return response.getStatus() == Status.OK;
     }
@@ -41,7 +41,7 @@ public class SimpleMerge implements Merge {
   @Override
   public void setOutput(WithProcessItem pipe) {
     Objects.requireNonNull(pipe);
-    this.consumer  = pipe;
+    this.consumer = pipe;
   }
 
   @Override

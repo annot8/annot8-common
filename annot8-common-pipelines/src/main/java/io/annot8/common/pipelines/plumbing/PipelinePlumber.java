@@ -1,6 +1,13 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.plumbing;
 
 import static java.util.stream.Collectors.toMap;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.annot8.common.pipelines.definitions.BranchDefinition;
 import io.annot8.common.pipelines.definitions.MergeDefinition;
@@ -12,16 +19,11 @@ import io.annot8.core.context.Context;
 import io.annot8.core.exceptions.Annot8RuntimeException;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.MissingResourceException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Joins pipe, branch and merge into a single.
  *
- * This is annot8component so that we have the ability to close and configure the components.
+ * <p>This is annot8component so that we have the ability to close and configure the components.
  */
 public class PipelinePlumber implements Annot8Component {
 
@@ -35,7 +37,10 @@ public class PipelinePlumber implements Annot8Component {
   private Map<String, ForwardingPipe> forwardingPipes = new HashMap<>();
   private ForwardingPipe configuredPipe;
 
-  public PipelinePlumber(Map<String, Pipe> namedPipes, List<BranchDefinition> branchDefinitions, List<MergeDefinition> mergeDefinitions) {
+  public PipelinePlumber(
+      Map<String, Pipe> namedPipes,
+      List<BranchDefinition> branchDefinitions,
+      List<MergeDefinition> mergeDefinitions) {
     this.namedPipes = namedPipes;
     this.branchDefinitions = branchDefinitions;
     this.mergeDefinitions = mergeDefinitions;
@@ -45,22 +50,21 @@ public class PipelinePlumber implements Annot8Component {
   public void configure(Context context)
       throws BadConfigurationException, MissingResourceException {
     // This is a 'has been plumbed'
-    if(forwardingPipes == null) {
+    if (forwardingPipes == null) {
       throw new Annot8RuntimeException("Must call plumb() before configure()");
     }
 
-    for(Pipe c : namedPipes.values()) {
+    for (Pipe c : namedPipes.values()) {
       c.configure(context);
     }
 
-    for(Branch c : branches.values()) {
+    for (Branch c : branches.values()) {
       c.configure(context);
     }
 
-    for(Merge c : merges.values()) {
+    for (Merge c : merges.values()) {
       c.configure(context);
     }
-
   }
 
   @Override
@@ -73,56 +77,57 @@ public class PipelinePlumber implements Annot8Component {
 
   public void plumb(String startingPipe) throws BadConfigurationException {
 
-    if(namedPipes.get(startingPipe) == null) {
+    if (namedPipes.get(startingPipe) == null) {
       throw new BadConfigurationException("Starting pipeline is missing");
     }
 
     // Create instances of merge and branches
-    branches = branchDefinitions.stream()
-        .collect(toMap(e -> e, e -> e.create()));
-    merges = mergeDefinitions.stream()
-        .collect(toMap(e -> e, e -> e.create()));
+    branches = branchDefinitions.stream().collect(toMap(e -> e, e -> e.create()));
+    merges = mergeDefinitions.stream().collect(toMap(e -> e, e -> e.create()));
     forwardingPipes = new HashMap<>();
 
     // Hook up merge and branch to the end of the pipelines
 
-    forwardingPipes = namedPipes.entrySet()
-        .stream()
-        .collect(toMap(e -> e.getKey(), e -> configurePipe(e.getKey(), e.getValue())));
+    forwardingPipes =
+        namedPipes
+            .entrySet()
+            .stream()
+            .collect(toMap(e -> e.getKey(), e -> configurePipe(e.getKey(), e.getValue())));
 
     // Now hook up the merges to next pipeline
 
-    merges.forEach( (d, m) -> {
-      Pipe output = forwardingPipes.get(d.getOutput());
-      m.setOutput(output);
-    });
+    merges.forEach(
+        (d, m) -> {
+          Pipe output = forwardingPipes.get(d.getOutput());
+          m.setOutput(output);
+        });
 
     // Now hook up the branch to the next pipeline
 
-    branches.forEach( (d, b) -> {
-      d.getOutputs().forEach(o -> {
-        Pipe output = forwardingPipes.get(o);
-        b.addOutput(o, output);
-      });
-    });
+    branches.forEach(
+        (d, b) -> {
+          d.getOutputs()
+              .forEach(
+                  o -> {
+                    Pipe output = forwardingPipes.get(o);
+                    b.addOutput(o, output);
+                  });
+        });
 
     // TODO: Would be nice to know if this pipeline was actually hooked up!
 
     // Start with the default pipeline
 
     configuredPipe = forwardingPipes.get(startingPipe);
-
   }
 
   private ForwardingPipe configurePipe(String key, Pipe pipe) {
 
-    List<Branch> nextBranches = findBranchesWithInput(key)
-          .map(d -> branches.get(d))
-          .collect(Collectors.toList());
+    List<Branch> nextBranches =
+        findBranchesWithInput(key).map(d -> branches.get(d)).collect(Collectors.toList());
 
-    List<Merge> nextMerges = findMergeWithInput(key)
-          .map(d -> merges.get(d))
-          .collect(Collectors.toList());
+    List<Merge> nextMerges =
+        findMergeWithInput(key).map(d -> merges.get(d)).collect(Collectors.toList());
 
     return new ForwardingPipe(key, pipe, nextBranches, nextMerges);
   }
@@ -139,4 +144,3 @@ public class PipelinePlumber implements Annot8Component {
     return configuredPipe;
   }
 }
-
