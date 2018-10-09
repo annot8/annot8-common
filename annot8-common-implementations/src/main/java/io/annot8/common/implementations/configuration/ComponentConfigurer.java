@@ -31,9 +31,7 @@ public class ComponentConfigurer {
     this.globalContext
         .getResourceKeys()
         .forEach(
-            k -> {
-              globalContext.getResource(k, Resource.class).ifPresent(r -> resources.put(k, r));
-            });
+            k -> globalContext.getResource(k, Resource.class).ifPresent(r -> resources.put(k, r)));
   }
 
   public Map<String, Resource> configureResources(ResourcesHolder resourcesHolder) {

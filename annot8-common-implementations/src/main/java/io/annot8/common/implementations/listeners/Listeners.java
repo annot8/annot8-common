@@ -9,7 +9,7 @@ import java.util.function.BiConsumer;
 public class Listeners<L, E> {
 
   private final BiConsumer<L, E> publish;
-  private Set<L> listeners = null;
+  private Set<L> set = null;
 
   public Listeners(BiConsumer<L, E> publish) {
     this.publish = publish;
@@ -22,30 +22,30 @@ public class Listeners<L, E> {
 
     Objects.requireNonNull(listener);
 
-    if (listeners == null) {
-      listeners = new CopyOnWriteArraySet<>();
+    if (set == null) {
+      set = new CopyOnWriteArraySet<>();
     }
 
-    listeners.add(listener);
+    set.add(listener);
 
     return () -> deregister(listener);
   }
 
   public void deregister(L listener) {
-    if (listeners != null) {
-      listeners.remove(listener);
+    if (set != null) {
+      set.remove(listener);
     }
   }
 
   public void fire(E event) {
-    if (listeners != null && event != null && publish != null) {
-      listeners.forEach(l -> publish.accept(l, event));
+    if (set != null && event != null && publish != null) {
+      set.forEach(l -> publish.accept(l, event));
     }
   }
 
   public void clear() {
-    if (listeners != null) {
-      listeners.clear();
+    if (set != null) {
+      set.clear();
     }
   }
 }

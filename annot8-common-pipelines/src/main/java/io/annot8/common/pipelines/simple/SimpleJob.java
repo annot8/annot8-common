@@ -59,6 +59,7 @@ public class SimpleJob implements Job {
     listeners.fire(new JobCompleteEvent(this));
   }
 
+  @Override
   public void close() {
     tasks.forEach(Task::close);
   }

@@ -46,9 +46,7 @@ public class MultiPipe implements Pipe {
       response = p.process(item);
       Status status = response.getStatus();
 
-      if (status == Status.ITEM_ERROR || status == Status.PROCESSOR_ERROR) {
-        return response;
-      } else if (item.isDiscarded()) {
+      if (status == Status.ITEM_ERROR || status == Status.PROCESSOR_ERROR || item.isDiscarded()) {
         return response;
       }
     }

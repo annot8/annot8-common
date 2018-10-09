@@ -10,7 +10,7 @@ import io.annot8.core.stores.AnnotationStore;
  * <p>Typically used in an AnnotationStore.getBuilder().
  */
 @FunctionalInterface
-public interface AnnotationBuilderFactory<T> {
+public interface AnnotationBuilderFactory {
 
   /**
    * Create a new builder for the provided parameters.
