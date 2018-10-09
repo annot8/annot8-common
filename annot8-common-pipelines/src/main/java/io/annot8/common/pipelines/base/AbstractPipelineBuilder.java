@@ -1,30 +1,32 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.base;
 
-import java.util.Collection;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
-import com.google.common.collect.Multimap;
-
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
 import io.annot8.common.implementations.data.BaseItemFactory;
-import io.annot8.common.pipelines.elements.Branch;
-import io.annot8.common.pipelines.elements.Merge;
+import io.annot8.common.pipelines.definitions.BranchDefinition;
+import io.annot8.common.pipelines.definitions.MergeDefinition;
+import io.annot8.common.pipelines.definitions.PipelineDefinition;
 import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.elements.PipeBuilder;
 import io.annot8.common.pipelines.elements.PipelineBuilder;
 import io.annot8.common.pipelines.queues.BaseItemQueue;
 import io.annot8.common.pipelines.queues.MemoryItemQueue;
+import io.annot8.common.pipelines.simple.MultiPipe;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
-import io.annot8.core.exceptions.Annot8RuntimeException;
 import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPipelineBuilder implements PipelineBuilder {
 
@@ -36,8 +38,8 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
   private final ComponentHolder<Source> sourceHolder = new ComponentHolder<>();
   private final ResourcesHolder resourcesHolder = new ResourcesHolder();
   private final ListMultimap<String, Pipe> pipes = ArrayListMultimap.create();
-  private final Multimap<Merge, String> merges = ArrayListMultimap.create();
-  private final Multimap<Branch, String> branches = ArrayListMultimap.create();
+  private final List<MergeDefinition> merges = new LinkedList<>();
+  private final List<BranchDefinition> branches = new LinkedList<>();
 
   private BaseItemQueue queue = null;
   private String name = "anonymous";
@@ -85,17 +87,15 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
   }
 
   @Override
-  public PipelineBuilder addBranch(Branch branch, String... keys) {
-    //    branches.putAll((branch, Arrays.asList(keys));
-    //    return this;
-    throw new Annot8RuntimeException("No yet supported");
+  public PipelineBuilder addBranch(BranchDefinition branchDefinition) {
+    branches.add(branchDefinition);
+    return this;
   }
 
   @Override
-  public PipelineBuilder addMerge(Merge merge, String... keys) {
-    //    merges.putAll(merge, Arrays.asList(keys));
-    //    return this;
-    throw new Annot8RuntimeException("No yet supported");
+  public PipelineBuilder addMerge(MergeDefinition mergeDefinition) {
+    merges.add(mergeDefinition);
+    return this;
   }
 
   public PipelineBuilder withQueue(final BaseItemQueue queue) {
@@ -120,12 +120,31 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
     return pipes;
   }
 
+  protected Map<String, Pipe> getPipesAsMap() {
+    return pipes.keys()
+        .stream()
+        .collect(Collectors.toMap(k -> k,
+            k -> {
+              String name = k;
+              List<Pipe> list = pipes.get(k);
+              return new MultiPipe(name, list);
+            }));
+  }
+
   protected String getName() {
     return name;
   }
 
   protected BaseItemFactory getItemFactory() {
     return itemFactory;
+  }
+
+  protected  List<BranchDefinition> getBranches() {
+    return branches;
+  }
+
+  protected List<MergeDefinition> getMerges() {
+    return merges;
   }
 
   protected BaseItemQueue getQueue() {
@@ -135,5 +154,15 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
       queue = new MemoryItemQueue();
     }
     return queue;
+  }
+
+  protected PipelineDefinition getDefinition() {
+
+    Objects.requireNonNull(queue);
+    Objects.requireNonNull(name);
+    Objects.requireNonNull(itemFactory);
+
+
+    return new PipelineDefinition(name, itemFactory, queue, getResourcesHolder(), getSourceHolder(), getPipesAsMap(), getBranches(), getMerges());
   }
 }

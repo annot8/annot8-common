@@ -1,7 +1,6 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -34,8 +33,8 @@ class SimpleBranchTest {
     final Pipe yesPipe = mock(Pipe.class);
     final Pipe noPipe = mock(Pipe.class);
 
-    branch.addBranch("yes", yesPipe::process);
-    branch.addBranch("no", noPipe::process);
+    branch.addOutput("yes", yesPipe::process);
+    branch.addOutput("no", noPipe::process);
 
     branch.forward(item);
 

@@ -14,12 +14,12 @@ public abstract class AbstractBranch implements Branch {
   private final Map<String, WithProcessItem> branches = new HashMap<>();
 
   @Override
-  public void addBranch(String key, WithProcessItem queue) {
+  public void addOutput(String key, WithProcessItem queue) {
     branches.put(key, queue);
   }
 
   @Override
-  public void removeBranch(String key) {
+  public void removeOutput(String key) {
     branches.remove(key);
   }
 
