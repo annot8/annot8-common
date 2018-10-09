@@ -28,17 +28,20 @@ class SimpleMergeTest {
 
     List<Item> output = new LinkedList<>();
 
-    final SimpleMerge merge =
-        new SimpleMerge(
-            p -> {
-              output.add(p);
-              return ProcessorResponse.ok();
-            });
+    final SimpleMerge merge = new SimpleMerge();
+
+    merge.setOutput(
+        p -> {
+          output.add(p);
+          return ProcessorResponse.ok();
+        });
 
     merge.receive(item);
     merge.receive(ignoreItem);
 
     assertThat(output).containsExactly(item, ignoreItem);
+
+    merge.close();
   }
 
   @Test
@@ -47,16 +50,19 @@ class SimpleMergeTest {
     List<Item> output = new LinkedList<>();
 
     final SimpleMerge merge =
-        new SimpleMerge(
-            p -> {
-              output.add(p);
-              return ProcessorResponse.ok();
-            },
-            i -> !i.equals(ignoreItem));
+        new SimpleMerge(i -> !i.equals(ignoreItem));
+
+    merge.setOutput(
+        p -> {
+          output.add(p);
+          return ProcessorResponse.ok();
+        });
 
     merge.receive(item);
     merge.receive(ignoreItem);
 
     assertThat(output).containsExactly(item);
+
+    merge.close();
   }
 }

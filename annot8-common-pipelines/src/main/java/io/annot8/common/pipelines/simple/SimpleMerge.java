@@ -13,17 +13,15 @@ import io.annot8.core.helpers.WithProcessItem;
 
 public class SimpleMerge implements Merge {
 
-  private final WithProcessItem consumer;
+  private WithProcessItem consumer;
   private final Predicate<Item> predicate;
 
-  public SimpleMerge(WithProcessItem consumer) {
-    this(consumer, null);
+  public SimpleMerge() {
+    this(null);
   }
 
-  public SimpleMerge(WithProcessItem consumer, Predicate<Item> predicate) {
+  public SimpleMerge(Predicate<Item> predicate) {
     this.predicate = predicate;
-    Objects.requireNonNull(consumer);
-    this.consumer = consumer;
   }
 
   @Override
@@ -32,9 +30,18 @@ public class SimpleMerge implements Merge {
       return false;
     }
 
-    final ProcessorResponse response = consumer.process(item);
+    if(consumer != null) {
+      final ProcessorResponse response = consumer.process(item);
+      return response.getStatus() == Status.OK;
+    }
 
-    return response.getStatus() == Status.OK;
+    return false;
+  }
+
+  @Override
+  public void setOutput(WithProcessItem pipe) {
+    Objects.requireNonNull(pipe);
+    this.consumer  = pipe;
   }
 
   @Override

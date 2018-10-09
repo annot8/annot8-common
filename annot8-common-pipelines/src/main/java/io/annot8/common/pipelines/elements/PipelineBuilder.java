@@ -1,6 +1,8 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.elements;
 
+import io.annot8.common.pipelines.definitions.BranchDefinition;
+import io.annot8.common.pipelines.definitions.MergeDefinition;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -12,6 +14,7 @@ import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
 
 public interface PipelineBuilder {
+
   PipelineBuilder withName(String name);
 
   default PipelineBuilder addResource(
@@ -37,9 +40,9 @@ public interface PipelineBuilder {
 
   PipelineBuilder addPipe(String key, Pipe pipe);
 
-  PipelineBuilder addBranch(final Branch branch, String... keys);
+  PipelineBuilder addBranch(final BranchDefinition branchDefinition);
 
-  PipelineBuilder addMerge(final Merge merge, String... keys);
+  PipelineBuilder addMerge(final MergeDefinition definition);
 
   PipelineBuilder withQueue(BaseItemQueue queue);
 
