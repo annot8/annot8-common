@@ -21,14 +21,14 @@ class SimpleBranchTest {
 
   @Test
   void forwardWhenNotExists() throws Annot8Exception {
-    final SimpleBranch branch = new SimpleBranch((i) -> "na");
+    final SimpleBranch branch = new SimpleBranch(i -> "na");
 
     branch.forward(item);
   }
 
   @Test
   void forwardWhenExists() throws Annot8Exception {
-    final SimpleBranch branch = new SimpleBranch((i) -> "yes");
+    final SimpleBranch branch = new SimpleBranch(i -> "yes");
 
     final Pipe yesPipe = mock(Pipe.class);
     final Pipe noPipe = mock(Pipe.class);

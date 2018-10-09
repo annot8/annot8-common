@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.toMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -82,8 +83,8 @@ public class PipelinePlumber implements Annot8Component {
     }
 
     // Create instances of merge and branches
-    branches = branchDefinitions.stream().collect(toMap(e -> e, e -> e.create()));
-    merges = mergeDefinitions.stream().collect(toMap(e -> e, e -> e.create()));
+    branches = branchDefinitions.stream().collect(toMap(e -> e, BranchDefinition::create));
+    merges = mergeDefinitions.stream().collect(toMap(e -> e, MergeDefinition::create));
     forwardingPipes = new HashMap<>();
 
     // Hook up merge and branch to the end of the pipelines
@@ -92,7 +93,7 @@ public class PipelinePlumber implements Annot8Component {
         namedPipes
             .entrySet()
             .stream()
-            .collect(toMap(e -> e.getKey(), e -> configurePipe(e.getKey(), e.getValue())));
+            .collect(toMap(Entry::getKey, e -> configurePipe(e.getKey(), e.getValue())));
 
     // Now hook up the merges to next pipeline
 
@@ -105,14 +106,13 @@ public class PipelinePlumber implements Annot8Component {
     // Now hook up the branch to the next pipeline
 
     branches.forEach(
-        (d, b) -> {
-          d.getOutputs()
-              .forEach(
-                  o -> {
-                    Pipe output = forwardingPipes.get(o);
-                    b.addOutput(o, output);
-                  });
-        });
+        (d, b) ->
+            d.getOutputs()
+                .forEach(
+                    o -> {
+                      Pipe output = forwardingPipes.get(o);
+                      b.addOutput(o, output);
+                    }));
 
     // TODO: Would be nice to know if this pipeline was actually hooked up!
 

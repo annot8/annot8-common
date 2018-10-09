@@ -57,6 +57,7 @@ public class ForwardingPipe extends AbstractPipe {
 
   @Override
   public void close() {
+    super.close();
     // Do not configuration ourselves, as these should be close through other means
   }
 }

@@ -20,7 +20,7 @@ public class MergedContext implements Context {
 
   @Override
   public Stream<Settings> getSettings() {
-    return contexts.stream().flatMap(c -> c.getSettings());
+    return contexts.stream().flatMap(Context::getSettings);
   }
 
   @Override
@@ -45,7 +45,7 @@ public class MergedContext implements Context {
 
   @Override
   public Stream<String> getResourceKeys() {
-    return contexts.stream().flatMap(c -> c.getResourceKeys());
+    return contexts.stream().flatMap(Context::getResourceKeys);
   }
 
   @Override

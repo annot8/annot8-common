@@ -47,6 +47,7 @@ public class SimplePipe extends AbstractPipe implements Pipe {
     close();
 
     ComponentConfigurer componentConfigurer = new ComponentConfigurer(context);
+    componentConfigurer.configureResources(resourcesHolder);
     processors = componentConfigurer.configureComponents(processorHolder);
   }
 
