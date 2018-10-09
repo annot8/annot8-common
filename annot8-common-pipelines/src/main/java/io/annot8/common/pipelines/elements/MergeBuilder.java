@@ -1,8 +1,10 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.elements;
+
+import java.util.function.Supplier;
 
 import io.annot8.common.pipelines.definitions.MergeDefinition;
 import io.annot8.core.helpers.builders.WithBuild;
-import java.util.function.Supplier;
 
 public interface MergeBuilder extends WithBuild<MergeDefinition> {
 
@@ -11,13 +13,14 @@ public interface MergeBuilder extends WithBuild<MergeDefinition> {
   MergeBuilder withOutput(String key);
 
   default MergeBuilder use(Class<Merge> clazz) {
-    return use(() -> {
-      try {
-        return clazz.getConstructor().newInstance();
-      } catch (Exception e) {
-        return null;
-      }
-    });
+    return use(
+        () -> {
+          try {
+            return clazz.getConstructor().newInstance();
+          } catch (Exception e) {
+            return null;
+          }
+        });
   }
 
   default MergeBuilder use(Merge merge) {

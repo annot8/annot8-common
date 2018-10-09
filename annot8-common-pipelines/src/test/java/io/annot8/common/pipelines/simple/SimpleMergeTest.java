@@ -49,8 +49,7 @@ class SimpleMergeTest {
 
     List<Item> output = new LinkedList<>();
 
-    final SimpleMerge merge =
-        new SimpleMerge(i -> !i.equals(ignoreItem));
+    final SimpleMerge merge = new SimpleMerge(i -> !i.equals(ignoreItem));
 
     merge.setOutput(
         p -> {

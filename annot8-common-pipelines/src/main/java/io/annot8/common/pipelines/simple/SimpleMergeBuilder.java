@@ -1,13 +1,15 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Supplier;
 
 import io.annot8.common.pipelines.definitions.MergeDefinition;
 import io.annot8.common.pipelines.elements.Merge;
 import io.annot8.common.pipelines.elements.MergeBuilder;
 import io.annot8.core.exceptions.IncompleteException;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.function.Supplier;
 
 public class SimpleMergeBuilder implements MergeBuilder {
 

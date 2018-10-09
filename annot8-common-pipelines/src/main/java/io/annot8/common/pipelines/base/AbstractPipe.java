@@ -1,13 +1,14 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.base;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.implementations.listeners.Listeners;
 import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.events.PipeEvent;
 import io.annot8.common.pipelines.listeners.PipeListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPipe implements Pipe {
 
@@ -26,7 +27,6 @@ public abstract class AbstractPipe implements Pipe {
     return name;
   }
 
-
   public Deregister register(PipeListener listener) {
     return listeners.register(listener);
   }
@@ -40,6 +40,5 @@ public abstract class AbstractPipe implements Pipe {
   }
 
   @Override
-  public void close() {
-  }
+  public void close() {}
 }

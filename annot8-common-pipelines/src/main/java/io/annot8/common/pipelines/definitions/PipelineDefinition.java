@@ -1,4 +1,8 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.definitions;
+
+import java.util.List;
+import java.util.Map;
 
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
@@ -6,8 +10,6 @@ import io.annot8.common.implementations.data.BaseItemFactory;
 import io.annot8.common.pipelines.elements.Pipe;
 import io.annot8.common.pipelines.queues.BaseItemQueue;
 import io.annot8.core.components.Source;
-import java.util.List;
-import java.util.Map;
 
 public class PipelineDefinition {
 
@@ -21,8 +23,10 @@ public class PipelineDefinition {
   private final java.util.List<BranchDefinition> branches;
   private final List<MergeDefinition> merges;
 
-  public PipelineDefinition(String name,
-      BaseItemFactory baseItemFactory, BaseItemQueue queue,
+  public PipelineDefinition(
+      String name,
+      BaseItemFactory baseItemFactory,
+      BaseItemQueue queue,
       ResourcesHolder resourcesHolder,
       ComponentHolder<Source> sourceHolder,
       Map<String, Pipe> pipes,

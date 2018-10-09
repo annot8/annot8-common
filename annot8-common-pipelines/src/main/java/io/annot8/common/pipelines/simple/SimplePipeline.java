@@ -1,6 +1,14 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.annot8.common.implementations.configuration.ComponentConfigurer;
 import io.annot8.common.pipelines.base.AbstractPipelineBuilder;
 import io.annot8.common.pipelines.base.AbstractTask;
@@ -19,12 +27,6 @@ import io.annot8.core.context.Context;
 import io.annot8.core.data.ItemFactory;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.MissingResourceException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SimplePipeline extends AbstractTask implements Pipeline {
 
@@ -32,7 +34,6 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
 
   // This the the pipeline definition
   private final PipelineDefinition definition;
-
 
   // These are from the pipeline instance
   private Map<String, Resource> resources;
@@ -56,7 +57,8 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
 
     // COnverter
     // Hook up the item queuing
-    QueuingSupport support = new QueuingSupport(definition.getQueue(), definition.getBaseItemFactory());
+    QueuingSupport support =
+        new QueuingSupport(definition.getQueue(), definition.getBaseItemFactory());
     queueFeeder = support.getQueueFeeder();
     itemFactory = support.getItemFactory();
 
@@ -69,14 +71,14 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
 
     // Configure all our pipes (under a single pipe)
 
-    plumber = new PipelinePlumber(definition.getPipes(), definition.getBranches(),
-        definition.getMerges());
+    plumber =
+        new PipelinePlumber(
+            definition.getPipes(), definition.getBranches(), definition.getMerges());
 
     plumber.plumb(AbstractPipelineBuilder.DEFAULT_PIPE);
     componentConfigurer.configureComponent(plumber, Collections.emptyList());
     pipe = plumber.getPipe();
   }
-
 
   @Override
   protected void perform() {
@@ -87,7 +89,7 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
 
   @Override
   public void close() {
-    if(plumber != null) {
+    if (plumber != null) {
       plumber.close();
     }
 

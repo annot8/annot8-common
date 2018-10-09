@@ -1,4 +1,7 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.plumbing;
+
+import java.util.List;
 
 import io.annot8.common.pipelines.base.AbstractPipe;
 import io.annot8.common.pipelines.elements.Branch;
@@ -11,7 +14,6 @@ import io.annot8.core.data.Item;
 import io.annot8.core.exceptions.Annot8Exception;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.MissingResourceException;
-import java.util.List;
 
 public class ForwardingPipe extends AbstractPipe {
 
@@ -26,24 +28,21 @@ public class ForwardingPipe extends AbstractPipe {
     this.nextMerges = nextMerges;
   }
 
-
   @Override
   public ProcessorResponse process(Item item) throws Annot8Exception {
     // Not firing events here, as they should be fired by the underling pipeline
 
     ProcessorResponse response = pipe.process(item);
 
-    if(response .getStatus() == Status.OK && !item.isDiscarded() ) {
+    if (response.getStatus() == Status.OK && !item.isDiscarded()) {
 
-
-      for(Merge m : nextMerges) {
+      for (Merge m : nextMerges) {
         m.receive(item);
       }
 
-      for(Branch b : nextBranches) {
+      for (Branch b : nextBranches) {
         b.forward(item);
       }
-
     }
 
     return response;

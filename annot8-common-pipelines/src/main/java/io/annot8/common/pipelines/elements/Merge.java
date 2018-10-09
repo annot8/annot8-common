@@ -11,5 +11,4 @@ public interface Merge extends Annot8Component {
   boolean receive(Item item) throws Annot8Exception;
 
   void setOutput(WithProcessItem pipe);
-
 }
