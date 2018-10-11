@@ -21,7 +21,6 @@ public class SimpleItemFactory implements ItemFactory {
     this(baseItemFactory, new WrappingBaseItemToItem(baseItemFactory));
   }
 
-
   @Override
   public Item create() {
     final BaseItem createdItem = baseItemFactory.create();
