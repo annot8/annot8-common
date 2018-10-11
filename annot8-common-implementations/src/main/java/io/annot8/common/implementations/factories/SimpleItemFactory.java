@@ -17,6 +17,11 @@ public class SimpleItemFactory implements ItemFactory {
     this.converter = converter;
   }
 
+  public SimpleItemFactory(BaseItemFactory baseItemFactory) {
+    this(baseItemFactory, new WrappingBaseItemToItem(baseItemFactory));
+  }
+
+
   @Override
   public Item create() {
     final BaseItem createdItem = baseItemFactory.create();
