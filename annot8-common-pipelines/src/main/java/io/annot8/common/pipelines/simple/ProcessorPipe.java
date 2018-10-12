@@ -1,3 +1,4 @@
+/* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
 import io.annot8.common.pipelines.base.AbstractPipe;
@@ -9,7 +10,7 @@ import io.annot8.core.exceptions.Annot8Exception;
 import io.annot8.core.exceptions.BadConfigurationException;
 import io.annot8.core.exceptions.MissingResourceException;
 
-public class ProcessorPipe extends AbstractPipe  {
+public class ProcessorPipe extends AbstractPipe {
 
   private final Processor processor;
 
