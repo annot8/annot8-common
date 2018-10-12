@@ -1,8 +1,19 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.base;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
 import io.annot8.common.implementations.data.BaseItemFactory;
@@ -17,19 +28,10 @@ import io.annot8.common.pipelines.simple.MultiPipe;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
 import io.annot8.core.settings.Settings;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPipelineBuilder implements PipelineBuilder {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPipelineBuilder.class);
-
 
   // Use a linked hash map so the addition order = configuration order
   private final ComponentHolder<Source> sourceHolder = new ComponentHolder<>();
