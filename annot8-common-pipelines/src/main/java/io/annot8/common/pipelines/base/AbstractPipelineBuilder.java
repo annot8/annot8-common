@@ -1,19 +1,8 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.base;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
-
 import io.annot8.common.implementations.configuration.ComponentHolder;
 import io.annot8.common.implementations.configuration.ResourcesHolder;
 import io.annot8.common.implementations.data.BaseItemFactory;
@@ -21,21 +10,26 @@ import io.annot8.common.pipelines.definitions.BranchDefinition;
 import io.annot8.common.pipelines.definitions.MergeDefinition;
 import io.annot8.common.pipelines.definitions.PipelineDefinition;
 import io.annot8.common.pipelines.elements.Pipe;
-import io.annot8.common.pipelines.elements.PipeBuilder;
 import io.annot8.common.pipelines.elements.PipelineBuilder;
 import io.annot8.common.pipelines.queues.BaseItemQueue;
 import io.annot8.common.pipelines.queues.MemoryItemQueue;
 import io.annot8.common.pipelines.simple.MultiPipe;
 import io.annot8.core.components.Resource;
 import io.annot8.core.components.Source;
-import io.annot8.core.exceptions.IncompleteException;
 import io.annot8.core.settings.Settings;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPipelineBuilder implements PipelineBuilder {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPipelineBuilder.class);
 
-  public static final String DEFAULT_PIPE = "DEFAULT";
 
   // Use a linked hash map so the addition order = configuration order
   private final ComponentHolder<Source> sourceHolder = new ComponentHolder<>();
@@ -65,22 +59,6 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
   public PipelineBuilder addSource(final Source source, final Collection<Settings> configuration) {
     sourceHolder.add(source, configuration);
     return this;
-  }
-
-  @Override
-  public PipelineBuilder addPipe(PipeBuilder pipeBuilder) throws IncompleteException {
-    return addPipe(DEFAULT_PIPE, pipeBuilder.build());
-  }
-
-  @Override
-  public PipelineBuilder addPipe(String key, PipeBuilder pipe) throws IncompleteException {
-    pipes.put(key, pipe.build());
-    return this;
-  }
-
-  @Override
-  public PipelineBuilder addPipe(Pipe pipe) {
-    return addPipe(DEFAULT_PIPE, pipe);
   }
 
   @Override
