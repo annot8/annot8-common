@@ -105,7 +105,7 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
 
   protected Map<String, Pipe> getPipesAsMap() {
     return pipes
-        .keys()
+        .keySet()
         .stream()
         .collect(
             Collectors.toMap(
