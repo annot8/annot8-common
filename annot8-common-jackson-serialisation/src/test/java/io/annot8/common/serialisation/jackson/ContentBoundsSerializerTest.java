@@ -4,11 +4,13 @@ package io.annot8.common.serialisation.jackson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+
 import io.annot8.common.data.bounds.ContentBounds;
-import org.junit.jupiter.api.Test;
 
 public class ContentBoundsSerializerTest {
 
