@@ -15,7 +15,9 @@ public class SimpleMergeBuilder implements MergeBuilder {
 
   private Set<String> inputs = new HashSet<>();
   private String output;
-  private Supplier<Merge> supplier;
+
+  // Default to a simple merge
+  private Supplier<Merge> supplier = SimpleMerge::new;
 
   @Override
   public MergeBuilder withInput(String key) {
