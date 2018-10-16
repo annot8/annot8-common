@@ -1,16 +1,17 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.simple;
 
-import io.annot8.common.pipelines.definitions.BranchDefinition;
-import io.annot8.common.pipelines.elements.Branch;
-import io.annot8.common.pipelines.elements.BranchBuilder;
-import io.annot8.core.data.Item;
-import io.annot8.core.exceptions.IncompleteException;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import io.annot8.common.pipelines.definitions.BranchDefinition;
+import io.annot8.common.pipelines.elements.Branch;
+import io.annot8.common.pipelines.elements.BranchBuilder;
+import io.annot8.core.data.Item;
+import io.annot8.core.exceptions.IncompleteException;
 
 public class SimpleBranchBuilder implements BranchBuilder {
 
