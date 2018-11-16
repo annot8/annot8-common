@@ -65,7 +65,7 @@ public class SpanBounds implements Bounds {
 
     D data = content.getData();
 
-    if (requiredClass.equals(String.class) && data.getClass().equals(String.class)) {
+    if (requiredClass.isAssignableFrom(String.class) && data.getClass().equals(String.class)) {
       String s = (String) data;
 
       int normBegin = Math.max(0, begin);
