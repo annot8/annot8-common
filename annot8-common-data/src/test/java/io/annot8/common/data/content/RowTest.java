@@ -222,6 +222,9 @@ public class RowTest {
     when(row.getLong(anyInt())).thenCallRealMethod();
     when(row.getLong(anyString())).thenCallRealMethod();
 
+    when(row.getDouble(anyInt())).thenCallRealMethod();
+    when(row.getDouble(anyString())).thenCallRealMethod();
+
     when(row.getInt(anyInt())).thenCallRealMethod();
     when(row.getInt(anyString())).thenCallRealMethod();
 
