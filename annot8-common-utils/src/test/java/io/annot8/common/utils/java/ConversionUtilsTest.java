@@ -58,4 +58,28 @@ public class ConversionUtilsTest {
     assertEquals(Long.MAX_VALUE, (long) testLongValue.get());
     assertEquals(1, (long) testDoubleValue.get());
   }
+
+  @Test
+  public void testToDouble() {
+    Optional<Double> testIntValue = ConversionUtils.toDouble(Optional.of(1));
+    Optional<Double> testLongValue = ConversionUtils.toDouble(Optional.of(1234567890L));
+    Optional<Double> testDoubleValue = ConversionUtils.toDouble(Optional.of(1.2));
+    Optional<Double> testStringValue = ConversionUtils.toDouble(Optional.of("1"));
+    Optional<Double> testNonIntValue = ConversionUtils.toDouble(Optional.of(new Object()));
+    Optional<Double> testNonNumericString = ConversionUtils.toDouble(Optional.of("test"));
+    Optional<Double> testEmpty = ConversionUtils.toDouble(Optional.empty());
+
+    assertTrue(testIntValue.isPresent());
+    assertTrue(testStringValue.isPresent());
+    assertTrue(testLongValue.isPresent());
+    assertTrue(testDoubleValue.isPresent());
+    assertFalse(testNonNumericString.isPresent());
+    assertFalse(testNonIntValue.isPresent());
+    assertFalse(testEmpty.isPresent());
+
+    assertEquals(1.0, (double) testIntValue.get(), 0.001);
+    assertEquals(1.0, (double) testStringValue.get(), 0.001);
+    assertEquals(1234567890.0, (double) testLongValue.get(), 0.001);
+    assertEquals(1.2, (double) testDoubleValue.get(), 0.001);
+  }
 }

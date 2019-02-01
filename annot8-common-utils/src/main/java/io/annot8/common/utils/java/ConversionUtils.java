@@ -29,12 +29,36 @@ public final class ConversionUtils {
     return convertOptional(valueOptional, ConversionUtils::toLong);
   }
 
+  /**
+   * Converts the provided value to an Double if possible. Note this uses the conversion methods on
+   * {@Link} Number to handle conversion.
+   *
+   * @param valueOptional Optional parameter to convert to Long
+   * @return Optional containing a Double value or empty if the parameter cannot be converted
+   */
+  public static Optional<Double> toDouble(Optional<Object> valueOptional) {
+    return convertOptional(valueOptional, ConversionUtils::toDouble);
+  }
+
   private static <T> Optional<T> convertOptional(
       Optional<Object> valueOptional, Function<Object, T> function) {
     if (valueOptional.isPresent()) {
       return valueOptional.map(function);
     }
     return Optional.empty();
+  }
+
+  private static Double toDouble(Object value) {
+    if (value instanceof Number) {
+      return ((Number) value).doubleValue();
+    } else if (value instanceof String) {
+      try {
+        return Double.parseDouble((String) value);
+      } catch (NumberFormatException e) {
+        return null;
+      }
+    }
+    return null;
   }
 
   private static Long toLong(Object value) {

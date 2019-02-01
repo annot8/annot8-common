@@ -35,6 +35,10 @@ public interface Row {
     return ConversionUtils.toLong(getValueAt(index));
   }
 
+  default Optional<Double> getDouble(int index) {
+    return ConversionUtils.toDouble(getValueAt(index));
+  }
+
   default Optional<Object> getValueAt(String columnName) {
     return getIndex(columnName)
         .map(this::getValueAt)
@@ -52,6 +56,10 @@ public interface Row {
 
   default Optional<Long> getLong(String columnName) {
     return ConversionUtils.toLong(getValueAt(columnName));
+  }
+
+  default Optional<Double> getDouble(String columnName) {
+    return ConversionUtils.toDouble(getValueAt(columnName));
   }
 
   default Optional<Integer> getIndex(String columnName) {
