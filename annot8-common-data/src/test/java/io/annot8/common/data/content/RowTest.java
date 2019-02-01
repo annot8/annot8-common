@@ -98,6 +98,24 @@ public class RowTest {
   }
 
   @Test
+  public void testGetDouble() {
+    Row row = getTestRow();
+
+    Optional<Double> value1 = row.getDouble(0);
+    Optional<Double> value2 = row.getDouble(1);
+    Optional<Double> value3 = row.getDouble(2);
+    Optional<Double> value4 = row.getDouble(3);
+    assertFalse(value1.isPresent());
+    assertTrue(value2.isPresent());
+    assertTrue(value3.isPresent());
+    assertTrue(value4.isPresent());
+
+    assertEquals(1, (double) value2.get());
+    assertEquals(2, (double) value3.get());
+    assertEquals(Long.MAX_VALUE, (double) value4.get());
+  }
+
+  @Test
   public void testGetStringWithColumnName() {
     Row row = getTestRow();
 
@@ -131,6 +149,18 @@ public class RowTest {
     assertTrue(value1.isPresent());
     assertFalse(value2.isPresent());
     assertEquals(Long.MAX_VALUE, (long) value1.get());
+  }
+
+  @Test
+  public void testGetDoubleWithColumnName() {
+    Row row = getTestRow();
+
+    Optional<Double> value1 = row.getDouble("test4");
+    Optional<Double> value2 = row.getDouble("nonExistentColumn");
+
+    assertTrue(value1.isPresent());
+    assertFalse(value2.isPresent());
+    assertEquals(Long.MAX_VALUE, (double) value1.get());
   }
 
   @Test
@@ -191,6 +221,9 @@ public class RowTest {
 
     when(row.getLong(anyInt())).thenCallRealMethod();
     when(row.getLong(anyString())).thenCallRealMethod();
+
+    when(row.getDouble(anyInt())).thenCallRealMethod();
+    when(row.getDouble(anyString())).thenCallRealMethod();
 
     when(row.getInt(anyInt())).thenCallRealMethod();
     when(row.getInt(anyString())).thenCallRealMethod();
