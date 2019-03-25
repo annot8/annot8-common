@@ -16,6 +16,8 @@ public final class StreamUtils {
    *
    * @param stream the stream
    * @param clazz the class to filter and cast on on
+   * @param <T> input of the stream
+   * @param <S> output of the stream
    * @return stream of just clazz implementations
    */
   public static <T, S extends T> Stream<S> cast(Stream<T> stream, Class<S> clazz) {
@@ -26,6 +28,7 @@ public final class StreamUtils {
    * Extract optional which are present
    *
    * @param stream the stream
+   * @param <T> content of stream
    * @return stream of non-null (present optionals)
    */
   public static <T> Stream<T> getIfPresent(Stream<Optional<T>> stream) {

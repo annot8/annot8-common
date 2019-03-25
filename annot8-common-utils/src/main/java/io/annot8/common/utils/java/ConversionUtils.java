@@ -7,8 +7,7 @@ import java.util.function.Function;
 public final class ConversionUtils {
 
   /**
-   * Converts the provided value to an Integer if possible. Note this uses the conversion methods on
-   * {@Link} Number to handle conversion.
+   * Converts the provided value to an Integer if possible.
    *
    * @param valueOptional - Optional containing value to convert to Integer
    * @return Optional containing an Integer or empty if a value is not present or cannot be
@@ -19,8 +18,7 @@ public final class ConversionUtils {
   }
 
   /**
-   * Converts the provided value to an Long if possible. Note this uses the conversion methods on
-   * {@Link} Number to handle conversion.
+   * Converts the provided value to an Long if possible.
    *
    * @param valueOptional Optional parameter to convert to Long
    * @return Optional containing a Long value or empty if the parameter cannot be converted
@@ -30,8 +28,7 @@ public final class ConversionUtils {
   }
 
   /**
-   * Converts the provided value to an Double if possible. Note this uses the conversion methods on
-   * {@Link} Number to handle conversion.
+   * Converts the provided value to an Double if possible.
    *
    * @param valueOptional Optional parameter to convert to Long
    * @return Optional containing a Double value or empty if the parameter cannot be converted
