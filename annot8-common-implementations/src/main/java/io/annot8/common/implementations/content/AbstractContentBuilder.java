@@ -1,6 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.content;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -45,6 +46,12 @@ public abstract class AbstractContentBuilder<D, C extends Content<D>>
   @Override
   public Content.Builder<C, D> withProperty(String key, Object value) {
     properties.withProperty(key, value);
+    return this;
+  }
+
+  @Override
+  public Content.Builder<C, D> withPropertyIfPresent(String key, Optional<?> value) {
+    value.ifPresent(o -> properties.withProperty(key, o));
     return this;
   }
 

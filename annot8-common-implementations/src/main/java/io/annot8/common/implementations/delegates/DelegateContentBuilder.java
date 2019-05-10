@@ -1,6 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.delegates;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import io.annot8.core.data.Content;
@@ -43,6 +44,12 @@ public class DelegateContentBuilder<C extends Content<D>, D> implements Builder<
   @Override
   public Builder<C, D> withProperty(String key, Object value) {
     delegate.withProperty(key, value);
+    return this;
+  }
+
+  @Override
+  public Builder<C, D> withPropertyIfPresent(String key, Optional<?> value) {
+    value.ifPresent(o -> delegate.withProperty(key, o));
     return this;
   }
 

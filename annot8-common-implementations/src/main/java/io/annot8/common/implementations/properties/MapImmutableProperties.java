@@ -4,6 +4,7 @@ package io.annot8.common.implementations.properties;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import io.annot8.core.properties.ImmutableProperties;
@@ -59,16 +60,21 @@ public class MapImmutableProperties implements ImmutableProperties {
     private final Map<String, Object> properties = new HashMap<>();
 
     @Override
-    public io.annot8.core.properties.ImmutableProperties.Builder from(Properties from) {
+    public ImmutableProperties.Builder from(Properties from) {
       properties.clear();
       from.getAll().forEach(properties::put);
       return this;
     }
 
     @Override
-    public io.annot8.core.properties.ImmutableProperties.Builder withProperty(
-        String key, Object value) {
+    public ImmutableProperties.Builder withProperty(String key, Object value) {
       properties.put(key, value);
+      return this;
+    }
+
+    @Override
+    public ImmutableProperties.Builder withPropertyIfPresent(String key, Optional<?> value) {
+      value.ifPresent(o -> properties.put(key, o));
       return this;
     }
 

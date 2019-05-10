@@ -1,6 +1,8 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.implementations.delegates;
 
+import java.util.Optional;
+
 import io.annot8.core.annotations.Annotation;
 import io.annot8.core.annotations.Group;
 import io.annot8.core.annotations.Group.Builder;
@@ -42,6 +44,12 @@ public class DelegateGroupBuilder implements Group.Builder {
   @Override
   public Builder withProperty(String key, Object value) {
     delegate.withProperty(key, value);
+    return this;
+  }
+
+  @Override
+  public Builder withPropertyIfPresent(String key, Optional<?> value) {
+    value.ifPresent(o -> delegate.withProperty(key, o));
     return this;
   }
 
