@@ -74,7 +74,8 @@ public interface Text extends Content<String> {
     return filterAnnotations(SpanBounds.class, s -> s.isBefore(offset));
   }
 
-  private <T extends Bounds> Stream<Annotation> filterAnnotations(
+  // TODO: should be private in JDK9+
+  default <T extends Bounds> Stream<Annotation> filterAnnotations(
       Class<T> boundsClass, Predicate<T> predicate) {
     return getAnnotations()
         .getByBounds(boundsClass)
