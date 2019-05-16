@@ -122,7 +122,7 @@ public class MergedCapabilitiesTest {
   }
 
   private <T> Answer<Stream<T>> getStreamAnswer(T content) {
-    return new Answer<>() {
+    return new Answer<Stream<T>>() {
       @Override
       public Stream<T> answer(InvocationOnMock invocation) {
         return Stream.of(content);
