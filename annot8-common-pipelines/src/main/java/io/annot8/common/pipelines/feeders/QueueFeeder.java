@@ -25,7 +25,7 @@ public class QueueFeeder implements ItemFeeder {
     this.queueReader = reader;
   }
 
-  public void feed(WithProcessItem pipe) {
+  public boolean feed(WithProcessItem pipe) {
     while (queueReader.hasItems()) {
 
       // TODO: We don't fire any source tasks here, but since we don't have a source
@@ -38,6 +38,8 @@ public class QueueFeeder implements ItemFeeder {
         LOGGER.error("Failed to process item {} on queue", item.getId(), e);
       }
     }
+
+    return false;
   }
 
   @Override

@@ -1,10 +1,10 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.feeders;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import io.annot8.common.pipelines.events.source.SourceDoneEvent;
+import io.annot8.common.pipelines.events.source.SourceEmptyEvent;
 import io.annot8.common.pipelines.events.source.SourceReadEvent;
 import io.annot8.common.pipelines.listeners.SourceListener;
 import io.annot8.core.components.Source;
@@ -37,7 +37,7 @@ class SingleItemFeederTest {
 
     SingleItemFeeder feeder = new SingleItemFeeder(itemFactory, source);
 
-    feeder.feed(processor);
+    assertFalse(feeder.feed(processor)); // Returns false because we return DONE rather than EMPTY
 
     verify(source, Mockito.times(2)).read(itemFactory);
 
@@ -48,18 +48,18 @@ class SingleItemFeederTest {
   void register() {
     when(source.read(itemFactory))
         .thenReturn(SourceResponse.ok())
-        .thenReturn(SourceResponse.done());
+        .thenReturn(SourceResponse.empty());
 
     final SourceListener listener = mock(SourceListener.class);
 
-    MultiItemFeeder feeder = new MultiItemFeeder(itemFactory, source);
+    SingleItemFeeder feeder = new SingleItemFeeder(itemFactory, source);
 
     feeder.register(listener);
 
-    feeder.feed(processor);
+    assertTrue(feeder.feed(processor)); // Returns true because we return EMPTY
 
     verify(listener).onSourceEvent(any(SourceReadEvent.class));
-    verify(listener).onSourceEvent(any(SourceDoneEvent.class));
+    verify(listener).onSourceEvent(any(SourceEmptyEvent.class));
 
     feeder.close();
   }

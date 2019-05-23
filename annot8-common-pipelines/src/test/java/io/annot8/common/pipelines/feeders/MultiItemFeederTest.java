@@ -1,10 +1,9 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.feeders;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,13 +32,17 @@ class MultiItemFeederTest {
 
   @Test
   void feed() {
-    when(a.read(itemFactory)).thenReturn(SourceResponse.ok()).thenReturn(SourceResponse.done());
+    when(a.read(itemFactory))
+        .thenReturn(SourceResponse.ok())
+        .thenReturn(SourceResponse.empty())
+        .thenReturn(SourceResponse.ok())
+        .thenReturn(SourceResponse.done());
     when(b.read(itemFactory)).thenReturn(SourceResponse.done());
 
     MultiItemFeeder feeder = new MultiItemFeeder(itemFactory, a, b);
-    feeder.feed(processor);
+    assertFalse(feeder.feed(processor));
 
-    verify(a, Mockito.times(2)).read(itemFactory);
+    verify(a, Mockito.times(4)).read(itemFactory);
     verify(b).read(itemFactory);
 
     feeder.close();

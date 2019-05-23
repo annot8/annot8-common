@@ -7,7 +7,11 @@ import io.annot8.core.helpers.WithProcessItem;
 
 public interface ItemFeeder extends Listenable<SourceListener> {
 
-  void feed(WithProcessItem pipeline);
+  /**
+   * Return true if there might be more items in the future (i.e. empty), false if this feeder is
+   * now finished (i.e. done).
+   */
+  boolean feed(WithProcessItem pipeline);
 
   void close();
 }

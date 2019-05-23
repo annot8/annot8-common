@@ -27,7 +27,7 @@ public class SingleItemFeeder implements ItemFeeder {
     this.source = source;
   }
 
-  public void feed(WithProcessItem pipeline) {
+  public boolean feed(WithProcessItem pipeline) {
     SourceResponse.Status status;
     do {
       final SourceResponse response = source.read(itemFactory);
@@ -48,9 +48,12 @@ public class SingleItemFeeder implements ItemFeeder {
           break;
       }
 
-    } while (status == SourceResponse.Status.OK || status == SourceResponse.Status.EMPTY);
+    } while (status == SourceResponse.Status.OK);
+
+    if (status == SourceResponse.Status.EMPTY) return true;
 
     close();
+    return false;
   }
 
   public void close() {

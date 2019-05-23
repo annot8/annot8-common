@@ -3,8 +3,10 @@ package io.annot8.common.pipelines.feeders;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.stream.Collectors;
 
 import io.annot8.common.implementations.listeners.Deregister;
 import io.annot8.common.pipelines.listeners.SourceListener;
@@ -29,12 +31,19 @@ public class MultiItemFeeder implements ItemFeeder {
   }
 
   @Override
-  public void feed(WithProcessItem processor) {
-    for (Source source : sources) {
-      SingleItemFeeder feeder = new SingleItemFeeder(itemFactory, source);
-      listeners.forEach(feeder::register);
-      feeder.feed(processor);
+  public boolean feed(WithProcessItem pipeline) {
+    List<SingleItemFeeder> feeders =
+        sources
+            .stream()
+            .map(s -> new SingleItemFeeder(itemFactory, s))
+            .peek(f -> listeners.forEach(f::register))
+            .collect(Collectors.toList());
+
+    while (feeders.size() > 0) {
+      feeders.removeIf(f -> !f.feed(pipeline));
     }
+
+    return false;
   }
 
   @Override

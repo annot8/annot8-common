@@ -1,11 +1,7 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.base;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -144,6 +140,7 @@ public abstract class AbstractPipelineBuilder implements PipelineBuilder {
 
   protected PipelineDefinition getDefinition() {
 
+    // TODO: Should throw an Annot8 IncompleteException?
     Objects.requireNonNull(queue);
     Objects.requireNonNull(name);
     Objects.requireNonNull(itemFactory);

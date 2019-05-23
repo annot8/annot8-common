@@ -1,9 +1,8 @@
 /* Annot8 (annot8.io) - Licensed under Apache-2.0. */
 package io.annot8.common.pipelines.feeders;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,7 +40,7 @@ class QueueFeederTest {
 
     final QueueFeeder feeder = new QueueFeeder(queue);
 
-    feeder.feed(processor);
+    assertFalse(feeder.feed(processor));
 
     verify(processor).process(item1);
     // verify(processor).process(item2);

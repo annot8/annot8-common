@@ -55,7 +55,7 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
     // Close old values
     close();
 
-    // COnverter
+    // Converter
     // Hook up the item queuing
     QueuingSupport support =
         new QueuingSupport(definition.getQueue(), definition.getBaseItemFactory());
