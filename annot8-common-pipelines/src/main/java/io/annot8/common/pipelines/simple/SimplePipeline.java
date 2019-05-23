@@ -43,6 +43,8 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
   private ItemFactory itemFactory;
   private PipelinePlumber plumber;
 
+  private MultiItemFeeder multiItemFeeder;
+
   public SimplePipeline(PipelineDefinition definition) {
     super(definition.getName());
     this.definition = definition;
@@ -82,13 +84,17 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
 
   @Override
   protected void perform() {
-    MultiItemFeeder feeder = new MultiItemFeeder(itemFactory, sources);
-    feeder.register(new ProcessQueueSourceListener(queueFeeder, pipe));
-    feeder.feed(pipe);
+    multiItemFeeder = new MultiItemFeeder(itemFactory, sources);
+    multiItemFeeder.register(new ProcessQueueSourceListener(queueFeeder, pipe));
+    multiItemFeeder.feed(pipe);
   }
 
   @Override
   public void close() {
+    if (multiItemFeeder != null) {
+      multiItemFeeder.close();
+    }
+
     if (plumber != null) {
       plumber.close();
     }
@@ -111,5 +117,6 @@ public class SimplePipeline extends AbstractTask implements Pipeline {
     queueFeeder = null;
     pipe = null;
     plumber = null;
+    multiItemFeeder = null;
   }
 }

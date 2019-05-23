@@ -19,6 +19,8 @@ public class MultiItemFeeder implements ItemFeeder {
   private final ItemFactory itemFactory;
   private final Collection<Source> sources;
 
+  private List<SingleItemFeeder> feeders;
+
   private final Set<SourceListener> listeners = new CopyOnWriteArraySet<>();
 
   public MultiItemFeeder(ItemFactory itemFactory, Source... sources) {
@@ -32,7 +34,7 @@ public class MultiItemFeeder implements ItemFeeder {
 
   @Override
   public boolean feed(WithProcessItem pipeline) {
-    List<SingleItemFeeder> feeders =
+    feeders =
         sources
             .stream()
             .map(s -> new SingleItemFeeder(itemFactory, s))
@@ -48,7 +50,8 @@ public class MultiItemFeeder implements ItemFeeder {
 
   @Override
   public void close() {
-    sources.forEach(Source::close);
+    feeders.forEach(ItemFeeder::close);
+    feeders.clear();
   }
 
   // NOTE: these wont act on the current feeder
